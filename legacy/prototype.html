@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Попіл і Туман — прототип</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0f14;--pan:#161a22;--pan2:#1e2430;--tx:#e8e6f0;--mut:#8b8fa3;--acc:#c77dff;--acc2:#ff5fa2;--ok:#5fd38a;--warn:#ffb23f;--bad:#ff5a6a;--line:#2a3140}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#1a1426 0%,var(--bg) 60%);color:var(--tx);font-family:Rubik,system-ui,sans-serif;font-size:15px;min-height:100vh}
+#app{max-width:760px;margin:0 auto;padding:10px 10px 90px}
+button{font:inherit;color:inherit;background:var(--pan2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer}
+button:hover:not(:disabled){border-color:var(--acc)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.pri{background:linear-gradient(135deg,#7b3fe4,#c4307a);border:none;font-weight:600}
+button.sm{padding:5px 9px;font-size:13px}
+.top{position:sticky;top:0;z-index:5;background:rgba(13,15,20,.92);backdrop-filter:blur(6px);padding:8px 0;border-bottom:1px solid var(--line);margin-bottom:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{background:var(--pan);border:1px solid var(--line);border-radius:20px;padding:3px 9px;font-size:13px;white-space:nowrap}
+.chip.low{border-color:var(--bad);color:#ffb3bb}
+.bar{height:8px;background:#2a2f3c;border-radius:5px;overflow:hidden;flex:1;min-width:80px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--bad),var(--acc2))}
+.bar.sup>i{background:linear-gradient(90deg,#4ea3ff,var(--acc))}
+.card{background:var(--pan);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+h2{margin:0 0 8px;font-size:17px}
+h3{margin:12px 0 6px;font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.art{width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(135deg,#2b1d40,#14202e 60%,#3a1a2a);position:relative}
+.art img{width:100%;height:100%;object-fit:cover}
+.art.sq{aspect-ratio:1/1;font-size:48px}
+.art .cap{position:absolute;left:8px;bottom:6px;font-size:12px;background:rgba(0,0,0,.55);padding:2px 7px;border-radius:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.item{background:var(--pan2);border:1px solid var(--line);border-radius:12px;padding:9px;font-size:13px}
+.item b{font-size:14px}
+.mut{color:var(--mut);font-size:13px}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(13,15,20,.96);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px;z-index:6}
+.tabs button{flex:1;max-width:150px;font-size:13px}
+.tabs button.on{border-color:var(--acc);color:var(--acc)}
+.log{font-size:13px;color:#c9c6d6;max-height:220px;overflow:auto}
+.log div{padding:3px 0;border-bottom:1px dashed #252b38}
+.hand{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.wcard{border-radius:12px;padding:10px;background:linear-gradient(160deg,#232a38,#1a1e28);border:2px solid #555;text-align:left;min-height:118px;display:flex;flex-direction:column;gap:3px}
+.wcard .e{font-size:26px}
+.wcard .ap{margin-left:auto;background:#000a;border-radius:8px;padding:1px 7px;font-weight:800}
+.intent{font-size:14px;padding:6px 10px;border-radius:10px;background:#2a1520;border:1px solid #5a2a3a;display:inline-block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:20;padding:14px}
+.modal .card{max-width:440px;width:100%;margin:0;border-color:var(--acc)}
+.toast{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:#2a1520;border:1px solid var(--bad);padding:8px 14px;border-radius:10px;z-index:30;font-size:14px}
+.dmg{animation:shake .3s}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pill{font-size:11px;padding:1px 6px;border-radius:6px;border:1px solid}
+textarea{width:100%;background:#0b0d12;color:var(--tx);border:1px solid var(--line);border-radius:8px;font:12px monospace;padding:6px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal"></div>
+<script>
+"use strict";
+/* ============ ДАНІ ============ */
+const $ = s => document.querySelector(s);
+const rnd = (a,b) => Math.floor(Math.random()*(b-a+1))+a;
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const chance = p => Math.random() < p;
+let _n = 1; const uid = () => Date.now().toString(36) + (_n++);
+
+const RES = {water:['💧','Вода'],food:['🍖','Їжа'],heat:['🔥','Тепло'],fuel:['⛽','Паливо'],wood:['🪵','Дерево'],metal:['🔩','Метал'],parts:['⚙️','Деталі'],med:['💊','Аптечки'],stim:['☕','Стимулятори']};
+
+// Рідкісність: більше шкоди й дешевший хід (за ТЗ)
+const RAR = {
+  c:{n:'Звичайна',  col:'#9aa4ad',dm:1,  ap:0},
+  u:{n:'Незвичайна',col:'#5fd38a',dm:1.3,ap:0},
+  r:{n:'Рідкісна',  col:'#4ea3ff',dm:1.6,ap:-1},
+  e:{n:'Епічна',    col:'#b779ff',dm:2,  ap:-1},
+  l:{n:'Легендарна',col:'#ffb23f',dm:2.5,ap:-2}
+};
+const WPN = {
+  knife:  {n:'Ніж',         e:'🔪',dmg:3,ap:1,trait:'bleed', td:'Кровотеча: +2 шкоди 2 ходи'},
+  bat:    {n:'Бита',        e:'🏏',dmg:5,ap:2,trait:'stun',  td:'30% оглушити ворога'},
+  xbow:   {n:'Арбалет',     e:'🏹',dmg:5,ap:2,trait:'pierce',td:'Ігнорує захист'},
+  axe:    {n:'Сокира',      e:'🪓',dmg:8,ap:3,trait:'heavy', td:'Ламає 2 захисту ворога'},
+  shotgun:{n:'Обріз',       e:'💥',dmg:9,ap:3,trait:'spread',td:'Шкода ±50%'},
+  staff:  {n:'Посох туману',e:'🔮',dmg:4,ap:2,trait:'drain', td:'Лікує 50% завданої шкоди'}
+};
+const ARM = {
+  jacket:{n:'Куртка',      e:'🧥',def:1,hp:0},
+  vest:  {n:'Бронежилет',  e:'🦺',def:2,hp:5},
+  plate: {n:'Латні уламки',e:'🛡️',def:3,hp:8}
+};
+const MON = {
+  rat:    {n:'Щур-мутант',    e:'🐀',hp:14,atk:3, def:0,xp:4, loot:{food:[0,2]}},
+  dog:    {n:'Здичавілий пес',e:'🐕',hp:18,atk:4, def:0,xp:5, loot:{food:[1,2]}},
+  slime:  {n:'Іржавий слиз',  e:'🟢',hp:22,atk:3, def:1,xp:5, loot:{water:[1,2],parts:[0,1]}},
+  raider: {n:'Мародер-тінь',  e:'🥷',hp:28,atk:6, def:1,xp:9, loot:{fuel:[0,2],metal:[0,2]}},
+  bwolf:  {n:'Кістяний вовк', e:'🐺',hp:32,atk:7, def:2,xp:10,loot:{food:[1,3],parts:[0,1]}},
+  crawler:{n:'Повзун',        e:'🦂',hp:26,atk:5, def:3,xp:9, loot:{med:[0,1],parts:[1,2]}},
+  knight: {n:'Туманний лицар',e:'⚔️',hp:45,atk:9, def:3,xp:16,loot:{metal:[2,4],parts:[1,2]}},
+  drone:  {n:'Вартовий-дрон', e:'🛸',hp:36,atk:10,def:2,xp:15,loot:{parts:[2,4],fuel:[1,2]}},
+  eyes:   {n:'Багатоокий',    e:'👁️',hp:52,atk:8, def:2,xp:18,loot:{med:[1,2],food:[1,3]}}
+};
+// Рідкісні монстри: НЕ сильніші, лут "вбік" — трофеї для обміну/колекції
+const RARE = {
+  fox:  {n:'Кришталевий лис',e:'🦊',hp:20,atk:2,def:4,xp:8, flee:3,trophy:'Кришталевий хвіст'},
+  mimic:{n:'Мімік-валіза',   e:'🧳',hp:30,atk:6,def:1,xp:10,trophy:"Язик міміка"},
+  deer: {n:'Сяючий олень',   e:'🦌',hp:35,atk:4,def:2,xp:10,flee:4,trophy:'Сяючий ріг'},
+  bard: {n:'Мертвий бард',   e:'🎻',hp:25,atk:5,def:0,xp:9, trophy:'Платівка старого світу'}
+};
+const ZONE = [{n:'Близька',travel:2,col:'#5fd38a'},{n:'Середня',travel:4,col:'#ffb23f'},{n:'Далека',travel:6,col:'#ff5a6a'}];
+const LOCS = [
+  {id:'gas',   n:'Покинута заправка',        e:'⛽',z:0,res:{fuel:[1,2],metal:[0,1]},       mon:['rat','dog']},
+  {id:'mart',  n:'Розграбований супермаркет',e:'🛒',z:0,res:{food:[1,2],water:[1,2]},       mon:['rat','slime']},
+  {id:'wood',  n:'Лісосмуга',                e:'🌲',z:0,res:{wood:[1,3],food:[0,1]},        mon:['dog','slime']},
+  {id:'school',n:'Зруйнована школа',         e:'🏫',z:1,res:{parts:[1,2],med:[0,1],wood:[0,2]},mon:['raider','crawler']},
+  {id:'res',   n:'Водосховище',              e:'🌊',z:1,res:{water:[2,4]},                  mon:['crawler','bwolf']},
+  {id:'depot', n:'Трамвайне депо',           e:'🚋',z:1,res:{metal:[1,3],fuel:[1,2]},       mon:['raider','bwolf']},
+  {id:'hosp',  n:'Старий шпиталь',           e:'🏥',z:2,res:{med:[1,2],parts:[1,2]},        mon:['eyes','drone']},
+  {id:'tower', n:"Вежа зв'язку",             e:'📡',z:2,res:{parts:[2,3],metal:[1,2]},      mon:['drone','knight']},
+  {id:'rift',  n:'Туманний розлом',          e:'🌀',z:2,res:{metal:[1,2],food:[1,2],fuel:[1,2]},mon:['knight','eyes'],rareBoost:true}
+];
+const BLD = {
+  rain:  {n:'Дощозбірник',   e:'🛢️',max:3,cost:l=>({wood:2+l*2,metal:1+l}),            d:'+1 вода/день за рівень'},
+  garden:{n:'Город',         e:'🥬',max:3,cost:l=>({wood:3+l*2,water:2}),              d:'+1 їжа/день за рівень'},
+  solar: {n:'Сонячна панель',e:'☀️',max:3,cost:l=>({metal:2+l,parts:2+l*2}),           d:'+1 тепло/день за рівень'},
+  gen:   {n:'Генератор',     e:'⚙️',max:2,cost:l=>({metal:3+l*3,parts:2+l*2}),         d:'Вранці палить 1 паливо → +3 тепла (рів.2: +4)'},
+  bed:   {n:'Нормальне ліжко',e:'🛏️',max:2,cost:l=>({wood:4+l*3,parts:1+l}),           d:'+1 макс. сил за рівень'},
+  wall:  {n:'Стіни',         e:'🧱',max:3,cost:l=>({wood:3+l*2,metal:2+l*2}),          d:'Менше нічних нальотів (рів.3 — жодних)'},
+  shop:  {n:'Майстерня',     e:'🔧',max:2,cost:l=>({wood:3+l*3,metal:3+l*3,parts:2+l*2}),d:'Крафт зброї та броні (рів.2 — краща)'}
+};
+const NAMES = ['Кай','Мірра','Дзвін','Тесса','Рудий','Аска','Вереск','Лія','Борис-Броня','Нокс'];
+const BAG_CAP = 12, BUILD_COST = 2, SCOUT_COST = 3, CRAFT_COST = 2;
+
+/* ============ СТАН ============ */
+let S, EV = null, ART = {};
+function mkWeapon(type, rar){const b=WPN[type],R=RAR[rar];return{id:uid(),k:'w',type,rar,dmg:Math.round(b.dmg*R.dm),ap:Math.max(1,b.ap+R.ap)}}
+function mkArmor(type, rar){const b=ARM[type],R=RAR[rar];return{id:uid(),k:'a',type,rar,def:Math.round(b.def*R.dm),hp:Math.round(b.hp*R.dm)}}
+function rollRar(z){
+  const w={c:60-z*18,u:25+z*4,r:10+z*7,e:4+z*4,l:1+z*2};
+  let t=Object.values(w).reduce((a,b)=>a+b,0), r=Math.random()*t;
+  for(const k in w){ if((r-=w[k])<0) return k } return 'c';
+}
+function randomItem(z){ return chance(0.7) ? mkWeapon(pick(Object.keys(WPN)),rollRar(z)) : mkArmor(pick(Object.keys(ARM)),rollRar(z)) }
+
+function newGame(){
+  S = {day:1,sily:8,hp:30,lvl:1,xp:0,sup:0,
+    res:{water:6,food:6,heat:5,fuel:2,wood:3,metal:1,parts:0,med:1,stim:0},
+    bld:{rain:0,garden:0,solar:0,gen:0,bed:0,wall:0,shop:0},
+    inv:[],eq:[],armor:null,trophies:{},
+    open:LOCS.filter(l=>l.z===0).map(l=>l.id),
+    depleted:{},rivals:[{n:'Ліра',e:'🧝‍♀️',pow:0.5},{n:'Грім',e:'🧔',pow:0.5},{n:'Сова',e:'🦉',pow:0.5}],
+    rivalAt:{},eaten:0,tired:0,screen:'base',trip:null,fight:null,log:[],over:false,kills:0};
+  const k=mkWeapon('knife','c'), b=mkWeapon('bat','c'), j=mkArmor('jacket','c');
+  S.inv.push(k,b,j); S.eq=[k.id,b.id]; S.armor=j.id;
+  S.hp = maxHP(); rivalsMove();
+  log('День 1. Ти прокинувся у своєму домі на краю мертвого міста. Запасів вистачить на кілька днів.');
+}
+const item = id => S.inv.find(i=>i.id===id);
+const armor = () => S.armor ? item(S.armor) : null;
+const maxHP = () => 30 + (S.lvl-1)*6 + (armor()?.hp||0);
+const pDef  = () => Math.floor(S.lvl/2) + (armor()?.def||0);
+const baseAP= () => 3 + (S.lvl>=4?1:0) + (S.lvl>=8?1:0);
+const maxSily=() => Math.max(3, 8 + S.bld.bed - S.tired);
+const xpNeed= () => 10 + S.lvl*8;
+const locById = id => LOCS.find(l=>l.id===id);
+function log(t){ S.log.unshift('Д'+S.day+': '+t); S.log.length = Math.min(S.log.length,40) }
+function save(){ try{ localStorage.setItem('ashfog_v1', JSON.stringify(S)) }catch(e){} }
+function load(){ try{ const d=localStorage.getItem('ashfog_v1'); if(d){ S=JSON.parse(d); return true } }catch(e){} return false }
+function toast(t){ const d=document.createElement('div'); d.className='toast'; d.textContent=t; document.body.appendChild(d); setTimeout(()=>d.remove(),1800) }
+const resStr = o => Object.entries(o).filter(([k,v])=>v>0).map(([k,v])=>RES[k][0]+v).join(' ') || '—';
+const canPay = o => Object.entries(o).every(([k,v])=>S.res[k]>=v);
+const pay = o => { for(const k in o) S.res[k]-=o[k] };
+function useSily(n){ if(S.sily<n){ toast('Не вистачає сил ⚡'); return false } S.sily-=n; return true }
+
+/* ============ ДЕНЬ / НІЧ ============ */
+function rivalsMove(){
+  S.rivalAt = {};
+  S.rivals.forEach((r,i)=>{
+    const pool = LOCS.filter(l=>l.z <= Math.floor(r.pow));
+    const L = pick(pool); S.rivalAt[L.id]=i; S.depleted[L.id]=2;
+    r.pow = Math.min(2.9, r.pow + 0.12);
+    if(S.open.includes(L.id)) log(`${r.e} ${r.n} нишпорить біля «${L.n}» — ресурсів там поменшає.`);
+  });
+}
+function sleep(){
+  const msgs=[];
+  S.res.heat -= 2; // ніч холодна
+  if(S.day>=3 && chance(0.2 - S.bld.wall*0.067)){
+    const keys=['food','water','fuel','wood','metal'].filter(k=>S.res[k]>0), lost=[];
+    for(let i=0;i<2&&keys.length;i++){ const k=pick(keys), n=Math.min(S.res[k],rnd(1,3)); S.res[k]-=n; lost.push(RES[k][0]+n) }
+    if(lost.length) msgs.push('🌙 Вночі хтось обчистив склад: '+lost.join(' '));
+  }
+  S.day++;
+  // виробництво
+  S.res.water += S.bld.rain; S.res.food += S.bld.garden; S.res.heat += S.bld.solar;
+  if(S.bld.gen && S.res.fuel>0){ S.res.fuel--; S.res.heat += 2+S.bld.gen }
+  // споживання
+  S.res.water -= 2; S.res.food -= 2; S.res.heat -= 1;
+  if(S.res.heat<0 && S.res.wood>0){ const b=Math.min(S.res.wood,-S.res.heat); S.res.wood-=b; S.res.heat+=b; msgs.push(`🪵 Спалив ${b} дерева в пічці, щоб не замерзнути.`) }
+  let pen=0;
+  if(S.res.water<0){pen++;S.res.water=0;msgs.push('💧 Спрага! −5 HP, менше сил.')}
+  if(S.res.food<0){pen++;S.res.food=0;msgs.push('🍖 Голод! −5 HP, менше сил.')}
+  if(S.res.heat<0){pen++;S.res.heat=0;msgs.push('🥶 Холод у домі! −5 HP, менше сил.')}
+  S.tired = pen*2;
+  S.hp = Math.min(maxHP(), S.hp + Math.round(maxHP()*0.3)) - pen*5;
+  S.sily = maxSily(); S.eaten = 0;
+  for(const k in S.depleted){ if(--S.depleted[k]<=0) delete S.depleted[k] }
+  rivalsMove();
+  msgs.forEach(m=>log(m)); log('☀️ Новий день.');
+  if(S.hp<=0){ S.over=true }
+  showEvent({e:'🌅',t:'День '+S.day,txt:(msgs.length?msgs.join('<br>'):'Ніч минула спокійно.')+`<br><br><span class="mut">Вранці: −2💧 −2🍖 −3🔥 за добу. Виробництво бази вже враховано.</span>`,b:[['Далі',null]]});
+  go(S.over?'over':'base');
+}
+function eat(){
+  if(S.eaten>=2) return toast('Більше не лізе');
+  if(S.res.food<1||S.res.water<1) return toast('Треба 1🍖 і 1💧');
+  S.res.food--; S.res.water--; S.eaten++; S.sily=Math.min(maxSily()+2,S.sily+2); log('Поїв досхочу: +2⚡'); render();
+}
+function heal(){ if(S.res.med<1) return; if(S.hp>=maxHP()) return toast('Ти й так цілий'); S.res.med--; S.hp=Math.min(maxHP(),S.hp+Math.round(maxHP()*0.4)); log('💊 Аптечка: +40% HP'); render() }
+function stim(){ if(S.res.stim<1) return; S.res.stim--; S.sily+=3; log('☕ Стимулятор: +3⚡'); render() }
+
+/* ============ БУДІВНИЦТВО / КРАФТ ============ */
+function build(k){
+  const B=BLD[k], l=S.bld[k]; if(l>=B.max) return;
+  const c=B.cost(l); if(!canPay(c)) return toast('Не вистачає ресурсів');
+  if(!useSily(BUILD_COST)) return;
+  pay(c); S.bld[k]++; log(`${B.e} Побудовано: ${B.n} (рів. ${S.bld[k]})`);
+  if(k==='bed') S.sily++;
+  render();
+}
+function craft(kind){
+  const c = kind==='w' ? {wood:2,metal:3,parts:2} : {metal:3,parts:1,wood:1};
+  if(!canPay(c)) return toast('Не вистачає ресурсів');
+  if(!useSily(CRAFT_COST)) return;
+  pay(c);
+  const rar = S.bld.shop>=2 ? (chance(0.7)?'u':'r') : (chance(0.7)?'c':'u');
+  const it = kind==='w' ? mkWeapon(pick(Object.keys(WPN)),rar) : mkArmor(pick(Object.keys(ARM)),rar);
+  S.inv.push(it); log('🔧 Скрафчено: '+itemName(it));
+  showEvent({e:itemEmoji(it),t:'Скрафчено!',txt:itemHTML(it),b:[['Ок',null]]}); render();
+}
+function dismantle(id){
+  const it=item(id); if(!it||S.eq.includes(id)||S.armor===id) return;
+  const g={c:1,u:2,r:3,e:5,l:8}[it.rar]; S.res.parts+=g; S.inv=S.inv.filter(i=>i.id!==id);
+  log(`Розібрав ${itemName(it)} → ⚙️${g}`); render();
+}
+function toggleEq(id){
+  const it=item(id);
+  if(it.k==='a'){ S.armor = S.armor===id?null:id; S.hp=Math.min(S.hp,maxHP()); return render() }
+  if(S.eq.includes(id)){ if(S.eq.length<=1) return toast('Потрібна хоч одна зброя'); S.eq=S.eq.filter(x=>x!==id) }
+  else { if(S.eq.length>=3) return toast('Максимум 3 зброї'); S.eq.push(id) }
+  render();
+}
+const itemName = it => (it.k==='w'?WPN[it.type].n:ARM[it.type].n);
+const itemEmoji= it => (it.k==='w'?WPN[it.type].e:ARM[it.type].e);
+function itemHTML(it){
+  const R=RAR[it.rar];
+  if(it.k==='w') return `<b>${WPN[it.type].e} ${WPN[it.type].n}</b> <span class="pill" style="color:${R.col};border-color:${R.col}">${R.n}</span><br>🗡️ ${it.dmg} шкоди · ⚡${it.ap} ОД<br><span class="mut">${WPN[it.type].td}</span>`;
+  return `<b>${ARM[it.type].e} ${ARM[it.type].n}</b> <span class="pill" style="color:${R.col};border-color:${R.col}">${R.n}</span><br>🛡️ +${it.def} захисту${it.hp?` · ❤️ +${it.hp} HP`:''}`;
+}
+
+/* ============ КАРТА / ВИЛАЗКИ ============ */
+function scout(){
+  const hidden=LOCS.filter(l=>!S.open.includes(l.id));
+  if(!hidden.length) return toast('Усе вже розвідано');
+  if(!useSily(SCOUT_COST)) return;
+  const L=hidden.sort((a,b)=>a.z-b.z)[chance(0.6)?0:rnd(0,hidden.length-1)];
+  S.open.push(L.id); log(`🔭 Розвідка: знайдено «${L.n}» (${ZONE[L.z].n} зона)`);
+  showEvent({e:L.e,t:'Нова локація!',txt:`${L.n}<br><span class="mut">${ZONE[L.z].n} зона · дорога ${ZONE[L.z].travel}⚡</span>`,b:[['Ок',null]]}); render();
+}
+function goTo(id){
+  const L=locById(id); if(!useSily(ZONE[L.z].travel)) return;
+  S.trip={loc:id,bag:{},items:[],trophies:[]}; log(`Вирушив до «${L.n}»`); go('loc');
+}
+const bagCount = () => Object.values(S.trip.bag).reduce((a,b)=>a+b,0);
+function addBag(o){
+  const got={};
+  for(const [k,v] of Object.entries(o)){ const room=BAG_CAP-bagCount(), n=Math.min(v,room); if(n>0){ S.trip.bag[k]=(S.trip.bag[k]||0)+n; got[k]=n } }
+  return got;
+}
+function rollLoot(tbl, half){ const o={}; for(const [k,[a,b]] of Object.entries(tbl)){ let n=rnd(a,b); if(half) n=Math.floor(n/2); if(n>0) o[k]=n } return o }
+function search(){
+  if(!useSily(1)) return;
+  const L=locById(S.trip.loc), dep=!!S.depleted[L.id];
+  const rareP = 0.05 + L.z*0.03 + (L.rareBoost?0.1:0);
+  if(chance(rareP)) return startFight(mkEnemy(pick(Object.keys(RARE)),true,L.z));
+  const r=Math.random(), rivalHere = S.rivalAt[L.id]!==undefined;
+  if(r<0.42) return startFight(mkEnemy(pick(L.mon),false,L.z));
+  if(r<0.70){
+    const o=rollLoot(L.res,dep), got=addBag(o);
+    const full = bagCount()>=BAG_CAP ? '<br><span class="mut">Рюкзак повний!</span>':'';
+    return showEvent({e:'📦',t:'Знахідка',txt:(Object.keys(got).length?'Знайшов: '+resStr(got):'Тут уже все винесли…'+(dep?' (хтось був тут до тебе)':''))+full,b:[['Ок',null]]});
+  }
+  if(r<0.84 || (rivalHere && r<0.9)) return survivor(L, rivalHere);
+  if(r<0.93){ const it=randomItem(L.z); S.trip.items.push(it); return showEvent({e:itemEmoji(it),t:'Схованка!',txt:itemHTML(it),b:[['Забрати',null]]}) }
+  const d=rnd(2,5); S.hp-=d;
+  if(S.hp<=0) return lose('Пастка виявилась смертельною…');
+  showEvent({e:'🪤',t:'Пастка',txt:`Ти наступив на розтяжку. −${d} HP`,b:[['Ох',null]]});
+}
+function goHome(){
+  const t=S.trip; for(const k in t.bag) S.res[k]+=t.bag[k];
+  t.items.forEach(i=>S.inv.push(i)); t.trophies.forEach(n=>S.trophies[n]=(S.trophies[n]||0)+1);
+  log(`Повернувся додому: ${resStr(t.bag)}${t.items.length?' + '+t.items.length+' предм.':''}`);
+  S.trip=null; go('base');
+}
+function lose(why){
+  S.trip=null; S.fight=null; S.hp=Math.max(1,Math.round(maxHP()*0.25)); S.sily=0;
+  log('💀 '+why+' Тебе дотягли додому, рюкзак втрачено.');
+  go('base'); showEvent({e:'💀',t:'Поразка',txt:why+'<br>Ти отямився вдома. Весь лут із вилазки втрачено, сил не лишилось.',b:[['…',null]]});
+}
+
+/* ============ ВИЖИЛІ (простий ШІ) ============ */
+function survivor(L, rivalHere){
+  const rv = rivalHere ? S.rivals[S.rivalAt[L.id]] : null;
+  const name = rv ? rv.e+' '+rv.n : '🧟 '+pick(NAMES);
+  const type = rv ? (chance(0.5)?'trader':'raider') : (r=>r<0.45?'trader':r<0.8?'raider':'hermit')(Math.random());
+  if(type==='trader'){
+    const tr=Object.keys(S.trophies).filter(k=>S.trophies[k]>0);
+    const have=['food','water','fuel','wood','metal','parts'].sort((a,b)=>S.res[b]-S.res[a]);
+    const give=have[0], get=have[have.length-1];
+    const btns=[];
+    if(give!==get && S.res[give]>=2) btns.push([`Обміняти 2${RES[give][0]} → 3${RES[get][0]}`,()=>{S.res[give]-=2;S.res[get]+=3;log(`Обмін із ${name}: 2${RES[give][0]} → 3${RES[get][0]}`)}]);
+    if(tr.length){ const t=tr[0]; btns.push([`Продати «${t}» → 🍖4 💧4 ⛽2 ☕1`,()=>{S.trophies[t]--;S.res.food+=4;S.res.water+=4;S.res.fuel+=2;S.res.stim++;log(`Продав трофей «${t}»`)}]) }
+    btns.push(['Піти',null]);
+    return showEvent({e:'🤝',t:name,txt:'Вижилий пропонує обмін (зі складу вдома).'+(tr.length?'<br>Його дуже цікавлять твої трофеї…':''),b:btns});
+  }
+  if(type==='raider'){
+    const k=pick(['food','water','fuel','metal']);
+    const btns=[];
+    if(S.res[k]>=2) btns.push([`Віддати 2${RES[k][0]}`,()=>{S.res[k]-=2;log(`Віддав ${name} 2${RES[k][0]}`)}]);
+    btns.push(['Битися',()=>startFight(mkHuman(name,L.z))]);
+    btns.push(['Тікати (50%)',()=>{ if(chance(0.5)) {log('Втік від '+name); render()} else { toast('Не вдалося!'); startFight(mkHuman(name,L.z)) } }]);
+    return showEvent({e:'🔪',t:name,txt:`«Гей! Плати мито: 2${RES[k][0]}, або ляжеш тут».`,b:btns});
+  }
+  const hidden=LOCS.filter(l=>!S.open.includes(l.id));
+  if(hidden.length && chance(0.6)){ const H=pick(hidden); S.open.push(H.id); log(`Відлюдник ${name} розповів про «${H.n}»`); return showEvent({e:'🧓',t:name,txt:`Старий відлюдник показав на мапі місце: <b>${H.n}</b>.`,b:[['Дякую',null]]}) }
+  S.trip.bag.med=(S.trip.bag.med||0)+1;
+  showEvent({e:'🧓',t:name,txt:'Відлюдник мовчки дав тобі аптечку 💊.',b:[['Дякую',null]]});
+}
+function mkHuman(name,z){ return {n:name.replace(/^\S+\s/,''),e:'🧟',hp:24+z*12,max:24+z*12,atk:5+z*3,def:1+z,xp:8+z*5,loot:{food:[1,2],fuel:[0,2],metal:[0,2]},human:true} }
+function mkEnemy(key,rare,z){
+  const b=rare?RARE[key]:MON[key];
+  return {key,n:b.n,e:b.e,hp:b.hp,max:b.hp,atk:b.atk+(rare?z:0),def:b.def,xp:b.xp,loot:b.loot||{},flee:b.flee,trophy:b.trophy,rare};
+}
+
+/* ============ БІЙ ============ */
+function startFight(en){
+  en.bleed=0; en.bleedT=0; en.stun=false; en.guard=false;
+  S.fight={en,ap:0,hand:[],block:0,turn:0,flog:[]};
+  if(en.rare) S.fight.flog.push('✨ Рідкісна поява! '+en.n+(en.flee?` — втече через ${en.flee} ходи`:''));
+  newTurn(); go('fight');
+}
+function rollIntent(){
+  const F=S.fight, en=F.en; en.guard=false;
+  if(en.flee && F.turn>=en.flee){ en.intent={t:'flee'}; return }
+  const r=Math.random();
+  if(r<0.6) en.intent={t:'atk',v:en.atk};
+  else if(r<0.8) en.intent={t:'heavy',v:Math.round(en.atk*1.6)};
+  else { en.guard=true; en.intent={t:'guard',v:Math.ceil(en.atk*0.5)} }
+}
+function newTurn(){
+  const F=S.fight; F.turn++; F.ap=baseAP(); F.block=0;
+  const deck=[]; S.eq.forEach(id=>{ if(item(id)){ deck.push(id,id) } });
+  F.hand=[]; for(let i=0;i<4;i++) F.hand.push(pick(deck));
+  rollIntent();
+}
+function hitEnemy(raw,pierce){
+  const en=S.fight.en, def = pierce?0:Math.max(0,en.def+(en.guard?3:0));
+  const d=Math.max(1,Math.round(raw)-def); en.hp-=d; S.sup=Math.min(100,S.sup+d*3); return d;
+}
+function playCard(i){
+  const F=S.fight, w=item(F.hand[i]); if(!w||F.ap<w.ap) return;
+  F.ap-=w.ap; F.hand.splice(i,1);
+  const tr=WPN[w.type].trait; let raw=w.dmg, note='';
+  if(tr==='spread') raw=w.dmg*(0.5+Math.random());
+  const d=hitEnemy(raw,tr==='pierce');
+  if(tr==='bleed'){ F.en.bleed=2; F.en.bleedT=2; note=' 🩸' }
+  if(tr==='stun' && chance(0.3)){ F.en.stun=true; note=' 💫 оглушено!' }
+  if(tr==='heavy'){ F.en.def=Math.max(0,F.en.def-2); note=' 🔨 захист −2' }
+  if(tr==='drain'){ const h=Math.ceil(d/2); S.hp=Math.min(maxHP(),S.hp+h); note=` 💚 +${h}` }
+  F.flog.unshift(`${WPN[w.type].e} ${itemName(w)}: ${d} шкоди${note}`);
+  afterPlayer();
+}
+function blockAct(){ const F=S.fight; if(F.ap<1) return; F.ap--; F.block+=3; F.flog.unshift('🛡️ Блок +3'); render() }
+function superAct(){
+  if(S.sup<100) return;
+  const best=Math.max(...S.eq.map(id=>item(id)?.dmg||0));
+  const d=hitEnemy(best*3,true); S.sup=0;
+  S.fight.flog.unshift(`🌟 СУПЕРАТАКА: ${d} шкоди!`); afterPlayer();
+}
+function flee(){
+  if(S.fight.en.rare) { S.fight.flog.unshift('Від рідкісного нема куди тікати — він сам тікає 🙂'); return render() }
+  if(chance(0.5)){ S.fight=null; log('Втік із бою'); go('loc'); toast('Втік!') }
+  else { S.fight.flog.unshift('🏃 Втекти не вдалося!'); S.fight.ap=0; endTurn() }
+}
+function afterPlayer(){ if(S.fight.en.hp<=0) return win(); render() }
+function endTurn(){
+  const F=S.fight, en=F.en;
+  if(en.bleedT>0){ en.hp-=en.bleed; en.bleedT--; F.flog.unshift(`🩸 Кровотеча: ${en.bleed}`); if(en.hp<=0) return win() }
+  if(en.stun){ en.stun=false; F.flog.unshift(`💫 ${en.n} оглушений і пропускає хід`) }
+  else if(en.intent.t==='flee'){
+    S.fight=null; const xp=Math.ceil(en.xp/2); gainXP(xp);
+    go('loc'); return showEvent({e:en.e,t:'Втік!',txt:`${en.n} розчинився в тумані. Трофей втрачено, але +${xp} XP за досвід.`,b:[['Ех',null]]});
+  } else {
+    const raw=en.intent.v, d=Math.max(0,raw-pDef()-F.block);
+    S.hp-=d; S.sup=Math.min(100,S.sup+d*4);
+    F.flog.unshift(`${en.e} ${en.n} б'є: ${d} шкоди`+(F.block?` (блок ${F.block})`:''));
+    document.getElementById('app').classList.add('dmg'); setTimeout(()=>document.getElementById('app')?.classList.remove('dmg'),300);
+    if(S.hp<=0) return lose(`${en.n} тебе здолав.`);
+  }
+  newTurn(); render();
+}
+function gainXP(x){
+  S.xp+=x; let up=false;
+  while(S.xp>=xpNeed()){ S.xp-=xpNeed(); S.lvl++; up=true; S.hp+=6 }
+  if(up){ log(`⭐ Новий рівень: ${S.lvl}!`); toast('⭐ Рівень '+S.lvl+'!') }
+}
+function win(){
+  const en=S.fight.en, L=locById(S.trip.loc); S.fight=null; S.kills++;
+  gainXP(en.xp);
+  let txt=`+${en.xp} XP`;
+  const got=addBag(rollLoot(en.loot, false)); if(Object.keys(got).length) txt+='<br>Лут: '+resStr(got);
+  if(en.trophy){ S.trip.trophies.push(en.trophy); txt+=`<br>✨ Трофей: <b>${en.trophy}</b><br><span class="mut">Нічого не посилює, але вижилі за таке багато дають.</span>`; if(chance(0.5)){S.trip.bag.stim=(S.trip.bag.stim||0)+1; txt+='<br>☕ +1 стимулятор'} }
+  if(chance(en.rare?0.3:0.2)){ const it=randomItem(L.z); S.trip.items.push(it); txt+='<br><br>'+itemHTML(it) }
+  log(`Переміг: ${en.n}`); go('loc');
+  showEvent({e:'🏆',t:'Перемога над «'+en.n+'»',txt,b:[['Далі',null]]});
+}
+
+/* ============ ВІДОБРАЖЕННЯ ============ */
+function art(key, emoji, cls='', cap=''){
+  return `<div class="art ${cls}">${ART[key]?`<img src="${ART[key]}" alt="">`:emoji}${cap?`<span class="cap">${cap}</span>`:''}</div>`;
+}
+function go(s){ S.screen=s; render(); window.scrollTo(0,0) }
+function showEvent(ev){ EV=ev; renderModal() }
+function renderModal(){
+  const m=$('#modal'); if(!EV){ m.innerHTML=''; return }
+  m.innerHTML=`<div class="modal"><div class="card"><div style="font-size:42px;text-align:center">${EV.e}</div><h2 style="text-align:center">${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row" style="flex-direction:column;align-items:stretch">${EV.b.map((b,i)=>`<button class="${i===0?'pri':''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
+  m.querySelectorAll('[data-evb]').forEach(btn=>btn.onclick=()=>{ const f=EV.b[+btn.dataset.evb][1]; EV=null; renderModal(); if(f) f(); render() });
+}
+function topBar(){
+  const r=S.res, low=k=>r[k]<2?'low':'';
+  return `<div class="top"><div class="row" style="margin-bottom:6px">
+    <b>День ${S.day}</b><span class="chip">⭐ Рів. ${S.lvl} <span class="mut">${S.xp}/${xpNeed()}</span></span>
+    <span class="chip ${S.sily<2?'low':''}">⚡ ${S.sily}/${maxSily()}</span><span class="chip">🛡️ ${pDef()}</span>
+    <div class="bar"><i style="width:${Math.max(0,S.hp/maxHP()*100)}%"></i></div><span class="mut">❤️ ${Math.max(0,S.hp)}/${maxHP()}</span></div>
+    <div class="row">${['water','food','heat'].map(k=>`<span class="chip ${low(k)}">${RES[k][0]} ${r[k]}</span>`).join('')}
+    ${['fuel','wood','metal','parts','med','stim'].map(k=>`<span class="chip">${RES[k][0]} ${r[k]}</span>`).join('')}
+    <span class="chip">🌟 ${S.sup}%</span></div></div>`;
+}
+function tabs(){
+  if(S.trip||S.screen==='over') return '';
+  const t=[['base','🏠 База'],['map','🗺️ Карта'],['gear','🎒 Спорядження'],['art','🎨 Арт']];
+  return `<div class="tabs">${t.map(([k,n])=>`<button class="${S.screen===k?'on':''}" onclick="go('${k}')">${n}</button>`).join('')}</div>`;
+}
+function vBase(){
+  const lvlSum=Object.values(S.bld).reduce((a,b)=>a+b,0);
+  const b=Object.entries(BLD).map(([k,B])=>{
+    const l=S.bld[k], mx=l>=B.max, c=mx?null:B.cost(l);
+    return `<div class="item"><b>${B.e} ${B.n}</b> <span class="mut">рів. ${l}/${B.max}</span><div class="mut">${B.d}</div>
+      ${mx?'<div class="mut">✔ максимум</div>':`<button class="sm" style="margin-top:6px" onclick="build('${k}')" ${canPay(c)&&S.sily>=BUILD_COST?'':'disabled'}>${l?'Покращити':'Збудувати'}: ${resStr(c)} ⚡${BUILD_COST}</button>`}</div>`;
+  }).join('');
+  return `${art('base','🏚️','',`База · покращень: ${lvlSum}`)}
+  <div class="card" style="margin-top:10px"><h2>Дім</h2>
+    <div class="row">
+      <button onclick="eat()" ${S.eaten<2&&S.res.food&&S.res.water?'':'disabled'}>🍖 Поїсти досхочу (+2⚡) <span class="mut">${2-S.eaten}/2</span></button>
+      <button onclick="heal()" ${S.res.med?'':'disabled'}>💊 Аптечка</button>
+      <button onclick="stim()" ${S.res.stim?'':'disabled'}>☕ Стимулятор (+3⚡)</button>
+      <button class="pri" onclick="sleep()">🌙 Спати (кінець дня)</button>
+    </div>
+    <div class="mut" style="margin-top:6px">Щодоби: −2💧 −2🍖 −3🔥 (вночі холодніше). Нестача → −5 HP і менше сил наступного дня. Брак тепла добирається деревом із пічки.</div>
+  </div>
+  <div class="card"><h2>Будівництво</h2><div class="grid">${b}</div></div>
+  ${S.bld.shop?`<div class="card"><h2>🔧 Майстерня</h2><div class="row">
+    <button onclick="craft('w')">Зброя: 🪵2 🔩3 ⚙️2 ⚡${CRAFT_COST}</button><button onclick="craft('a')">Броня: 🪵1 🔩3 ⚙️1 ⚡${CRAFT_COST}</button></div>
+    <div class="mut" style="margin-top:6px">Рів.1 — звичайна/незвичайна, рів.2 — незвичайна/рідкісна.</div></div>`:''}
+  <div class="card"><h2>Журнал</h2><div class="log">${S.log.map(l=>`<div>${l}</div>`).join('')}</div></div>`;
+}
+function vMap(){
+  const hidden=LOCS.length-S.open.length;
+  return `<div class="card"><h2>🗺️ Карта</h2><div class="mut">Дорога в один бік коштує сили, назад — безкоштовно. Кожен обшук — 1⚡. Рюкзак: ${BAG_CAP} од.</div>
+  <div class="row" style="margin-top:8px"><button onclick="scout()" ${hidden&&S.sily>=SCOUT_COST?'':'disabled'}>🔭 Розвідка (${SCOUT_COST}⚡) — ще не знайдено: ${hidden}</button></div></div>
+  ${ZONE.map((Z,z)=>{
+    const ls=LOCS.filter(l=>l.z===z&&S.open.includes(l.id)); if(!ls.length) return '';
+    return `<h3 style="color:${Z.col}">${Z.n} зона · ${Z.travel}⚡</h3><div class="grid">${ls.map(L=>{
+      const rv=S.rivalAt[L.id]!==undefined?S.rivals[S.rivalAt[L.id]]:null;
+      return `<div class="item">${art('loc_'+L.id,L.e,'sq')}<b>${L.n}</b>
+      <div class="mut">${Object.keys(L.res).map(k=>RES[k][0]).join(' ')} · ${L.mon.map(m=>MON[m].e).join('')}${L.rareBoost?' · ✨ часто рідкісні':''}</div>
+      ${S.depleted[L.id]?'<div style="color:var(--warn)">⚠ Вичищено (лут ×½)</div>':''}${rv?`<div style="color:var(--acc)">${rv.e} Тут ${rv.n}</div>`:''}
+      <button class="sm pri" style="margin-top:6px;width:100%" onclick="goTo('${L.id}')" ${S.sily>=Z.travel?'':'disabled'}>Вирушити</button></div>`}).join('')}</div>`;
+  }).join('')}`;
+}
+function vLoc(){
+  const L=locById(S.trip.loc), t=S.trip;
+  return `${art('loc_'+L.id,L.e,'',L.n)}
+  <div class="card" style="margin-top:10px"><h2>${L.e} ${L.n}</h2>
+    <div class="mut">${ZONE[L.z].n} зона${S.depleted[L.id]?' · ⚠ хтось тут уже нишпорив':''}</div>
+    <h3>Рюкзак ${bagCount()}/${BAG_CAP}</h3><div>${resStr(t.bag)} ${t.items.map(i=>itemEmoji(i)).join(' ')} ${t.trophies.map(()=>'✨').join('')}</div>
+    <div class="row" style="margin-top:10px">
+      <button class="pri" onclick="search()" ${S.sily>=1?'':'disabled'}>🔍 Обшукати (1⚡)</button>
+      <button onclick="heal()" ${S.res.med?'':'disabled'}>💊</button><button onclick="stim()" ${S.res.stim?'':'disabled'}>☕</button>
+      <button onclick="goHome()">🏠 Додому</button>
+    </div><div class="mut" style="margin-top:6px">Аптечки й стимулятори — зі складу вдома. Програєш бій — рюкзак пропаде.</div></div>`;
+}
+function vFight(){
+  const F=S.fight, en=F.en;
+  const it={atk:`🗡️ Атакує на ${en.intent.v}`,heavy:`💢 Важкий удар: ${en.intent.v}`,guard:`🛡️ У захисті (+3) і б'є на ${en.intent.v}`,flee:'💨 Збирається втекти!'}[en.intent.t];
+  const key=(en.rare?'mon_':en.human?'survivor':'mon_')+(en.human?'':en.key);
+  return `${art(key,en.e,'',en.n+(en.rare?' ✨':''))}
+  <div class="card" style="margin-top:10px">
+    <div class="row"><b>${en.n}</b><div class="bar"><i style="width:${Math.max(0,en.hp/en.max*100)}%"></i></div><span class="mut">${Math.max(0,en.hp)}/${en.max} · 🛡️${en.def+(en.guard?3:0)}</span></div>
+    <div style="margin-top:8px"><span class="intent">Намір: ${it}</span> ${en.stun?'<span class="chip">💫 оглушений</span>':''}${en.bleedT?'<span class="chip">🩸 '+en.bleedT+'</span>':''}</div>
+  </div>
+  <div class="card"><div class="row" style="margin-bottom:8px"><b>Хід ${F.turn}</b><span class="chip">⚡ ОД: ${F.ap}/${baseAP()}</span><span class="chip">🛡️ Блок: ${F.block}</span>
+    <div class="bar sup"><i style="width:${S.sup}%"></i></div><span class="mut">🌟 ${S.sup}%</span></div>
+    <div class="hand">${F.hand.map((id,i)=>{ const w=item(id); if(!w) return ''; const R=RAR[w.rar];
+      return `<button class="wcard" style="border-color:${R.col}" onclick="playCard(${i})" ${F.ap>=w.ap?'':'disabled'}>
+        <div class="row" style="width:100%"><span class="e">${WPN[w.type].e}</span><span class="ap">${w.ap}</span></div>
+        <b>${itemName(w)}</b><span style="color:${R.col};font-size:12px">${R.n}</span><span>🗡️ ${w.dmg}</span><span class="mut" style="font-size:11px">${WPN[w.type].td}</span></button>`}).join('')}</div>
+    <div class="row" style="margin-top:10px">
+      <button onclick="blockAct()" ${F.ap>=1?'':'disabled'}>🛡️ Блок +3 (1 ОД)</button>
+      <button onclick="superAct()" ${S.sup>=100?'class="pri"':'disabled'}>🌟 Супер</button>
+      <button onclick="flee()">🏃 Втекти</button>
+      <button class="pri" onclick="endTurn()">Кінець ходу ▶</button>
+    </div></div>
+  <div class="card"><div class="log">${F.flog.slice(0,8).map(l=>`<div>${l}</div>`).join('')}</div></div>`;
+}
+function vGear(){
+  const ws=S.inv.filter(i=>i.k==='w'), as=S.inv.filter(i=>i.k==='a');
+  const cell=it=>{ const on=S.eq.includes(it.id)||S.armor===it.id;
+    return `<div class="item" style="${on?'border-color:var(--acc)':''}">${itemHTML(it)}<div class="row" style="margin-top:6px">
+    <button class="sm ${on?'pri':''}" onclick="toggleEq('${it.id}')">${on?'✔ Екіпіровано':'Екіпірувати'}</button>
+    ${on?'':`<button class="sm" onclick="dismantle('${it.id}')">Розібрати</button>`}</div></div>` };
+  const tr=Object.entries(S.trophies).filter(([k,v])=>v>0);
+  return `<div class="card"><h2>🎒 Спорядження</h2><div class="mut">До 3 зброй у бою: кожна дає 2 картки в колоду, щоходу тягнеш 4 випадкові. ОД за хід: ${baseAP()} (більше на рів. 4 і 8).</div>
+  <h3>Зброя (${S.eq.length}/3)</h3><div class="grid">${ws.map(cell).join('')}</div>
+  <h3>Броня</h3><div class="grid">${as.map(cell).join('')||'<span class="mut">Немає</span>'}</div>
+  <h3>✨ Трофеї</h3>${tr.length?tr.map(([k,v])=>`<span class="chip">${k} ×${v}</span>`).join(' '):'<span class="mut">Поки нічого. Шукай рідкісних монстрів (найчастіше — у Туманному розломі).</span>'}
+  <h3>Статистика</h3><div class="mut">Перемог: ${S.kills} · Захист: рівень/2 + броня · HP: 30 + 6/рівень + броня</div></div>
+  <div class="row"><button onclick="if(window.__c){newGame();go('base')}else{window.__c=1;toast('Натисни ще раз, щоб почати заново')}">🔄 Нова гра</button></div>`;
+}
+const STYLE='anime style, post-apocalyptic dark fantasy, ruined city, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece';
+function artKeys(){
+  const k=[['hero','main character, young man with white hair and red eyes, black coat, survivor gear, portrait'],['base','small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk'],['survivor','hostile wasteland survivor, hood, gas mask, makeshift weapon']];
+  LOCS.forEach(l=>k.push(['loc_'+l.id,l.n+' — '+({gas:'abandoned gas station',mart:'looted supermarket interior',wood:'dead forest belt with fog',school:'destroyed school hallway',res:'water reservoir with rusted pipes',depot:'abandoned tram depot',hosp:'old hospital corridor, flickering lights',tower:'radio tower in fog, night',rift:'glowing fog rift, floating debris, magic'}[l.id])]));
+  Object.entries(MON).forEach(([id,m])=>k.push(['mon_'+id,m.n+', monster, full body']));
+  Object.entries(RARE).forEach(([id,m])=>k.push(['mon_'+id,m.n+', rare mystical creature, glowing, full body']));
+  return k;
+}
+function vArt(){
+  return `<div class="card"><h2>🎨 Арт із ComfyUI</h2>
+  <div class="mut">Назви файли ключами зі списку (напр. <b>loc_gas.png</b>, <b>mon_rat.webp</b>) і завантаж усі разом — гра сама підставить їх замість емодзі. Зберігається у браузері.</div>
+  <div class="row" style="margin:10px 0"><input type="file" id="artin" accept="image/*" multiple><button class="sm" onclick="clearArt()">Очистити арт</button></div>
+  <div class="mut">Спільний стиль (додай на початок кожного промпта):</div><textarea rows="3" readonly>${STYLE}</textarea>
+  <h3>Ключі та підказки</h3>${artKeys().map(([k,p])=>`<div class="item" style="margin-bottom:6px"><b>${k}</b> ${ART[k]?'✅':''}<div class="mut">${p}</div></div>`).join('')}</div>`;
+}
+function vOver(){
+  return `<div class="card" style="text-align:center"><div style="font-size:60px">🪦</div><h2>Ти не пережив пустку</h2>
+  <p>Протримався днів: <b>${S.day}</b> · Рівень ${S.lvl} · Перемог ${S.kills}</p><button class="pri" onclick="newGame();go('base')">Почати заново</button></div>`;
+}
+function render(){
+  const v={base:vBase,map:vMap,loc:vLoc,fight:vFight,gear:vGear,art:vArt,over:vOver}[S.screen]||vBase;
+  $('#app').innerHTML = topBar() + v() + tabs();
+  const ai=$('#artin'); if(ai) ai.onchange=e=>loadArt(e.target.files);
+  save();
+}
+
+/* ============ АРТ (IndexedDB) ============ */
+function db(){ return new Promise((res,rej)=>{ try{ const r=indexedDB.open('ashfog_art',1); r.onupgradeneeded=()=>r.result.createObjectStore('img'); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error) }catch(e){rej(e)} }) }
+async function loadArt(files){
+  let n=0; let d=null; try{ d=await db() }catch(e){}
+  for(const f of files){
+    const key=f.name.replace(/\.[^.]+$/,'').toLowerCase(); ART[key]=URL.createObjectURL(f); n++;
+    if(d) try{ d.transaction('img','readwrite').objectStore('img').put(f,key) }catch(e){}
+  }
+  toast(`Завантажено ${n} зображень`); render();
+}
+async function restoreArt(){
+  try{ const d=await db(); const st=d.transaction('img').objectStore('img'); const req=st.openCursor();
+    req.onsuccess=()=>{ const c=req.result; if(c){ ART[c.key]=URL.createObjectURL(c.value); c.continue() } else render() } }catch(e){}
+}
+async function clearArt(){ ART={}; try{ const d=await db(); d.transaction('img','readwrite').objectStore('img').clear() }catch(e){} render() }
+
+/* ============ СТАРТ ============ */
+if(!load() || !S || !S.res) newGame();
+if(S.screen==='fight' && !S.fight) S.screen = S.trip?'loc':'base';
+render(); restoreArt();
+</script>
+</body>
+</html>

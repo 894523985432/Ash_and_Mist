@@ -1,0 +1,21 @@
+{
+  "style": "anime style, post-apocalyptic dark fantasy, ruined city, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece",
+  "fixed": [
+    ["hero", "main character, young man with white hair and red eyes, black coat, survivor gear, portrait"],
+    ["base", "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk"],
+    ["survivor", "hostile wasteland survivor, hood, gas mask, makeshift weapon"]
+  ],
+  "locations": {
+    "gas": "abandoned gas station",
+    "mart": "looted supermarket interior",
+    "wood": "dead forest belt with fog",
+    "school": "destroyed school hallway",
+    "res": "water reservoir with rusted pipes",
+    "depot": "abandoned tram depot",
+    "hosp": "old hospital corridor, flickering lights",
+    "tower": "radio tower in fog, night",
+    "rift": "glowing fog rift, floating debris, magic"
+  },
+  "monsterSuffix": ", monster, full body",
+  "rareSuffix": ", rare mystical creature, glowing, full body"
+}

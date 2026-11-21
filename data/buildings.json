@@ -1,0 +1,9 @@
+{
+  "rain":   { "n": "Дощозбірник",     "e": "🛢️", "max": 3, "cost": { "base": { "wood": 2, "metal": 1 }, "perLvl": { "wood": 2, "metal": 1 } }, "prod": { "water": 1 }, "d": "+1 вода/день за рівень" },
+  "garden": { "n": "Город",           "e": "🥬", "max": 3, "cost": { "base": { "wood": 3, "water": 2 }, "perLvl": { "wood": 2 } }, "prod": { "food": 1 }, "d": "+1 їжа/день за рівень" },
+  "solar":  { "n": "Сонячна панель",  "e": "☀️", "max": 3, "cost": { "base": { "metal": 2, "parts": 2 }, "perLvl": { "metal": 1, "parts": 2 } }, "prod": { "heat": 1 }, "d": "+1 тепло/день за рівень" },
+  "gen":    { "n": "Генератор",       "e": "⚙️", "max": 2, "cost": { "base": { "metal": 3, "parts": 2 }, "perLvl": { "metal": 3, "parts": 2 } }, "gen": { "fuel": 1, "heatBase": 2, "heatPerLvl": 1 }, "d": "Вранці палить 1 паливо → +3 тепла (рів.2: +4)" },
+  "bed":    { "n": "Нормальне ліжко", "e": "🛏️", "max": 2, "cost": { "base": { "wood": 4, "parts": 1 }, "perLvl": { "wood": 3, "parts": 1 } }, "sily": 1, "d": "+1 макс. сил за рівень" },
+  "wall":   { "n": "Стіни",           "e": "🧱", "max": 3, "cost": { "base": { "wood": 3, "metal": 2 }, "perLvl": { "wood": 2, "metal": 2 } }, "raidReduce": 0.067, "d": "Менше нічних нальотів (рів.3 — жодних)" },
+  "shop":   { "n": "Майстерня",       "e": "🔧", "max": 2, "cost": { "base": { "wood": 3, "metal": 3, "parts": 2 }, "perLvl": { "wood": 3, "metal": 3, "parts": 2 } }, "d": "Крафт зброї та броні (рів.2 — краща)" }
+}

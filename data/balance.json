@@ -1,0 +1,153 @@
+{
+  "start": {
+    "day": 1,
+    "sily": 8,
+    "res": { "water": 6, "food": 6, "heat": 5, "fuel": 2, "wood": 3, "metal": 1, "parts": 0, "med": 1, "stim": 0 },
+    "items": [
+      { "k": "w", "type": "knife", "rar": "c", "equip": true },
+      { "k": "w", "type": "bat", "rar": "c", "equip": true },
+      { "k": "a", "type": "jacket", "rar": "c", "equip": true }
+    ]
+  },
+
+  "player": {
+    "hpBase": 30,
+    "hpPerLvl": 6,
+    "defLvlDivisor": 2,
+    "apBase": 3,
+    "apBonusLevels": [4, 8],
+    "xpBase": 10,
+    "xpPerLvl": 8,
+    "silyBase": 8,
+    "silyMin": 3,
+    "maxWeapons": 3,
+    "minWeapons": 1
+  },
+
+  "day": {
+    "consume": { "water": 2, "food": 2, "heat": 1 },
+    "nightHeat": 2,
+    "shortageHp": 5,
+    "shortageTired": 2,
+    "sleepHealPct": 0.3
+  },
+
+  "raid": {
+    "fromDay": 3,
+    "chance": 0.2,
+    "rolls": 2,
+    "amount": [1, 3],
+    "targets": ["food", "water", "fuel", "wood", "metal"]
+  },
+
+  "actions": {
+    "eat": { "max": 2, "cost": { "food": 1, "water": 1 }, "sily": 2, "capBonus": 2 },
+    "med": { "healPct": 0.4 },
+    "stim": { "sily": 3 },
+    "buildSily": 2,
+    "craftSily": 2,
+    "scoutSily": 3,
+    "scoutNearestChance": 0.6,
+    "searchSily": 1
+  },
+
+  "craft": {
+    "weapon": { "wood": 2, "metal": 3, "parts": 2 },
+    "armor": { "metal": 3, "parts": 1, "wood": 1 },
+    "rarityByShopLvl": {
+      "1": { "main": "c", "alt": "u", "mainChance": 0.7 },
+      "2": { "main": "u", "alt": "r", "mainChance": 0.7 }
+    },
+    "dismantleParts": { "c": 1, "u": 2, "r": 3, "e": 5, "l": 8 }
+  },
+
+  "rarity": {
+    "c": { "n": "Звичайна",   "col": "#9aa4ad", "dm": 1,   "ap": 0 },
+    "u": { "n": "Незвичайна", "col": "#5fd38a", "dm": 1.3, "ap": 0 },
+    "r": { "n": "Рідкісна",   "col": "#4ea3ff", "dm": 1.6, "ap": -1 },
+    "e": { "n": "Епічна",     "col": "#b779ff", "dm": 2,   "ap": -1 },
+    "l": { "n": "Легендарна", "col": "#ffb23f", "dm": 2.5, "ap": -2 }
+  },
+  "minAp": 1,
+
+  "loot": {
+    "itemWeaponChance": 0.7,
+    "rarityWeights": {
+      "base":    { "c": 60,  "u": 25, "r": 10, "e": 4, "l": 1 },
+      "perZone": { "c": -18, "u": 4,  "r": 7,  "e": 4, "l": 2 }
+    },
+    "winItemChance": 0.2,
+    "winItemChanceRare": 0.3,
+    "trophyStimChance": 0.5
+  },
+
+  "trip": {
+    "bagCap": 12,
+    "loseHpPct": 0.25
+  },
+
+  "search": {
+    "rareBase": 0.05,
+    "rarePerZone": 0.03,
+    "rareBoost": 0.1,
+    "fight": 0.42,
+    "loot": 0.70,
+    "survivor": 0.84,
+    "survivorWithRival": 0.9,
+    "cache": 0.93,
+    "trapDmg": [2, 5]
+  },
+
+  "survivors": {
+    "rivalTraderChance": 0.5,
+    "traderChance": 0.45,
+    "raiderThreshold": 0.8,
+    "tradeRes": ["food", "water", "fuel", "wood", "metal", "parts"],
+    "tradeGive": 2,
+    "tradeGet": 3,
+    "trophySale": { "food": 4, "water": 4, "fuel": 2, "stim": 1 },
+    "tollRes": ["food", "water", "fuel", "metal"],
+    "toll": 2,
+    "fleeChance": 0.5,
+    "hermitRevealChance": 0.6,
+    "hermitGift": { "med": 1 },
+    "human": {
+      "hp":  { "base": 24, "perZone": 12 },
+      "atk": { "base": 5,  "perZone": 3 },
+      "def": { "base": 1,  "perZone": 1 },
+      "xp":  { "base": 8,  "perZone": 5 },
+      "loot": { "food": [1, 2], "fuel": [0, 2], "metal": [0, 2] }
+    }
+  },
+
+  "rivals": {
+    "powGain": 0.12,
+    "powMax": 2.9,
+    "depleteDays": 2,
+    "depletedLootDivisor": 2
+  },
+
+  "combat": {
+    "handSize": 4,
+    "copiesPerWeapon": 2,
+    "intent": { "atk": 0.6, "heavy": 0.8 },
+    "heavyMult": 1.6,
+    "guardAtkMult": 0.5,
+    "guardDef": 3,
+    "minDmg": 1,
+    "block": { "cost": 1, "value": 3 },
+    "super": { "max": 100, "perDmgDealt": 3, "perDmgTaken": 4, "mult": 3 },
+    "fleeChance": 0.5,
+    "rareAtkPerZone": 1,
+    "rareFleeXpMult": 0.5,
+    "traits": {
+      "bleed":  { "dmg": 2, "turns": 2 },
+      "stun":   { "chance": 0.3 },
+      "heavy":  { "defBreak": 2 },
+      "drain":  { "pct": 0.5 },
+      "spread": { "min": 0.5, "range": 1 }
+    }
+  },
+
+  "logMax": 40
+}
