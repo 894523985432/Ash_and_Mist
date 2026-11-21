@@ -4,14 +4,15 @@ import { pick, chance } from './util.js';
 import { ui } from './hooks.js';
 import { S, item, maxHP, pDef, baseAP, log, locById, gainXP, resStr } from './state.js';
 import { randomItem, itemName } from './items.js';
-import { addBag, rollLoot, lose } from './trip.js';
+import { addBag, rollLoot, zoneDecay, lose } from './trip.js';
 import { itemHTML } from './ui/format.js';
 
 const C = BAL.combat;
 
 export function mkEnemy(key, rare, z) {
-  const b = rare ? RARE[key] : MON[key];
-  return { key, n: b.n, e: b.e, hp: b.hp, max: b.hp, atk: b.atk + (rare ? z * C.rareAtkPerZone : 0), def: b.def, xp: b.xp, loot: b.loot || {}, flee: b.flee, trophy: b.trophy, rare };
+  const b = rare ? RARE[key] : MON[key], k = rare ? { hp: 1, atk: 1 } : C.zoneScale[z];
+  const hp = Math.round(b.hp * k.hp);
+  return { key, n: b.n, e: b.e, hp, max: hp, atk: Math.round(b.atk * k.atk) + (rare ? z * C.rareAtkPerZone : 0), def: b.def, xp: b.xp, loot: b.loot || {}, flee: b.flee, trophy: b.trophy, rare };
 }
 
 export function startFight(en) {
@@ -102,7 +103,7 @@ function win() {
   const en = S.fight.en, L = locById(S.trip.loc), Lt = BAL.loot; S.fight = null; S.kills++;
   gainXP(en.xp);
   let txt = `+${en.xp} XP`;
-  const got = addBag(rollLoot(en.loot, false)); if (Object.keys(got).length) txt += '<br>Лут: ' + resStr(got);
+  const got = addBag(rollLoot(en.loot, zoneDecay(L.z))); if (Object.keys(got).length) txt += '<br>Лут: ' + resStr(got);
   if (en.trophy) {
     S.trip.trophies.push(en.trophy);
     txt += `<br>✨ Трофей: <b>${en.trophy}</b><br><span class="mut">Нічого не посилює, але вижилі за таке багато дають.</span>`;

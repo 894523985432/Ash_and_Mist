@@ -25,11 +25,24 @@
   },
 
   "day": {
-    "consume": { "water": 2, "food": 2, "heat": 1 },
-    "nightHeat": 2,
+    "consume": { "water": 3, "food": 2, "heat": 1 },
+    "nightHeat": 1,
     "shortageHp": 5,
+    "shortageHpGrowth": 10,
+    "noHealOnShortage": true,
     "shortageTired": 2,
-    "sleepHealPct": 0.3
+    "sleepHealPct": 0.5
+  },
+
+  "exhaust": {
+    "perSearch": [0.05, 0.03, 0.02],
+    "minMult": 0.2,
+    "regenPerDay": 1,
+    "zoneDecay": [
+      { "from": 4, "perDay": 0.06, "min": 0.3 },
+      { "from": 15, "perDay": 0.02, "min": 0.5 },
+      null
+    ]
   },
 
   "raid": {
@@ -90,8 +103,8 @@
     "rareBase": 0.05,
     "rarePerZone": 0.03,
     "rareBoost": 0.1,
-    "fight": 0.42,
-    "loot": 0.70,
+    "fight": 0.35,
+    "loot": 0.72,
     "survivor": 0.84,
     "survivorWithRival": 0.9,
     "cache": 0.93,
@@ -139,6 +152,11 @@
     "super": { "max": 100, "perDmgDealt": 3, "perDmgTaken": 4, "mult": 3 },
     "fleeChance": 0.5,
     "rareAtkPerZone": 1,
+    "zoneScale": [
+      { "hp": 1.6, "atk": 1.7 },
+      { "hp": 2.6, "atk": 2.8 },
+      { "hp": 3.4, "atk": 3.6 }
+    ],
     "rareFleeXpMult": 0.5,
     "traits": {
       "bleed":  { "dmg": 2, "turns": 2 },

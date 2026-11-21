@@ -15,7 +15,7 @@ export function newGame() {
     inv: [], eq: [], armor: null, trophies: {},
     open: LOCS.filter(l => l.z === 0).map(l => l.id),
     depleted: {}, rivals: NPCS.rivals.map(r => ({ ...r })),
-    rivalAt: {}, eaten: 0, tired: 0, screen: 'base', trip: null, fight: null, log: [], over: false, kills: 0,
+    rivalAt: {}, exhaust: {}, starve: {}, eaten: 0, tired: 0, screen: 'base', trip: null, fight: null, log: [], over: false, kills: 0,
   });
   for (const d of st.items) {
     const it = d.k === 'w' ? mkWeapon(d.type, d.rar) : mkArmor(d.type, d.rar);
@@ -47,15 +47,24 @@ export function sleep() {
   // споживання
   for (const r in D.consume) S.res[r] -= D.consume[r];
   if (S.res.heat < 0 && S.res.wood > 0) { const b = Math.min(S.res.wood, -S.res.heat); S.res.wood -= b; S.res.heat += b; msgs.push(`🪵 Спалив ${b} дерева в пічці, щоб не замерзнути.`); }
-  let pen = 0;
-  const hurt = `−${D.shortageHp} HP, менше сил.`;
-  if (S.res.water < 0) { pen++; S.res.water = 0; msgs.push('💧 Спрага! ' + hurt); }
-  if (S.res.food < 0) { pen++; S.res.food = 0; msgs.push('🍖 Голод! ' + hurt); }
-  if (S.res.heat < 0) { pen++; S.res.heat = 0; msgs.push('🥶 Холод у домі! ' + hurt); }
+  // Нестача: шкода росте з кожним днем поспіль без ресурсу
+  let pen = 0, dmg = 0;
+  const SHORT = { water: '💧 Спрага!', food: '🍖 Голод!', heat: '🥶 Холод у домі!' };
+  for (const r in SHORT) {
+    if (S.res[r] < 0) {
+      pen++; S.res[r] = 0; S.starve[r] = (S.starve[r] || 0) + 1;
+      const d = D.shortageHp + D.shortageHpGrowth * (S.starve[r] - 1); dmg += d;
+      msgs.push(`${SHORT[r]} −${d} HP, менше сил.` + (S.starve[r] > 1 ? ` (${S.starve[r]}-й день поспіль)` : ''));
+    } else S.starve[r] = 0;
+  }
   S.tired = pen * D.shortageTired;
-  S.hp = Math.min(maxHP(), S.hp + Math.round(maxHP() * D.sleepHealPct)) - pen * D.shortageHp;
+  const healed = pen && D.noHealOnShortage ? S.hp : Math.min(maxHP(), S.hp + Math.round(maxHP() * D.sleepHealPct));
+  if (pen && D.noHealOnShortage) msgs.push('😣 У нестачі сон не лікує.');
+  S.hp = healed - dmg;
   S.sily = maxSily(); S.eaten = 0;
   for (const k in S.depleted) { if (--S.depleted[k] <= 0) delete S.depleted[k]; }
+  // Виснажені тобою локації потроху відновлюються
+  for (const k in S.exhaust) { S.exhaust[k] = Math.max(0, S.exhaust[k] - BAL.exhaust.regenPerDay); if (!S.exhaust[k]) delete S.exhaust[k]; }
   rivalsMove();
   msgs.forEach(m => log(m)); log('☀️ Новий день.');
   if (S.hp <= 0) S.over = true;

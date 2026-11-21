@@ -4,7 +4,7 @@ import { rnd, pick, chance } from './util.js';
 import { ui } from './hooks.js';
 import { S, log, locById, resStr, useSily } from './state.js';
 import { randomItem, itemEmoji } from './items.js';
-import { bagCount, addBag, rollLoot, lose } from './trip.js';
+import { bagCount, addBag, rollLoot, lootMult, lose } from './trip.js';
 import { startFight, mkEnemy } from './combat.js';
 import { survivor } from './survivors.js';
 import { itemHTML } from './ui/format.js';
@@ -27,15 +27,16 @@ export function goTo(id) {
 export function search() {
   const SR = BAL.search;
   if (!useSily(BAL.actions.searchSily)) return;
-  const L = locById(S.trip.loc), dep = !!S.depleted[L.id];
+  const L = locById(S.trip.loc), dep = !!S.depleted[L.id], mult = lootMult(L);
+  S.exhaust[L.id] = (S.exhaust[L.id] || 0) + 1;
   const rareP = SR.rareBase + L.z * SR.rarePerZone + (L.rareBoost ? SR.rareBoost : 0);
   if (chance(rareP)) return startFight(mkEnemy(pick(Object.keys(RARE)), true, L.z));
   const r = Math.random(), rivalHere = S.rivalAt[L.id] !== undefined;
   if (r < SR.fight) return startFight(mkEnemy(pick(L.mon), false, L.z));
   if (r < SR.loot) {
-    const o = rollLoot(L.res, dep), got = addBag(o);
+    const o = rollLoot(L.res, mult), got = addBag(o);
     const full = bagCount() >= BAL.trip.bagCap ? '<br><span class="mut">Рюкзак повний!</span>' : '';
-    return ui.showEvent({ e: '📦', t: 'Знахідка', txt: (Object.keys(got).length ? 'Знайшов: ' + resStr(got) : 'Тут уже все винесли…' + (dep ? ' (хтось був тут до тебе)' : '')) + full, b: [['Ок', null]] });
+    return ui.showEvent({ e: '📦', t: 'Знахідка', txt: (Object.keys(got).length ? 'Знайшов: ' + resStr(got) : 'Тут уже все винесли…' + (dep ? ' (хтось був тут до тебе)' : mult < 1 ? ' (ти сам тут усе вигріб)' : '')) + full, b: [['Ок', null]] });
   }
   if (r < SR.survivor || (rivalHere && r < SR.survivorWithRival)) return survivor(L, rivalHere);
   if (r < SR.cache) { const it = randomItem(L.z); S.trip.items.push(it); return ui.showEvent({ e: itemEmoji(it), t: 'Схованка!', txt: itemHTML(it), b: [['Забрати', null]] }); }

@@ -3,7 +3,7 @@
 import { BLD } from './data.js';
 import { S, setState } from './state.js';
 
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
 const KEY = 'ashfog_save';
 const LEGACY_KEYS = ['ashfog_v1']; // прототип index.html (версія 1, без поля saveVersion)
 
@@ -11,6 +11,8 @@ const LEGACY_KEYS = ['ashfog_v1']; // прототип index.html (версія 
 const MIGRATIONS = {
   // v1 (прототип) → v2: структура та сама, лише з'являється saveVersion.
   1: s => s,
+  // v2 → v3: виснаження локацій гравцем і лічильники днів нестачі поспіль.
+  2: s => ({ ...s, exhaust: s.exhaust || {}, starve: s.starve || {} }),
 };
 
 export function migrate(data) {

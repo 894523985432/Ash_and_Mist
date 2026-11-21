@@ -12,10 +12,28 @@ export function addBag(o) {
   return got;
 }
 
-export function rollLoot(tbl, half) {
+/** Лут із таблиці {res: [min, max]}, помножений на mult (дробова частина — з імовірністю). */
+export function rollLoot(tbl, mult = 1) {
   const o = {};
-  for (const [k, [a, b]] of Object.entries(tbl)) { let n = rnd(a, b); if (half) n = Math.floor(n / BAL.rivals.depletedLootDivisor); if (n > 0) o[k] = n; }
+  for (const [k, [a, b]] of Object.entries(tbl)) {
+    const x = rnd(a, b) * mult, n = Math.floor(x) + (Math.random() < x % 1 ? 1 : 0);
+    if (n > 0) o[k] = n;
+  }
   return o;
+}
+
+/** Наскільки зону вже вигребли інші вижилі до цього дня (1 — ціла). */
+export function zoneDecay(z, day = S.day) {
+  const D = BAL.exhaust.zoneDecay[z];
+  if (!D || day <= D.from) return 1;
+  return Math.max(D.min, 1 - (day - D.from) * D.perDay);
+}
+
+/** Множник луту локації: вигребена зона × твоє власне виснаження × суперник (÷ дільник). */
+export function lootMult(L) {
+  const E = BAL.exhaust;
+  const ex = Math.max(E.minMult, 1 - (S.exhaust[L.id] || 0) * E.perSearch[L.z]);
+  return zoneDecay(L.z) * ex / (S.depleted[L.id] ? BAL.rivals.depletedLootDivisor : 1);
 }
 
 export function lose(why) {

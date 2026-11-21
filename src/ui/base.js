@@ -20,7 +20,7 @@ export function vBase() {
       <button ${act('stim')} ${dis(S.res.stim)}>☕ Стимулятор (+${A.stim.sily}⚡)</button>
       <button class="pri" ${act('sleep')}>🌙 Спати (кінець дня)</button>
     </div>
-    <div class="mut" style="margin-top:6px">Щодоби: ${dailyConsumeText()} (вночі холодніше). Нестача → −${D.shortageHp} HP і менше сил наступного дня. Брак тепла добирається деревом із пічки.</div>
+    <div class="mut" style="margin-top:6px">Щодоби: ${dailyConsumeText()} (вночі холодніше). Нестача → −${D.shortageHp} HP (і ще −${D.shortageHpGrowth} за кожен наступний день поспіль)${D.noHealOnShortage ? ', сон не лікує' : ''} і менше сил наступного дня. Брак тепла добирається деревом із пічки.</div>
   </div>
   <div class="card"><h2>Будівництво</h2><div class="grid">${b}</div></div>
   ${S.bld.shop ? `<div class="card"><h2>🔧 Майстерня</h2><div class="row">

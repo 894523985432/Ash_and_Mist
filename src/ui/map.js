@@ -1,5 +1,6 @@
 import { RES, MON, LOCS, ZONE, BAL } from '../data.js';
 import { S } from '../state.js';
+import { lootMult } from '../trip.js';
 import { act, dis, artBox } from './common.js';
 
 export function vMap() {
@@ -12,7 +13,7 @@ export function vMap() {
       const rv = S.rivalAt[L.id] !== undefined ? S.rivals[S.rivalAt[L.id]] : null;
       return `<div class="item">${artBox('loc_' + L.id, L.e, 'sq')}<b>${L.n}</b>
       <div class="mut">${Object.keys(L.res).map(k => RES[k][0]).join(' ')} · ${L.mon.map(m => MON[m].e).join('')}${L.rareBoost ? ' · ✨ часто рідкісні' : ''}</div>
-      ${S.depleted[L.id] ? '<div style="color:var(--warn)">⚠ Вичищено (лут ×½)</div>' : ''}${rv ? `<div style="color:var(--acc)">${rv.e} Тут ${rv.n}</div>` : ''}
+      ${lootMult(L) < 0.99 ? `<div style="color:var(--warn)">⚠ ${S.depleted[L.id] ? 'Вичищено суперником' : 'Виснажено'} (лут ×${lootMult(L).toFixed(1)})</div>` : ''}${rv ? `<div style="color:var(--acc)">${rv.e} Тут ${rv.n}</div>` : ''}
       <button class="sm pri" style="margin-top:6px;width:100%" ${act('goTo', L.id)} ${dis(S.sily >= Z.travel)}>Вирушити</button></div>`;
     }).join('')}</div>`;
   }).join('')}`;
