@@ -20,6 +20,7 @@ import { goTo, search, goHome, scout } from '../src/map.js';
 import { playCard, blockAct, superAct, flee, endTurn } from '../src/combat.js';
 import { item, maxHP, pDef, baseAP, canPay } from '../src/state.js';
 import { bagCount } from '../src/trip.js';
+import { travelCost } from '../src/events.js';
 
 /* ---------- параметри ---------- */
 const CFG = JSON.parse(readFileSync(new URL('./sim.config.json', import.meta.url), 'utf-8'));
@@ -147,7 +148,7 @@ function makeBot(st, stats) {
     // обережний не лізе в небезпечнішу зону пораненим
     if (st.zone === 'level' && z > 0 && S.hp < maxHP() * (st.riskyHp ?? 0)) z--;
     let cands = [];
-    for (; z >= 0 && !cands.length; z--) cands = open.filter(l => l.z === z && S.sily >= ZONE[l.z].travel + 2);
+    for (; z >= 0 && !cands.length; z--) cands = open.filter(l => l.z === z && S.sily >= travelCost(l.z) + 2);
     if (!cands.length) return null;
     const val = L => Object.entries(L.res).reduce((a, [r, [lo, hi]]) => a + need(r) * (lo + hi) / 2, 0) * (S.depleted[L.id] ? 0.5 : 1);
     return cands.sort((a, b) => val(b) - val(a))[0];
@@ -189,7 +190,7 @@ function makeBot(st, stats) {
   };
   function buildStep(homeDay = false) {
     if (!st.build) return;
-    const reserve = homeDay ? 0 : ZONE[0].travel + 3;
+    const reserve = homeDay ? 0 : travelCost(0) + 3;
     for (const k of ORDER) {
       if (!canBuild(k)) continue;
       if (S.sily - BAL.actions.buildSily < reserve && S.day > 1) break;
@@ -212,7 +213,7 @@ function makeBot(st, stats) {
     if (S.hp < maxHP() * 0.6 && S.res.med) heal();
     if (S.res.stim && S.sily < 6) stim();
     const hidden = LOCS.some(l => !S.open.includes(l.id));
-    if (hidden && S.sily >= BAL.actions.scoutSily + ZONE[0].travel + 2 && (S.day % 3 === 0 || S.lvl >= 4)) { scout(); resolve(); }
+    if (hidden && S.sily >= BAL.actions.scoutSily + travelCost(0) + 2 && (S.day % 3 === 0 || S.lvl >= 4)) { scout(); resolve(); }
     trip();
     manageGear();
     buildStep();
@@ -234,10 +235,7 @@ function runStrategy(name, st) {
       if (TRACE && g === 0) console.log(`  [${name}] д${S.day} рів${S.lvl} ❤️${S.hp}/${maxHP()} ⚡${S.sily} ` + Object.entries(S.res).map(([k, v]) => k[0] + k[1] + v).join(' ') + ' | ' + Object.entries(S.bld).filter(([, v]) => v).map(([k, v]) => k + v).join(' '));
       const dayNo = S.day;
       sleep();
-      const txt = pending?.txt || '';
-      if (txt.includes('Спрага')) inc(stats.shortage.water, dayNo);
-      if (txt.includes('Голод')) inc(stats.shortage.food, dayNo);
-      if (txt.includes('Холод')) inc(stats.shortage.heat, dayNo);
+      for (const r of ['water', 'food', 'heat']) if (S.starve[r]) inc(stats.shortage[r], dayNo);
       bot.resolve();
       if (S.over) {
         died = true;

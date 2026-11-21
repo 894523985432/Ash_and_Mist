@@ -2,8 +2,9 @@
 // Коли змінюєш структуру стану: збільш SAVE_VERSION і додай міграцію MIGRATIONS[старa_версія].
 import { BLD } from './data.js';
 import { S, setState } from './state.js';
+import { initNpcs } from './npcs.js';
 
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 const KEY = 'ashfog_save';
 const LEGACY_KEYS = ['ashfog_v1']; // прототип index.html (версія 1, без поля saveVersion)
 
@@ -13,6 +14,12 @@ const MIGRATIONS = {
   1: s => s,
   // v2 → v3: виснаження локацій гравцем і лічильники днів нестачі поспіль.
   2: s => ({ ...s, exhaust: s.exhaust || {}, starve: s.starve || {} }),
+  // v3 → v4: постійні вижилі, події дня, колекція трофеїв, навчання (старим гравцям вимкнене).
+  3: s => ({
+    ...s, npcs: initNpcs(), event: null, caravan: null,
+    collection: Object.fromEntries(Object.keys(s.trophies || {}).map(k => [k, true])),
+    tut: { seen: {}, off: true },
+  }),
 };
 
 export function migrate(data) {

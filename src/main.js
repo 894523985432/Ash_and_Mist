@@ -9,6 +9,8 @@ import { scout, goTo, search, goHome } from './map.js';
 import { playCard, blockAct, superAct, flee, endTurn } from './combat.js';
 import { restoreArt, clearArt } from './art.js';
 import { mountUI, render } from './ui/render.js';
+import { caravanTrade } from './events.js';
+import { tutOk, tutOff } from './ui/tutorial.js';
 
 let confirmNew = false;
 
@@ -18,7 +20,9 @@ const ACTIONS = {
   build, craft, dismantle, toggleEq,
   scout, goTo, search, goHome,
   playCard, blockAct, superAct, flee, endTurn,
-  clearArt,
+  clearArt, caravanTrade,
+  tutOk: id => { tutOk(id); render(); },
+  tutOff: () => { tutOff(); render(); },
   newGame: () => { newGame(); ui.go('base'); },
   newGameConfirm: () => {
     if (confirmNew) { newGame(); ui.go('base'); }

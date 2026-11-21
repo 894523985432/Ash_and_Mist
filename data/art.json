@@ -2,19 +2,31 @@
   "style": "anime style, post-apocalyptic dark fantasy, ruined city, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece",
   "fixed": [
     ["hero", "main character, young man with white hair and red eyes, black coat, survivor gear, portrait"],
-    ["base", "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk"],
+    ["base_1", "tiny ruined shack on the edge of a ruined city, boarded windows, dusk"],
+    ["base_2", "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk"],
+    ["base_3", "well fortified survivor compound, walls with spikes, greenhouse, solar panels, workshop, warm lights, dusk"],
+    ["base_trophy", "survivor house interior, wall of strange glowing trophies, crystal tail, golden shell, cozy, night"],
     ["survivor", "hostile wasteland survivor, hood, gas mask, makeshift weapon"]
   ],
   "locations": {
     "gas": "abandoned gas station",
     "mart": "looted supermarket interior",
     "wood": "dead forest belt with fog",
+    "laundry": "abandoned laundromat, rows of rusty washing machines",
+    "bus": "wrecked city bus overgrown with weeds",
+    "houses": "abandoned suburban private houses, overgrown gardens",
     "school": "destroyed school hallway",
     "res": "water reservoir with rusted pipes",
     "depot": "abandoned tram depot",
+    "market": "abandoned flea market stalls under torn tarps",
+    "fire": "abandoned fire station with old red fire truck",
+    "library": "ruined city library, fallen bookshelves, light beams",
     "hosp": "old hospital corridor, flickering lights",
     "tower": "radio tower in fog, night",
-    "rift": "glowing fog rift, floating debris, magic"
+    "rift": "glowing fog rift, floating debris, magic",
+    "metro": "flooded metro station, flickering lamps",
+    "army": "abandoned military base, rusted tanks, barbed wire",
+    "bgarden": "mutated botanical garden, giant glowing flowers, broken glass dome"
   },
   "monsterSuffix": ", monster, full body",
   "rareSuffix": ", rare mystical creature, glowing, full body"

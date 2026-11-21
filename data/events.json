@@ -1,0 +1,31 @@
+{
+  "seasonLength": 10,
+  "seasons": [
+    { "id": "spring", "n": "Весна", "e": "🌱", "d": "Дощі: +1💧 щодня, якщо є дощозбірник", "prodIf": { "rain": { "water": 1 } } },
+    { "id": "summer", "n": "Літо",  "e": "☀️", "d": "Спрага: +1💧 витрати щодня", "consume": { "water": 1 } },
+    { "id": "autumn", "n": "Осінь", "e": "🍂", "d": "Врожай: +1🍖 щодня, якщо є город", "prodIf": { "garden": { "food": 1 } } },
+    { "id": "winter", "n": "Зима",  "e": "❄️", "d": "Холод: +1🔥 витрати щодня, город родить на 1 менше", "consume": { "heat": 1 }, "prodIf": { "garden": { "food": -1 } } }
+  ],
+
+  "eventChance": 0.4,
+  "events": [
+    { "id": "storm",   "n": "Буря",               "e": "🌪️", "w": 3, "d": "Дорога в кожен бік дорожча на 1⚡, зате бочки повні: +2💧", "travelAdd": 1, "prod": { "water": 2 } },
+    { "id": "fog",     "n": "Густий туман",       "e": "🌫️", "w": 3, "d": "Рідкісні трапляються вдвічі частіше, але й бійок більше, а знахідок менше", "rareMult": 2, "fightAdd": 0.05, "lootMult": 0.8 },
+    { "id": "caravan", "n": "Караван",            "e": "🐪", "w": 2, "fromDay": 3, "d": "До бази прийшов караван — можна поміняти ресурси на речі", "caravan": 3 },
+    { "id": "heat",    "n": "Спека",              "e": "🥵", "w": 3, "seasons": ["summer"], "d": "+1💧 витрати сьогодні", "consume": { "water": 1 } },
+    { "id": "frost",   "n": "Мороз",              "e": "🥶", "w": 3, "seasons": ["autumn", "winter"], "d": "+1🔥 витрати сьогодні", "consume": { "heat": 1 } },
+    { "id": "looters", "n": "Мародери в окрузі",  "e": "🏴", "w": 2, "fromDay": 4, "d": "Вночі шанс нальоту на склад вищий на 20%", "raidAdd": 0.2 },
+    { "id": "bounty",  "n": "Щедрий день",        "e": "🍀", "w": 1, "d": "Знахідок більше: лут ×1,5", "lootMult": 1.5 }
+  ],
+
+  "caravanOffers": [
+    { "give": { "metal": 4, "parts": 2 }, "item": "w", "rar": "u" },
+    { "give": { "metal": 3, "parts": 2 }, "item": "a", "rar": "u" },
+    { "give": { "parts": 6, "fuel": 2 },  "item": "w", "rar": "r" },
+    { "give": { "wood": 4 },              "get": { "food": 3 } },
+    { "give": { "fuel": 3 },              "get": { "heat": 4 } },
+    { "give": { "parts": 3 },             "get": { "med": 2 } },
+    { "give": { "metal": 3 },             "get": { "water": 4 } },
+    { "give": { "food": 3, "water": 3 },  "get": { "stim": 2 } }
+  ]
+}

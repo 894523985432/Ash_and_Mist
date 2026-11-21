@@ -2,6 +2,7 @@
 import { RES } from '../data.js';
 import { S, maxHP, maxSily, pDef, xpNeed } from '../state.js';
 import { ART } from '../art.js';
+import { season, event } from '../events.js';
 
 /** Атрибути для кнопки: клік викликає ACTIONS[name](arg) (див. ui/render.js). */
 export const act = (name, arg) => `data-act="${name}"${arg !== undefined ? ` data-arg="${arg}"` : ''}`;
@@ -14,7 +15,7 @@ export function artBox(key, emoji, cls = '', cap = '') {
 export function topBar() {
   const r = S.res, low = k => (r[k] < 2 ? 'low' : '');
   return `<div class="top"><div class="row" style="margin-bottom:6px">
-    <b>День ${S.day}</b><span class="chip">⭐ Рів. ${S.lvl} <span class="mut">${S.xp}/${xpNeed()}</span></span>
+    <b>День ${S.day}</b><span class="chip" title="${season().d}">${season().e} ${season().n}</span>${event() ? `<span class="chip ev" title="${event().d}">${event().e} ${event().n}</span>` : ''}<span class="chip">⭐ Рів. ${S.lvl} <span class="mut">${S.xp}/${xpNeed()}</span></span>
     <span class="chip ${S.sily < 2 ? 'low' : ''}">⚡ ${S.sily}/${maxSily()}</span><span class="chip">🛡️ ${pDef()}</span>
     <div class="bar"><i style="width:${Math.max(0, S.hp / maxHP() * 100)}%"></i></div><span class="mut">❤️ ${Math.max(0, S.hp)}/${maxHP()}</span></div>
     <div class="row">${['water', 'food', 'heat'].map(k => `<span class="chip ${low(k)}">${RES[k][0]} ${r[k]}</span>`).join('')}

@@ -11,6 +11,7 @@ import { vFight } from './fight.js';
 import { vGear } from './gear.js';
 import { vArt } from './art.js';
 import { vOver } from './over.js';
+import { tutorialCard } from './tutorial.js';
 
 const $ = s => document.querySelector(s);
 const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, art: vArt, over: vOver };
@@ -18,7 +19,7 @@ let EV = null;
 
 export function render() {
   const v = VIEWS[S.screen] || vBase;
-  $('#app').innerHTML = topBar() + v() + tabs();
+  $('#app').innerHTML = topBar() + tutorialCard(S.screen) + v() + tabs();
   const ai = $('#artin'); if (ai) ai.onchange = e => loadArt(e.target.files);
   save();
 }

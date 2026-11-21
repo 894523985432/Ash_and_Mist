@@ -2,6 +2,7 @@
   "start": {
     "day": 1,
     "sily": 8,
+    "open": ["gas", "mart", "wood"],
     "res": { "water": 6, "food": 6, "heat": 5, "fuel": 2, "wood": 3, "metal": 1, "parts": 0, "med": 1, "stim": 0 },
     "items": [
       { "k": "w", "type": "knife", "rar": "c", "equip": true },
@@ -133,6 +134,17 @@
     }
   },
 
+  "npc": {
+    "temperChance": 0.6,
+    "hostileAt": -30,
+    "friendlyAt": 30,
+    "rel": { "trade": 6, "sellTrophy": 10, "payToll": 4, "fight": -15, "beaten": -20, "lostTo": 5, "hermit": 5, "fledFrom": -5 },
+    "growthPerDay": 0.03,
+    "goneAfterBeaten": 3,
+    "friendTradeBonus": 1,
+    "raid": { "fromDay": 5, "chancePerHostile": 0.12, "perWall": 0.04, "rolls": 2, "amount": [2, 4] }
+  },
+
   "rivals": {
     "powGain": 0.12,
     "powMax": 2.9,
@@ -153,19 +165,28 @@
     "fleeChance": 0.5,
     "rareAtkPerZone": 1,
     "zoneScale": [
-      { "hp": 1.6, "atk": 1.7 },
-      { "hp": 2.6, "atk": 2.8 },
+      { "hp": 1.8, "atk": 1.9 },
+      { "hp": 2.9, "atk": 3.1 },
       { "hp": 3.4, "atk": 3.6 }
     ],
     "rareFleeXpMult": 0.5,
     "traits": {
       "bleed":  { "dmg": 2, "turns": 2 },
       "stun":   { "chance": 0.3 },
-      "heavy":  { "defBreak": 2 },
+      "heavy":  { "defBreak": 2, "shieldBreak": 4 },
+      "multi":  { "hits": 3 },
+      "burn":   { "dmg": 3, "turns": 3 },
+      "shock":  { "chance": 0.5 },
       "drain":  { "pct": 0.5 },
       "spread": { "min": 0.5, "range": 1 }
     }
   },
+
+  "baseLooks": [
+    { "min": 0,  "key": "base_1", "e": "🏚️", "n": "Халупа" },
+    { "min": 6,  "key": "base_2", "e": "🏠", "n": "Дім" },
+    { "min": 14, "key": "base_3", "e": "🏰", "n": "Фортеця" }
+  ],
 
   "logMax": 40
 }

@@ -1,18 +1,25 @@
 import { WPN, RAR, BAL } from '../data.js';
 import { S, item, baseAP } from '../state.js';
 import { itemName } from '../items.js';
+import { traitText } from '../combat.js';
 import { act, dis, artBox } from './common.js';
 
 export function vFight() {
-  const F = S.fight, en = F.en, C = BAL.combat;
+  const F = S.fight, en = F.en, C = BAL.combat, mins = en.minions || [];
   const it = { atk: `🗡️ Атакує на ${en.intent.v}`, heavy: `💢 Важкий удар: ${en.intent.v}`, guard: `🛡️ У захисті (+${C.guardDef}) і б'є на ${en.intent.v}`, flee: '💨 Збирається втекти!' }[en.intent.t];
   const key = en.human ? 'survivor' : 'mon_' + en.key;
+  const chips = [
+    en.stun && '💫 оглушений', en.bleedT && `🩸 ${en.bleedT}`, en.burnT && `🔥 ${en.burnT}`,
+    en.shield > 0 && `🛡️ панцир ${en.shield}`, mins.length && `👥 ${en.summon.n} ×${mins.length} (${mins.map(m => m.hp).join('/')} HP)`,
+  ].filter(Boolean).map(c => `<span class="chip">${c}</span>`).join('');
+  const tt = traitText(en);
   return `${artBox(key, en.e, '', en.n + (en.rare ? ' ✨' : ''))}
   <div class="card" style="margin-top:10px">
     <div class="row"><b>${en.n}</b><div class="bar"><i style="width:${Math.max(0, en.hp / en.max * 100)}%"></i></div><span class="mut">${Math.max(0, en.hp)}/${en.max} · 🛡️${en.def + (en.guard ? C.guardDef : 0)}</span></div>
-    <div style="margin-top:8px"><span class="intent">Намір: ${it}</span> ${en.stun ? '<span class="chip">💫 оглушений</span>' : ''}${en.bleedT ? '<span class="chip">🩸 ' + en.bleedT + '</span>' : ''}</div>
+    ${tt ? `<div class="mut" style="margin-top:4px">${tt}</div>` : ''}
+    <div class="row" style="margin-top:8px"><span class="intent">Намір: ${it}${mins.length ? ` + прислужники ${mins.length * en.summon.atk}` : ''}</span> ${chips}</div>
   </div>
-  <div class="card"><div class="row" style="margin-bottom:8px"><b>Хід ${F.turn}</b><span class="chip">⚡ ОД: ${F.ap}/${baseAP()}</span><span class="chip">🛡️ Блок: ${F.block}</span>
+  <div class="card"><div class="row" style="margin-bottom:8px"><b>Хід ${F.turn}</b><span class="chip">⚡ ОД: ${F.ap}/${baseAP()}</span><span class="chip">🛡️ Блок: ${F.block}</span>${F.poisonT ? `<span class="chip low">☠️ отрута ${F.poison}×${F.poisonT}</span>` : ''}
     <div class="bar sup"><i style="width:${S.sup / C.super.max * 100}%"></i></div><span class="mut">🌟 ${S.sup}%</span></div>
     <div class="hand">${F.hand.map((id, i) => {
       const w = item(id); if (!w) return ''; const R = RAR[w.rar];
