@@ -3,7 +3,7 @@
   "fixed": [
     [
       "hero",
-      "main character, young man with white hair and red eyes, black coat, survivor gear, portrait"
+      "1boy, solo, teenage boy, white hair, messy short hair, red eyes, oversized black coat, survivor gear, serious expression, looking at viewer, portrait"
     ],
     [
       "base_1",
@@ -27,7 +27,7 @@
     ]
   ],
   "locations": {
-    "gas": "abandoned gas station",
+    "gas": "abandoned gas station with fuel pumps under a canopy, rusted car, broken neon sign, overgrown asphalt",
     "mart": "looted supermarket interior",
     "wood": "dead forest belt with fog",
     "laundry": "abandoned laundromat, rows of rusty washing machines",
@@ -90,7 +90,7 @@
     "rudyi": "red-haired thug with brass knuckles, freckles",
     "aska": "masked female ninja raider, dark clothes, katana",
     "veresk": "old hermit wizard with heather flowers in long beard",
-    "liia": "quiet little girl survivor with a teddy bear and big coat",
+    "liia": "quiet young woman survivor in an oversized coat with a teddy bear keychain",
     "borys": "huge man with a mechanical prosthetic arm, heavy armor",
     "noks": "pale mysterious man in a long coat, vampire-like, calm"
   }

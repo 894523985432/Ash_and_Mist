@@ -8,7 +8,8 @@
     python tools/art/generate.py --dry-run     — лише показати, що буде згенеровано
     python tools/art/generate.py --sync        — лише оновити assets.json
 
-assets.json будується з data/*.json: нові ключі додаються, а ручні правки prompt/seed/ref зберігаються.
+assets.json будується з data/*.json: опис і розмір щоразу оновлюються з data/art.json, а seed і ref зберігаються.
+Щоб зафіксувати власний prompt для ключа, додай у його запис "lock": true.
 Результат: public/art/<key>.webp і public/art/manifest.json (гра читає його й підставляє арт замість емодзі).
 """
 import argparse, fnmatch, json, os, sys, time, uuid, zlib
@@ -42,16 +43,16 @@ def wanted_assets():
     npcs = load(os.path.join(ROOT, 'data', 'npcs.json'))['names']
     out = []
     for key, prompt in art['fixed']:
-        size = 'wide' if key.startswith('base') else 'square'
-        out.append({'key': key, 'prompt': prompt, 'size': size})
+        cat = 'base' if key.startswith('base') else 'hero' if key == 'hero' else 'person'
+        out.append({'key': key, 'cat': cat, 'prompt': prompt, 'size': 'wide' if cat == 'base' else 'square'})
     for L in locs:
-        out.append({'key': 'loc_' + L['id'], 'prompt': art['locations'].get(L['id'], L['id']) + ', no people, scenery', 'size': 'wide'})
+        out.append({'key': 'loc_' + L['id'], 'cat': 'loc', 'prompt': art['locations'].get(L['id'], L['id']), 'size': 'wide'})
     for k in mons:
-        out.append({'key': 'mon_' + k, 'prompt': art['monsters'].get(k, k) + art['monsterSuffix'], 'size': 'square'})
+        out.append({'key': 'mon_' + k, 'cat': 'mon', 'prompt': art['monsters'].get(k, k) + art['monsterSuffix'], 'size': 'square'})
     for k in rare:
-        out.append({'key': 'mon_' + k, 'prompt': art['rare'].get(k, k) + art['rareSuffix'], 'size': 'square'})
+        out.append({'key': 'mon_' + k, 'cat': 'mon', 'prompt': art['rare'].get(k, k) + art['rareSuffix'], 'size': 'square'})
     for p in npcs:
-        out.append({'key': 'survivor_' + p['key'], 'prompt': art['npcs'].get(p['key'], 'wasteland survivor') + ', portrait, upper body', 'size': 'square'})
+        out.append({'key': 'survivor_' + p['key'], 'cat': 'person', 'prompt': art['npcs'].get(p['key'], 'wasteland survivor'), 'size': 'square'})
     return out
 
 
@@ -63,6 +64,9 @@ def sync_assets():
         if a is None:
             a = {**w, 'seed': zlib.crc32(w['key'].encode()) % 2**31}
             added.append(w['key'])
+        elif not a.get('lock'):
+            a.update(w)  # опис і розмір — з data/art.json; seed і ref лишаються твої
+        a.pop('unused', None)
         result.append(a)
     for k, a in old.items():  # ключі, яких гра вже не просить, лишаємо з позначкою
         a['unused'] = True
@@ -127,20 +131,21 @@ class Comfy:
         return self._req('/view?' + q)
 
 
-def subject(prompt, cfg):
-    """Опис об'єкта з вагою (prompt:1.3), щоб загальний стиль його не перебивав."""
-    w = cfg.get('subjectWeight', 1)
+def subject(prompt, cfg, cat=None):
+    """Опис об'єкта з вагою (prompt:1.3), щоб загальний стиль його не перебивав. Категорія може задати свою вагу."""
+    w = (cat or {}).get('weight', cfg.get('subjectWeight', 1))
     return f'({prompt}:{w})' if w != 1 else prompt
 
 
 def build_workflow(cfg, style, asset, ref_name=None):
     tpl = load(os.path.join(HERE, 'workflow_ref.json' if ref_name else 'workflow.json'))
     w, h = cfg['sizes'][asset['size']]
+    cat = cfg.get('categories', {}).get(asset.get('cat'), {})
     vals = {
         '$checkpoint': cfg['checkpoint'],
         # опис — раніше за стиль: SDXL сильніше слухає початок промпта
-        '$positive': ', '.join(x for x in [cfg.get('prefix', ''), subject(asset['prompt'], cfg), style] if x),
-        '$negative': cfg['negative'],
+        '$positive': ', '.join(x for x in [cfg.get('prefix', ''), subject(asset['prompt'], cfg, cat), cat.get('suffix', ''), style] if x),
+        '$negative': ', '.join(x for x in [cfg['negative'], cat.get('negative', '')] if x),
         '$width': w, '$height': h, '$seed': asset['seed'],
         '$steps': cfg['steps'], '$cfg': cfg['cfg'], '$sampler': cfg['sampler'], '$scheduler': cfg['scheduler'],
         '$quality': cfg['webpQuality'], '$prefix': 'ashfog/' + asset['key'],

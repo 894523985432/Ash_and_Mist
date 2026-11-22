@@ -3,6 +3,13 @@
   "checkpoint": "ponyDiffusionV6XL.safetensors",
   "prefix": "score_9, score_8_up, score_7_up, source_anime",
   "subjectWeight": 1.3,
+  "categories": {
+    "loc":    { "suffix": "no humans, scenery, wide shot", "negative": "people, person, 1girl, 1boy, character" },
+    "base":   { "suffix": "no humans, scenery, wide shot", "negative": "people, person, 1girl, 1boy, character" },
+    "mon":    { "suffix": "solo, full body, dark background", "negative": "human, 1girl, 1boy" },
+    "hero":   { "weight": 1, "suffix": "upper body, wasteland background, anime coloring", "negative": "loli, shota, chibi, toddler, nsfw, nude, suggestive, revealing clothes" },
+    "person": { "suffix": "adult, solo, upper body, wasteland background", "negative": "child, loli, shota, chibi, nsfw, nude, suggestive, cleavage, revealing clothes" }
+  },
   "negative": "score_4, score_5, score_6, lowres, bad anatomy, text, watermark, signature, blurry",
   "steps": 25,
   "cfg": 7,
