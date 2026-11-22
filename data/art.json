@@ -11,7 +11,7 @@
     ],
     [
       "base_2",
-      "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk"
+      "small fortified wooden house, barricaded windows, scrap metal walls, vegetable garden, solar panel on roof, dusk"
     ],
     [
       "base_3",
@@ -19,7 +19,7 @@
     ],
     [
       "base_trophy",
-      "survivor house interior, wall of strange glowing trophies, crystal tail, golden shell, cozy, night"
+      "cozy survivor room interior, wall shelf with glowing trophies, crystal fox tail, golden beetle shell, jar with glowing jellyfish, warm lamp light, night"
     ],
     [
       "survivor",
@@ -30,20 +30,20 @@
     "gas": "abandoned gas station with fuel pumps under a canopy, rusted car, broken neon sign, overgrown asphalt",
     "mart": "looted supermarket interior",
     "wood": "dead forest belt with fog",
-    "laundry": "abandoned laundromat, rows of rusty washing machines",
+    "laundry": "interior of abandoned laundromat, rows of washing machines, broken neon sign, tiled floor",
     "bus": "wrecked city bus overgrown with weeds",
-    "houses": "abandoned suburban private houses, overgrown gardens",
+    "houses": "row of abandoned suburban wooden houses, overgrown front gardens, broken fences",
     "school": "destroyed school hallway",
     "res": "water reservoir with rusted pipes",
     "depot": "abandoned tram depot",
-    "market": "abandoned flea market stalls under torn tarps",
+    "market": "abandoned outdoor flea market street, many wooden stalls with torn colorful tarps, hanging lanterns, crates of junk",
     "fire": "abandoned fire station with old red fire truck",
     "library": "ruined city library, fallen bookshelves, light beams",
     "hosp": "old hospital corridor, flickering lights",
     "tower": "radio tower in fog, night",
     "rift": "glowing fog rift, floating debris, magic",
     "metro": "flooded metro station, flickering lamps",
-    "army": "abandoned military base, rusted tanks, barbed wire",
+    "army": "abandoned military base, rusted tanks, barbed wire fence, watchtower, sandbags",
     "bgarden": "mutated botanical garden, giant glowing flowers, broken glass dome"
   },
   "monsterSuffix": ", monster, full body",
@@ -54,19 +54,19 @@
     "slime": "rust-colored slime monster with metal scraps inside, dripping",
     "centi": "giant venomous centipede, purple carapace, dripping poison",
     "ratqueen": "huge rat queen with a crown of bones, surrounded by small rats",
-    "goblin": "small sneaky goblin thief with a sack of loot, grin",
+    "goblin": "small green goblin creature, pointy ears, big grin, carrying a sack of stolen loot, sneaky pose",
     "raider": "shadowy marauder in a black hood and mask, glowing eyes, knife",
     "bwolf": "skeletal wolf with exposed bones and ghostly flames",
     "crawler": "giant scorpion-like crawler mutant, armored tail",
     "beetle": "huge armored beetle with thick iron-like shell",
-    "toad": "bloated swamp toad mutant, toxic green warts",
+    "toad": "giant toad monster, animal, quadruped, warty green skin, huge mouth, swamp",
     "necro": "teenage necromancer in torn hoodie raising skeletons, green magic",
     "scav": "scavenger hunter with makeshift bow and trophies, gas mask",
     "wasp": "giant glass wasp with translucent crystal body",
     "knight": "fog knight in rusted plate armor, faceless helmet, mist around",
     "drone": "military sentinel drone, red scanner light, rotors",
     "eyes": "many-eyed abomination, eyes all over its body, tentacles",
-    "golem": "steel golem made of car parts and rebar, glowing core",
+    "golem": "giant humanoid golem robot made of scrap metal and rebar, standing, two arms, two legs, glowing orange core in chest",
     "hive": "hive mother, giant insect queen with drones, honeycomb",
     "chem": "chemical mutant in torn hazmat suit, glowing green fluids",
     "spider": "mechanical spider robot, sharp metal legs, red optics",
@@ -83,15 +83,15 @@
     "clock": "clockwork cat with visible gears, brass body"
   },
   "npcs": {
-    "kai": "blind old survivor with a cane and goggles, kind smile",
-    "mirra": "young woman mechanic with wrench, oil-stained overalls, short hair",
-    "dzvin": "bearded bandit with a bell on his belt, scarred face",
-    "tessa": "punk girl trader with colorful mohawk and backpack full of goods",
-    "rudyi": "red-haired thug with brass knuckles, freckles",
-    "aska": "masked female ninja raider, dark clothes, katana",
-    "veresk": "old hermit wizard with heather flowers in long beard",
-    "liia": "quiet young woman survivor in an oversized coat with a teddy bear keychain",
-    "borys": "huge man with a mechanical prosthetic arm, heavy armor",
-    "noks": "pale mysterious man in a long coat, vampire-like, calm"
+    "kai": "1boy, old man, blind, white goggles, wooden cane, grey beard, hooded cloak, kind smile",
+    "mirra": "1girl, young woman, mechanic, short pink hair, oil-stained overalls over t-shirt, wrench, confident",
+    "dzvin": "1boy, bandit, thick black beard, scarred face, bell on belt, leather jacket, menacing grin",
+    "tessa": "1girl, young woman, trader, colorful mohawk, punk jacket, huge backpack full of goods, smile",
+    "rudyi": "1boy, thug, red hair, freckles, brass knuckles, torn tank top under jacket, smirk",
+    "aska": "1girl, female ninja, black mask over mouth, dark hood, katana on back, sharp eyes",
+    "veresk": "1boy, old hermit, long white beard with heather flowers, wizard robe, wooden staff",
+    "liia": "1girl, young woman, quiet, oversized coat, teddy bear keychain, long dark hair, shy",
+    "borys": "1boy, huge muscular man, mechanical prosthetic arm, heavy scrap armor, buzz cut",
+    "noks": "1boy, pale man, long black coat, slicked back black hair, red eyes, calm, mysterious"
   }
 }

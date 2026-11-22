@@ -15,9 +15,9 @@
   },
   {
     "key": "base_2",
-    "prompt": "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk",
+    "prompt": "small fortified wooden house, barricaded windows, scrap metal walls, vegetable garden, solar panel on roof, dusk",
     "size": "wide",
-    "seed": 315508653,
+    "seed": 7777,
     "cat": "base"
   },
   {
@@ -29,9 +29,9 @@
   },
   {
     "key": "base_trophy",
-    "prompt": "survivor house interior, wall of strange glowing trophies, crystal tail, golden shell, cozy, night",
+    "prompt": "cozy survivor room interior, wall shelf with glowing trophies, crystal fox tail, golden beetle shell, jar with glowing jellyfish, warm lamp light, night",
     "size": "wide",
-    "seed": 2034918016,
+    "seed": 7777,
     "cat": "base"
   },
   {
@@ -64,9 +64,9 @@
   },
   {
     "key": "loc_laundry",
-    "prompt": "abandoned laundromat, rows of rusty washing machines",
+    "prompt": "interior of abandoned laundromat, rows of washing machines, broken neon sign, tiled floor",
     "size": "wide",
-    "seed": 1714819604,
+    "seed": 7777,
     "cat": "loc"
   },
   {
@@ -78,9 +78,9 @@
   },
   {
     "key": "loc_houses",
-    "prompt": "abandoned suburban private houses, overgrown gardens",
+    "prompt": "row of abandoned suburban wooden houses, overgrown front gardens, broken fences",
     "size": "wide",
-    "seed": 73902227,
+    "seed": 7777,
     "cat": "loc"
   },
   {
@@ -106,9 +106,9 @@
   },
   {
     "key": "loc_market",
-    "prompt": "abandoned flea market stalls under torn tarps",
+    "prompt": "abandoned outdoor flea market street, many wooden stalls with torn colorful tarps, hanging lanterns, crates of junk",
     "size": "wide",
-    "seed": 2048710803,
+    "seed": 8888,
     "cat": "loc"
   },
   {
@@ -155,9 +155,9 @@
   },
   {
     "key": "loc_army",
-    "prompt": "abandoned military base, rusted tanks, barbed wire",
+    "prompt": "abandoned military base, rusted tanks, barbed wire fence, watchtower, sandbags",
     "size": "wide",
-    "seed": 115245909,
+    "seed": 7777,
     "cat": "loc"
   },
   {
@@ -204,9 +204,9 @@
   },
   {
     "key": "mon_goblin",
-    "prompt": "small sneaky goblin thief with a sack of loot, grin, monster, full body",
+    "prompt": "small green goblin creature, pointy ears, big grin, carrying a sack of stolen loot, sneaky pose, monster, full body",
     "size": "square",
-    "seed": 351390743,
+    "seed": 7777,
     "cat": "mon"
   },
   {
@@ -239,9 +239,9 @@
   },
   {
     "key": "mon_toad",
-    "prompt": "bloated swamp toad mutant, toxic green warts, monster, full body",
+    "prompt": "giant toad monster, animal, quadruped, warty green skin, huge mouth, swamp, monster, full body",
     "size": "square",
-    "seed": 1247814734,
+    "seed": 7777,
     "cat": "mon"
   },
   {
@@ -288,9 +288,9 @@
   },
   {
     "key": "mon_golem",
-    "prompt": "steel golem made of car parts and rebar, glowing core, monster, full body",
+    "prompt": "giant humanoid golem robot made of scrap metal and rebar, standing, two arms, two legs, glowing orange core in chest, monster, full body",
     "size": "square",
-    "seed": 1185722779,
+    "seed": 8888,
     "cat": "mon"
   },
   {
@@ -379,70 +379,70 @@
   },
   {
     "key": "survivor_kai",
-    "prompt": "blind old survivor with a cane and goggles, kind smile",
+    "prompt": "1boy, old man, blind, white goggles, wooden cane, grey beard, hooded cloak, kind smile",
     "size": "square",
     "seed": 1941531822,
     "cat": "person"
   },
   {
     "key": "survivor_mirra",
-    "prompt": "young woman mechanic with wrench, oil-stained overalls, short hair",
+    "prompt": "1girl, young woman, mechanic, short pink hair, oil-stained overalls over t-shirt, wrench, confident",
     "size": "square",
     "seed": 1214383670,
     "cat": "person"
   },
   {
     "key": "survivor_dzvin",
-    "prompt": "bearded bandit with a bell on his belt, scarred face",
+    "prompt": "1boy, bandit, thick black beard, scarred face, bell on belt, leather jacket, menacing grin",
     "size": "square",
     "seed": 962519777,
     "cat": "person"
   },
   {
     "key": "survivor_tessa",
-    "prompt": "punk girl trader with colorful mohawk and backpack full of goods",
+    "prompt": "1girl, young woman, trader, colorful mohawk, punk jacket, huge backpack full of goods, smile",
     "size": "square",
     "seed": 2006783755,
     "cat": "person"
   },
   {
     "key": "survivor_rudyi",
-    "prompt": "red-haired thug with brass knuckles, freckles",
+    "prompt": "1boy, thug, red hair, freckles, brass knuckles, torn tank top under jacket, smirk",
     "size": "square",
     "seed": 1167679609,
     "cat": "person"
   },
   {
     "key": "survivor_aska",
-    "prompt": "masked female ninja raider, dark clothes, katana",
+    "prompt": "1girl, female ninja, black mask over mouth, dark hood, katana on back, sharp eyes",
     "size": "square",
     "seed": 461601848,
     "cat": "person"
   },
   {
     "key": "survivor_veresk",
-    "prompt": "old hermit wizard with heather flowers in long beard",
+    "prompt": "1boy, old hermit, long white beard with heather flowers, wizard robe, wooden staff",
     "size": "square",
     "seed": 183270077,
     "cat": "person"
   },
   {
     "key": "survivor_liia",
-    "prompt": "quiet young woman survivor in an oversized coat with a teddy bear keychain",
+    "prompt": "1girl, young woman, quiet, oversized coat, teddy bear keychain, long dark hair, shy",
     "size": "square",
     "seed": 1248780481,
     "cat": "person"
   },
   {
     "key": "survivor_borys",
-    "prompt": "huge man with a mechanical prosthetic arm, heavy armor",
+    "prompt": "1boy, huge muscular man, mechanical prosthetic arm, heavy scrap armor, buzz cut",
     "size": "square",
     "seed": 2132043448,
     "cat": "person"
   },
   {
     "key": "survivor_noks",
-    "prompt": "pale mysterious man in a long coat, vampire-like, calm",
+    "prompt": "1boy, pale man, long black coat, slicked back black hair, red eyes, calm, mysterious",
     "size": "square",
     "seed": 627394354,
     "cat": "person"

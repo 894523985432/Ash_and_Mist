@@ -126,6 +126,24 @@ class Comfy:
                 raise RuntimeError('ComfyUI не повернув зображення')
         raise TimeoutError(f'не дочекався результату за {timeout} с')
 
+    def alive(self):
+        try:
+            self.get_json('/system_stats')
+            return True
+        except (urllib.error.URLError, OSError):
+            return False
+
+    def wait_alive(self, max_wait):
+        """ComfyUI впав або перезапускається — чекаємо, поки повернеться."""
+        start = time.time()
+        print(f'  ComfyUI недоступний, чекаю до {max_wait // 60} хв…', flush=True)
+        while time.time() - start < max_wait:
+            time.sleep(10)
+            if self.alive():
+                print("  ComfyUI знову на зв'язку", flush=True)
+                return True
+        return False
+
     def download(self, img):
         q = urllib.parse.urlencode({'filename': img['filename'], 'subfolder': img.get('subfolder', ''), 'type': img.get('type', 'output')})
         return self._req('/view?' + q)
@@ -212,6 +230,7 @@ def main():
 
     failed = []
     for i, a in enumerate(todo, 1):
+      for attempt in range(cfg.get('retries', 3)):
         t0 = time.time()
         ref_name = None
         try:
@@ -223,11 +242,20 @@ def main():
             img = comfy.run(build_workflow(cfg, style, a, ref_name), cfg['timeoutSec'])
             with open(os.path.join(OUT, a['key'] + '.webp'), 'wb') as f:
                 f.write(comfy.download(img))
-            print(f"[{i}/{len(todo)}] ✓ {a['key']} ({time.time() - t0:.0f} с)")
-        except Exception as e:  # одна невдача не зупиняє решту
+            print(f"[{i}/{len(todo)}] ✓ {a['key']} ({time.time() - t0:.0f} с)", flush=True)
+            break
+        except (urllib.error.URLError, ConnectionError, OSError) as e:
+            # зв'язок пропав — чекаємо ComfyUI і пробуємо цей самий ключ ще раз
+            if attempt + 1 < cfg.get('retries', 3) and comfy.wait_alive(cfg.get('waitForComfySec', 900)):
+                continue
             failed.append(a['key'])
-            print(f"[{i}/{len(todo)}] ✗ {a['key']}: {e}")
-        write_manifest()  # після кожного — щоб гра бачила прогрес
+            print(f"[{i}/{len(todo)}] ✗ {a['key']}: {e}", flush=True)
+            break
+        except Exception as e:  # помилка самої генерації не зупиняє решту
+            failed.append(a['key'])
+            print(f"[{i}/{len(todo)}] ✗ {a['key']}: {e}", flush=True)
+            break
+      write_manifest()  # після кожного — щоб гра бачила прогрес
 
     print(f'Готово: {len(todo) - len(failed)} з {len(todo)}.' + (' Не вдалося: ' + ', '.join(failed) if failed else ''))
     sys.exit(1 if failed else 0)
