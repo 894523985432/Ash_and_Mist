@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Попіл і Туман</string>
+    <string name="title_activity_main">Попіл і Туман</string>
+    <string name="package_name">ua.darke.ashfog</string>
+    <string name="custom_url_scheme">ua.darke.ashfog</string>
+</resources>

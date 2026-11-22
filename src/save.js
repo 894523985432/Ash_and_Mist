@@ -3,10 +3,11 @@
 import { BLD } from './data.js';
 import { S, setState } from './state.js';
 import { initNpcs } from './npcs.js';
+import { getItem, setItem } from './storage.js';
 
 export const SAVE_VERSION = 4;
-const KEY = 'ashfog_save';
-const LEGACY_KEYS = ['ashfog_v1']; // прототип index.html (версія 1, без поля saveVersion)
+export const KEY = 'ashfog_save';
+export const LEGACY_KEYS = ['ashfog_v1']; // прототип index.html (версія 1, без поля saveVersion)
 
 /** MIGRATIONS[n] переводить збереження з версії n у n+1. */
 const MIGRATIONS = {
@@ -37,13 +38,13 @@ export function migrate(data) {
 }
 
 export function save() {
-  try { localStorage.setItem(KEY, JSON.stringify({ ...S, saveVersion: SAVE_VERSION })); } catch (e) {}
+  setItem(KEY, JSON.stringify({ ...S, saveVersion: SAVE_VERSION }));
 }
 
 export function load() {
   try {
-    let raw = localStorage.getItem(KEY);
-    if (!raw) for (const k of LEGACY_KEYS) { raw = localStorage.getItem(k); if (raw) break; }
+    let raw = getItem(KEY);
+    if (!raw) for (const k of LEGACY_KEYS) { raw = getItem(k); if (raw) break; }
     if (!raw) return false;
     const data = migrate(JSON.parse(raw));
     if (!data || !data.res) return false;

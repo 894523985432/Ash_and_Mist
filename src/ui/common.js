@@ -17,7 +17,7 @@ export function artBox(keys, emoji, cls = '', cap = '') {
 export function topBar() {
   const r = S.res, low = k => (r[k] < 2 ? 'low' : '');
   return `<div class="top"><div class="row" style="margin-bottom:6px">
-    <b>День ${S.day}</b><span class="chip" title="${season().d}">${season().e} ${season().n}</span>${event() ? `<span class="chip ev" title="${event().d}">${event().e} ${event().n}</span>` : ''}<span class="chip">⭐ Рів. ${S.lvl} <span class="mut">${S.xp}/${xpNeed()}</span></span>
+    <b>День ${S.day}</b><span class="chip tap" ${act('info', 'season')}>${season().e} ${season().n}</span>${event() ? `<span class="chip ev tap" ${act('info', 'event')}>${event().e} ${event().n}</span>` : ''}<span class="chip">⭐ Рів. ${S.lvl} <span class="mut">${S.xp}/${xpNeed()}</span></span>
     <span class="chip ${S.sily < 2 ? 'low' : ''}">⚡ ${S.sily}/${maxSily()}</span><span class="chip">🛡️ ${pDef()}</span>
     <div class="bar"><i style="width:${Math.max(0, S.hp / maxHP() * 100)}%"></i></div><span class="mut">❤️ ${Math.max(0, S.hp)}/${maxHP()}</span></div>
     <div class="row">${['water', 'food', 'heat'].map(k => `<span class="chip ${low(k)}">${RES[k][0]} ${r[k]}</span>`).join('')}
@@ -27,6 +27,6 @@ export function topBar() {
 
 export function tabs() {
   if (S.trip || S.screen === 'over') return '';
-  const t = [['base', '🏠 База'], ['map', '🗺️ Карта'], ['gear', '🎒 Спорядження'], ['art', '🎨 Арт']];
-  return `<div class="tabs">${t.map(([k, n]) => `<button class="${S.screen === k ? 'on' : ''}" ${act('go', k)}>${n}</button>`).join('')}</div>`;
+  const t = [['base', '🏠', 'База'], ['map', '🗺️', 'Карта'], ['gear', '🎒', 'Спорядження'], ['art', '🎨', 'Арт']];
+  return `<nav class="tabs">${t.map(([k, e, n]) => `<button class="${S.screen === k ? 'on' : ''}" ${act('go', k)}><span class="ti">${e}</span>${n}</button>`).join('')}</nav>`;
 }

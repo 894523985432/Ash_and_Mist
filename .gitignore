@@ -1,3 +1,4 @@
 node_modules/
 dist/
-public/art/_variants/
+tools/art/_variants/
+dist-apk/
