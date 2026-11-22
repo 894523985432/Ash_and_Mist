@@ -1,5 +1,6 @@
 import { RES, LOCS, BLD, BAL } from './data.js';
 import { ui } from './hooks.js';
+import { line } from './texts.js';
 
 /** Поточний стан гри. Міняти посилання — тільки через setState. */
 export let S = null;
@@ -25,5 +26,5 @@ export function useSily(n) { if (S.sily < n) { ui.toast('Не вистачає �
 export function gainXP(x) {
   S.xp += x; let up = false;
   while (S.xp >= xpNeed()) { S.xp -= xpNeed(); S.lvl++; up = true; S.hp += P.hpPerLvl; }
-  if (up) { log(`⭐ Новий рівень: ${S.lvl}!`); ui.toast('⭐ Рівень ' + S.lvl + '!'); }
+  if (up) { log(`⭐ [Система] Рівень ${S.lvl}. ` + line('system.levelUp').replace(/^\[Система\]\s*/, '')); ui.toast('⭐ Рівень ' + S.lvl + '!'); }
 }

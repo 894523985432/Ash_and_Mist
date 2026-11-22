@@ -7,6 +7,7 @@ import { mkWeapon, mkArmor } from './items.js';
 import { rivalsMove } from './ai-rivals.js';
 import { initNpcs, npcsDaily, npcNightRaid } from './npcs.js';
 import { rollEvent, dayModifiers, evNum } from './events.js';
+import { TEXTS, line } from './texts.js';
 
 export function newGame() {
   const st = BAL.start;
@@ -25,7 +26,9 @@ export function newGame() {
     if (d.equip) { if (it.k === 'w') S.eq.push(it.id); else S.armor = it.id; }
   }
   S.hp = maxHP(); rivalsMove();
-  log('День 1. Ти прокинувся у своєму домі на краю мертвого міста. Запасів вистачить на кілька днів.');
+  const intro = TEXTS.intro?.length ? TEXTS.intro : ['Ти прокинувся у своєму домі на краю мертвого міста.'];
+  [...intro].reverse().forEach(l => log(l));
+  ui.showEvent({ e: '🌀', t: 'Друге життя', txt: intro.map(l => `<p style="margin:0 0 8px">${l}</p>`).join(''), b: [['Почати', null]] });
 }
 
 /** Добова витрата (з урахуванням сезону й події, якщо передати mods). */
@@ -81,6 +84,7 @@ export function sleep() {
   for (const k in S.exhaust) { S.exhaust[k] = Math.max(0, S.exhaust[k] - BAL.exhaust.regenPerDay); if (!S.exhaust[k]) delete S.exhaust[k]; }
   rivalsMove();
   const evLines = rollEvent(); // подія нового дня
+  if (chance(BAL.flavor.systemMemoryChance)) { const m = line('system.memory'); if (m) evLines.push(`<span class="sys">${m}</span>`); }
   msgs.forEach(m => log(m)); log('☀️ Новий день.');
   if (S.hp <= 0) S.over = true;
   ui.showEvent({ e: '🌅', t: 'День ' + S.day, txt: (evLines.length ? evLines.join('<br>') + '<br><br>' : '') + (msgs.length ? msgs.join('<br>') : 'Ніч минула спокійно.') + `<br><br><span class="mut">Витрата за добу: ${dailyConsumeText(mods)}. Виробництво бази вже враховано.</span>`, b: [['Далі', null]] });

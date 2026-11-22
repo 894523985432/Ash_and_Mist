@@ -1,15 +1,15 @@
 {
   "names": [
-    {"n": "Кай", "e": "🧑‍🦯", "temper": "trader", "key": "kai"},
-    {"n": "Мірра", "e": "👩‍🔧", "temper": "trader", "key": "mirra"},
-    {"n": "Дзвін", "e": "🧔‍♂️", "temper": "raider", "key": "dzvin"},
-    {"n": "Тесса", "e": "👩‍🎤", "temper": "trader", "key": "tessa"},
-    {"n": "Рудий", "e": "👨‍🦰", "temper": "raider", "key": "rudyi"},
-    {"n": "Аска", "e": "🥷", "temper": "raider", "key": "aska"},
-    {"n": "Вереск", "e": "🧙", "temper": "hermit", "key": "veresk"},
-    {"n": "Лія", "e": "👧", "temper": "hermit", "key": "liia"},
-    {"n": "Борис-Броня", "e": "🦾", "temper": "raider", "key": "borys"},
-    {"n": "Нокс", "e": "🧛‍♂️", "temper": "hermit", "key": "noks"}
+    {"n": "Кай", "e": "🧑‍🦯", "temper": "trader", "key": "kai", "g": "m"},
+    {"n": "Мірра", "e": "👩‍🔧", "temper": "trader", "key": "mirra", "g": "f"},
+    {"n": "Дзвін", "e": "🧔‍♂️", "temper": "raider", "key": "dzvin", "g": "m"},
+    {"n": "Тесса", "e": "👩‍🎤", "temper": "trader", "key": "tessa", "g": "f"},
+    {"n": "Рудий", "e": "👨‍🦰", "temper": "raider", "key": "rudyi", "g": "m"},
+    {"n": "Аска", "e": "🥷", "temper": "raider", "key": "aska", "g": "f"},
+    {"n": "Вереск", "e": "🧙", "temper": "hermit", "key": "veresk", "g": "m"},
+    {"n": "Лія", "e": "👧", "temper": "hermit", "key": "liia", "g": "f"},
+    {"n": "Борис-Броня", "e": "🦾", "temper": "raider", "key": "borys", "g": "m"},
+    {"n": "Нокс", "e": "🧛‍♂️", "temper": "hermit", "key": "noks", "g": "m"}
   ],
   "rivals": [
     {"n": "Ліра", "e": "🧝‍♀️", "pow": 0.5},

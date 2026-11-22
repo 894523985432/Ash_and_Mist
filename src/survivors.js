@@ -5,7 +5,8 @@ import { pick, chance } from './util.js';
 import { ui } from './hooks.js';
 import { S, log, resStr } from './state.js';
 import { startFight } from './combat.js';
-import { pickNpc, npcMood, relChange, greet, npcPowMult, isFriend, relEmoji } from './npcs.js';
+import { pickNpc, npcMood, relChange, greet, npcPowMult, isFriend, relEmoji, npcKey } from './npcs.js';
+import { line } from './texts.js';
 
 const pct = p => Math.round(p * 100) + '%';
 
@@ -23,6 +24,9 @@ export function survivor(L, rivalHere) {
     : npc ? npcMood(npc)
     : (r => r < V.traderChance ? 'trader' : r < V.raiderThreshold ? 'raider' : 'hermit')(Math.random());
   const hello = npc ? greet(npc) + '<br>' : '';
+  // звідки брати репліки торгу/погроз: персонаж, суперник чи безіменний незнайомець
+  const src = npc ? `npcs.${npcKey(npc)}` : rv ? `rivals.${rv.n}` : 'strangers';
+  const say = (kind, vars, fb) => `<i>«${line(`${src}.${kind}`, vars, fb)}»</i>`;
   const relTxt = npc ? `<br><span class="mut">Стосунки: ${relEmoji(npc)} ${npc.rel}</span>` : '';
   if (npc) npc.met++;
   const rel = (key, mem) => { if (npc) relChange(npc, key, mem); };
@@ -39,7 +43,7 @@ export function survivor(L, rivalHere) {
       btns.push([`Продати «${t}» → ${resStr(V.trophySale)}`, () => { S.trophies[t]--; for (const k in V.trophySale) S.res[k] += V.trophySale[k]; rel('sellTrophy', 'traded'); log(`Продав трофей «${t}»`); }]);
     }
     btns.push(['Піти', null]);
-    return ui.showEvent({ e: '🤝', t: name, txt: hello + 'Вижилий пропонує обмін (зі складу вдома).' + (npc && isFriend(npc) ? ' Другові — краща ціна.' : '') + (tr.length ? '<br>Його дуже цікавлять твої трофеї…' : '') + relTxt, b: btns });
+    return ui.showEvent({ e: '🤝', t: name, txt: hello + say('trade', {}, 'Поміняємось?') + '<br>Пропонує обмін (зі складу вдома).' + (npc && isFriend(npc) ? ' Другові — краща ціна.' : '') + (tr.length ? '<br>Його дуже цікавлять твої трофеї…' : '') + relTxt, b: btns });
   }
 
   if (type === 'raider') {
@@ -49,7 +53,7 @@ export function survivor(L, rivalHere) {
     if (S.res[k] >= N) btns.push([`Віддати ${N}${RES[k][0]}`, () => { S.res[k] -= N; rel('payToll', 'paid'); log(`Віддав ${name} ${N}${RES[k][0]}`); }]);
     btns.push(['Битися', fight]);
     btns.push([`Тікати (${pct(V.fleeChance)})`, () => { if (chance(V.fleeChance)) { rel('fledFrom'); log('Втік від ' + name); ui.render(); } else { ui.toast('Не вдалося!'); fight(); } }]);
-    return ui.showEvent({ e: '🔪', t: name, txt: hello + `«Гей! Плати мито: ${N}${RES[k][0]}, або ляжеш тут».` + relTxt, b: btns });
+    return ui.showEvent({ e: '🔪', t: name, txt: hello + say('threat', { toll: N + RES[k][0] }, `Плати мито: ${N}${RES[k][0]}`) + relTxt, b: btns });
   }
 
   rel('hermit');

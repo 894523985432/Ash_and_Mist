@@ -3,6 +3,7 @@ import { S, item, baseAP } from '../state.js';
 import { itemName } from '../items.js';
 import { traitText } from '../combat.js';
 import { act, dis, artBox } from './common.js';
+import { lineStable } from '../texts.js';
 
 export function vFight() {
   const F = S.fight, en = F.en, C = BAL.combat, mins = en.minions || [];
@@ -17,6 +18,7 @@ export function vFight() {
   return `${artBox(key, en.e, '', en.n + (en.rare ? ' ✨' : ''))}
   <div class="card" style="margin-top:10px">
     <div class="row"><b>${en.n}</b><div class="bar"><i style="width:${Math.max(0, en.hp / en.max * 100)}%"></i></div><span class="mut">${Math.max(0, en.hp)}/${en.max} · 🛡️${en.def + (en.guard ? C.guardDef : 0)}</span></div>
+    ${!en.human && lineStable(`monsters.${en.key}`, en.key + S.day) ? `<div style="margin-top:4px"><i>${lineStable(`monsters.${en.key}`, en.key + S.day)}</i></div>` : ''}
     ${tt ? `<div class="mut" style="margin-top:4px">${tt}</div>` : ''}
     <div class="row" style="margin-top:8px"><span class="intent">Намір: ${it}${mins.length ? ` + прислужники ${mins.length * en.summon.atk}` : ''}</span> ${chips}</div>
   </div>

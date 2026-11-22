@@ -5,6 +5,7 @@ import { ui } from './hooks.js';
 import { S, log, canPay, pay, resStr } from './state.js';
 import { mkWeapon, mkArmor, itemName, itemEmoji } from './items.js';
 import { itemHTML } from './ui/format.js';
+import { line } from './texts.js';
 
 export const season = (day = S.day) => EVENTS.seasons[Math.floor((day - 1) / EVENTS.seasonLength) % EVENTS.seasons.length];
 export const event = () => (S.event && EVENTS.events.find(e => e.id === S.event)) || null;
@@ -27,14 +28,15 @@ export function dayModifiers() {
 export function rollEvent() {
   S.event = null; S.caravan = null;
   const s = season(), lines = [];
-  if (S.day > 1 && (S.day - 1) % EVENTS.seasonLength === 0) lines.push(`${s.e} Настала пора: <b>${s.n}</b>. ${s.d}.`);
+  if (S.day > 1 && (S.day - 1) % EVENTS.seasonLength === 0) lines.push(`${s.e} Настала пора: <b>${s.n}</b>. ${s.d}.` + (line(`seasons.${s.id}`) ? `<br><i>${line(`seasons.${s.id}`)}</i>` : ''));
   if (chance(EVENTS.eventChance)) {
     const pool = EVENTS.events.filter(e => S.day >= (e.fromDay || 1) && (!e.seasons || e.seasons.includes(s.id)));
     const total = pool.reduce((a, e) => a + e.w, 0);
     let r = Math.random() * total, ev = pool[0];
     for (const e of pool) { if ((r -= e.w) < 0) { ev = e; break; } }
     S.event = ev.id;
-    lines.push(`${ev.e} <b>${ev.n}</b>: ${ev.d}.`);
+    const flavor = line(`events.${ev.id}`);
+    lines.push((flavor ? `<i>${flavor}</i><br>` : '') + `${ev.e} <b>${ev.n}</b>: ${ev.d}.`);
     log(`${ev.e} ${ev.n}`);
     if (ev.caravan) {
       const offers = [...EVENTS.caravanOffers].sort(() => Math.random() - 0.5).slice(0, ev.caravan);

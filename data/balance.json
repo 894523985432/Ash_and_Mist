@@ -188,5 +188,7 @@
     { "min": 14, "key": "base_3", "e": "🏰", "n": "Фортеця" }
   ],
 
+  "flavor": { "systemMemoryChance": 0.25, "dangerHpPct": 0.35 },
+
   "logMax": 40
 }

@@ -3,11 +3,15 @@ import { S, locById, resStr } from '../state.js';
 import { bagCount, lootMult } from '../trip.js';
 import { itemEmoji } from '../items.js';
 import { act, dis, artBox } from './common.js';
+import { lineStable } from '../texts.js';
+import { maxHP } from '../state.js';
 
 export function vLoc() {
   const L = locById(S.trip.loc), t = S.trip, A = BAL.actions;
   return `${artBox('loc_' + L.id, L.e, '', L.n)}
   <div class="card" style="margin-top:10px"><h2>${L.e} ${L.n}</h2>
+    ${lineStable(`locations.${L.id}`, S.day + L.id) ? `<p style="margin:4px 0 8px"><i>${lineStable(`locations.${L.id}`, S.day + L.id)}</i></p>` : ''}
+    ${S.hp < maxHP() * BAL.flavor.dangerHpPct ? `<div class="sys">${lineStable('system.danger', S.day, {}, '[Система] Мало HP — час додому.')}</div>` : ''}
     <div class="mut">${ZONE[L.z].n} зона${S.depleted[L.id] ? ' · ⚠ хтось тут уже нишпорив' : ''}${lootMult(L) < 0.99 ? ` · лут ×${lootMult(L).toFixed(1)}` : ''}</div>
     <h3>Рюкзак ${bagCount()}/${BAL.trip.bagCap}</h3><div>${resStr(t.bag)} ${t.items.map(i => itemEmoji(i)).join(' ')} ${t.trophies.map(() => '✨').join('')}</div>
     <div class="row" style="margin-top:10px">

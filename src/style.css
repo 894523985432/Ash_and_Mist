@@ -47,3 +47,4 @@ textarea{width:100%;background:#0b0d12;color:var(--tx);border:1px solid var(--li
 .npc{display:flex;gap:6px;align-items:center;padding:4px 0;border-bottom:1px dashed #252b38;font-size:13px}
 .coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
 .coll .item.no{opacity:.45}
+.sys{font-family:ui-monospace,monospace;font-size:13px;color:#8fe3ff;background:#0c1a22;border:1px solid #1f4a5c;border-radius:8px;padding:6px 8px;margin:6px 0}

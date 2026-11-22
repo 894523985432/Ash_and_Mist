@@ -2,6 +2,7 @@
 import { RES, NPCS, BAL } from './data.js';
 import { rnd, pick, chance } from './util.js';
 import { S, log } from './state.js';
+import { line } from './texts.js';
 
 const N = () => BAL.npc;
 
@@ -36,17 +37,22 @@ export function relChange(p, key, mem) {
   if (mem) p.mem[mem]++;
 }
 
-/** Репліка-привітання з урахуванням того, що він про тебе пам'ятає. */
-export function greet(p) {
+/** Ключ персонажа в data/npcs.json (для текстів і портрета). */
+export const npcKey = p => NPCS.names.find(x => x.n === p.n)?.key;
+
+/** Яку категорію реплік обрати з огляду на пам'ять і стосунки. */
+export function greetKind(p) {
   const m = p.mem;
-  if (m.beaten >= 2) return '«Ти знову? Я вже раз лежав через тебе. Більше не дамся».';
-  if (m.beaten) return '«Пам\'ятаю твій кулак. Давай цього разу без нього».';
-  if (m.lostTo) return '«А, мій старий знайомий. Як рюкзак, не болить?»';
-  if (m.paid >= 2) return '«Платиш справно. Мені таке подобається».';
-  if (isFriend(p)) return '«Радий тебе бачити, друже!»';
-  if (m.traded) return '«Знову по обмін? Заходь».';
-  if (!p.met) return '«Ще одна жива душа… Ну, привіт».';
-  return '«Ми вже бачились. Що треба?»';
+  if (m.beaten) return 'beaten';
+  if (m.lostTo) return 'lostTo';
+  if (isHostile(p)) return 'hostile';
+  if (isFriend(p)) return 'friend';
+  return p.met ? 'again' : 'first';
+}
+
+/** Репліка-привітання з урахуванням того, що він про тебе пам'ятає (тексти з data/texts.uk.json). */
+export function greet(p) {
+  return '«' + line(`npcs.${npcKey(p)}.${greetKind(p)}`, {}, 'Ну, привіт') + '»';
 }
 
 /** Сила людини: росте з днями. */
