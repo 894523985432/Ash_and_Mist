@@ -3,6 +3,7 @@ import { BAL } from './data.js';
 import { rnd } from './util.js';
 import { ui } from './hooks.js';
 import { S, maxHP, log } from './state.js';
+import { t } from './i18n.js';
 
 export const bagCount = () => Object.values(S.trip.bag).reduce((a, b) => a + b, 0);
 
@@ -37,8 +38,9 @@ export function lootMult(L) {
 }
 
 export function lose(why) {
+  ui.sfx('lose');
   S.trip = null; S.fight = null; S.hp = Math.max(1, Math.round(maxHP() * BAL.trip.loseHpPct)); S.sily = 0;
-  log('💀 ' + why + ' Тебе дотягли додому, рюкзак втрачено.');
+  log('💀 ' + why + t(' Тебе дотягли додому, рюкзак втрачено.'));
   ui.go('base');
-  ui.showEvent({ e: '💀', t: 'Поразка', txt: why + '<br>Ти отямився вдома. Весь лут із вилазки втрачено, сил не лишилось.', b: [['…', null]] });
+  ui.showEvent({ e: '💀', t: t('Поразка'), txt: why + t('<br>Ти отямився вдома. Весь лут із вилазки втрачено, сил не лишилось.'), b: [['…', null]] });
 }

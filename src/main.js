@@ -12,6 +12,7 @@ import { load, save, LEGACY_KEYS, ALL_SAVE_KEYS, exportSave, importSave } from '
 import { loadSettings, setSetting, settings, SETTINGS_KEY, RECORDS_KEY } from './settings.js';
 import { repair, petFollow, petRelease } from './economy.js';
 import { resInfo } from './ui/info.js';
+import { initAudio } from './audio.js';
 import { initStorage } from './storage.js';
 import { initPlatform } from './platform.js';
 import { newGame, sleep, eat, heal, stim } from './day.js';
@@ -22,11 +23,12 @@ import { restoreArt, clearArt, loadArtFiles } from './art.js';
 import { mountUI, render } from './ui/render.js';
 import { caravanTrade, season, event } from './events.js';
 import { tutOk, tutOff } from './ui/tutorial.js';
+import { t } from './i18n.js';
 
 let confirmNew = false, confirmRelease = null;
 
-async function copyText(t) {
-  try { await navigator.clipboard.writeText(t); return true; } catch (e) { return false; }
+async function copyText(txt) {
+  try { await navigator.clipboard.writeText(txt); return true; } catch (e) { return false; }
 }
 
 const ACTIONS = {
@@ -40,35 +42,35 @@ const ACTIONS = {
   tutOk: id => { tutOk(id); render(); },
   tutOff: () => { tutOff(); render(); },
   resInfo,
-  baseTab: t => { S.baseTab = t; render(); },
+  baseTab: tab => { S.baseTab = tab; ui.go('base'); },
   repair, petFollow,
   petRelease: id => {
     if (confirmRelease === id) { confirmRelease = null; petRelease(id); }
-    else { confirmRelease = id; ui.toast('Натисни ще раз, щоб відпустити'); }
+    else { confirmRelease = id; ui.toast(t('Натисни ще раз, щоб відпустити')); }
   },
   setting: (kv, quiet) => { const i = kv.indexOf(':'); setSetting(kv.slice(0, i), kv.slice(i + 1)); if (!quiet) render(); },
   slotLoad: n => {
     save(); n = +n;
     if (!load(n)) { setSetting('slot', n); newGame(); }
     if (S.screen === 'fight' && !S.fight) S.screen = S.trip ? 'loc' : 'base';
-    ui.go('base'); ui.toast('Слот ' + n);
+    ui.go('base'); ui.toast(t('Слот ') + n);
   },
   exportSave: async () => {
-    const t = exportSave();
-    if (await copyText(t)) return ui.toast('Копію скопійовано — встав її в нотатки');
-    ui.showEvent({ e: '📤', t: 'Резервна копія', txt: `<div class="mut">Скопіюй цей текст вручну:</div><textarea rows="6" readonly onclick="this.select()">${t.replace(/</g, '&lt;')}</textarea>`, b: [['Готово', null]] });
+    const txt = exportSave();
+    if (await copyText(txt)) return ui.toast(t('Копію скопійовано — встав її в нотатки'));
+    ui.showEvent({ e: '📤', t: t('Резервна копія'), txt: t`<div class="mut">Скопіюй цей текст вручну:</div><textarea rows="6" readonly onclick="this.select()">${txt.replace(/</g, '&lt;')}</textarea>`, b: [[t('Готово'), null]] });
   },
   importOpen: () => ui.showEvent({
-    e: '📥', t: 'Відновити з копії', txt: '<div class="mut">Встав текст резервної копії. Поточна гра в цьому слоті буде замінена.</div><textarea id="imptxt" rows="6"></textarea>',
-    b: [['Відновити', () => {
-      try { importSave(document.querySelector('#imptxt').value.trim()); ui.toast('Гру відновлено'); S.screen = 'base'; }
-      catch (e) { ui.toast('Не вдалося: ' + e.message); }
-    }], ['Скасувати', null]],
+    e: '📥', t: t('Відновити з копії'), txt: t('<div class="mut">Встав текст резервної копії. Поточна гра в цьому слоті буде замінена.</div><textarea id="imptxt" rows="6"></textarea>'),
+    b: [[t('Відновити'), () => {
+      try { importSave(document.querySelector('#imptxt').value.trim()); ui.toast(t('Гру відновлено')); S.screen = 'base'; }
+      catch (e) { ui.toast(t('Не вдалося: ') + e.message); }
+    }], [t('Скасувати'), null]],
   }),
   newGame: () => { newGame(); ui.go('base'); },
   newGameConfirm: () => {
     if (confirmNew) { newGame(); ui.go('base'); }
-    else { confirmNew = true; ui.toast('Натисни ще раз, щоб почати заново'); }
+    else { confirmNew = true; ui.toast(t('Натисни ще раз, щоб почати заново')); }
   },
 };
 
@@ -79,4 +81,5 @@ if (!load()) newGame();
 if (S.screen === 'fight' && !S.fight) S.screen = S.trip ? 'loc' : 'base';
 render();
 loadArtFiles().then(restoreArt);
+initAudio();
 initPlatform();

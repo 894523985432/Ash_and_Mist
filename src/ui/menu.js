@@ -4,26 +4,27 @@ import { settings, records, FONT_SIZES } from '../settings.js';
 import { slotInfo, SLOTS } from '../save.js';
 import { act } from './common.js';
 import { vArt } from './art.js';
+import { t } from '../i18n.js';
 
-const LANGS = [['uk', 'Українська'], ['en', 'English']];
+const LANGS = [['uk', t('Українська')], ['en', 'English']];
 
-const range = (k, label) => `<label class="set"><span>${label}</span><input type="range" min="0" max="1" step="0.1" value="${settings[k]}" data-set="${k}"><b>${Math.round(settings[k] * 100)}%</b></label>`;
-const choice = (k, label, opts) => `<div class="set"><span>${label}</span><div class="seg sm">${opts.map(([v, n]) => `<button class="${settings[k] === v ? 'on' : ''}" ${act('setting', `${k}:${v}`)}>${n}</button>`).join('')}</div></div>`;
-const toggle = (k, label) => `<div class="set"><span>${label}</span><button class="sm ${settings[k] ? 'pri' : ''}" ${act('setting', `${k}:${!settings[k]}`)}>${settings[k] ? 'Увімк.' : 'Вимк.'}</button></div>`;
+const range = (k, label) => t`<label class="set"><span>${label}</span><input type="range" min="0" max="1" step="0.1" value="${settings[k]}" data-set="${k}"><b>${Math.round(settings[k] * 100)}%</b></label>`;
+const choice = (k, label, opts) => t`<div class="set"><span>${label}</span><div class="seg sm">${opts.map(([v, n]) => t`<button class="${settings[k] === v ? 'on' : ''}" ${act('setting', t`${k}:${v}`)}>${n}</button>`).join('')}</div></div>`;
+const toggle = (k, label) => t`<div class="set"><span>${label}</span><button class="sm ${settings[k] ? 'pri' : ''}" ${act('setting', t`${k}:${!settings[k]}`)}>${settings[k] ? t('Увімк.') : t('Вимк.')}</button></div>`;
 
 export function vMenu() {
   const R = records(), st = S.stats || {};
   const slots = slotInfo().map(s => {
     const cur = s.n === settings.slot;
-    const what = s.broken ? '<span class="miss">пошкоджене</span>' : s.day ? `День ${s.day} · рів. ${s.lvl}${s.over ? ' · 🪦' : ''}` : '<span class="mut">порожньо</span>';
-    return `<div class="slot${cur ? ' on' : ''}"><b>Слот ${s.n}</b> ${what}<div class="row" style="margin-left:auto">${cur ? '<span class="pill okb">зараз</span>' : `<button class="sm" ${act('slotLoad', s.n)}>${s.day ? 'Грати' : 'Нова гра'}</button>`}</div></div>`;
+    const what = s.broken ? t('<span class="miss">пошкоджене</span>') : s.day ? t`День ${s.day} · рів. ${s.lvl}${s.over ? ' · 🪦' : ''}` : t('<span class="mut">порожньо</span>');
+    return t`<div class="slot${cur ? ' on' : ''}"><b>Слот ${s.n}</b> ${what}<div class="row" style="margin-left:auto">${cur ? t('<span class="pill okb">зараз</span>') : t`<button class="sm" ${act('slotLoad', s.n)}>${s.day ? t('Грати') : t('Нова гра')}</button>`}</div></div>`;
   }).join('');
-  return `<div class="card"><h2>⚙️ Налаштування</h2>
-    ${range('sfx', '🔊 Звуки')}${range('music', '🎵 Музика')}
-    ${toggle('vibro', '📳 Вібрація')}
-    ${choice('lang', '🌐 Мова', LANGS)}
-    ${choice('font', '🔠 Шрифт', Object.keys(FONT_SIZES).map(k => [k, { s: 'Малий', m: 'Звичайний', l: 'Великий', xl: 'Дуже великий' }[k]]))}
-    ${choice('anim', '✨ Анімації', [['normal', 'Звичайні'], ['fast', 'Швидкі'], ['off', 'Вимк.']])}
+  return t`<div class="card"><h2>⚙️ Налаштування</h2>
+    ${range('sfx', t('🔊 Звуки'))}${range('music', t('🎵 Музика'))}
+    ${toggle('vibro', t('📳 Вібрація'))}
+    ${choice('lang', t('🌐 Мова'), LANGS)}
+    ${choice('font', t('🔠 Шрифт'), Object.keys(FONT_SIZES).map(k => [k, { s: t('Малий'), m: t('Звичайний'), l: t('Великий'), xl: t('Дуже великий') }[k]]))}
+    ${choice('anim', t('✨ Анімації'), [['normal', t('Звичайні')], ['fast', t('Швидкі')], ['off', t('Вимк.')]])}
   </div>
   <div class="card"><h2>💾 Збереження</h2><div class="mut">Гра зберігається сама після кожної дії. ${SLOTS} слоти — окремі ігри.</div>
     <div style="margin:8px 0">${slots}</div>

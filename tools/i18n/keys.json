@@ -1,0 +1,2258 @@
+[
+ {
+  "k": "{0} {1} нишпорить біля «{2}» — ресурсів там поменшає.",
+  "from": "src/ai-rivals.js"
+ },
+ {
+  "k": "Завантажено {0} зображень",
+  "from": "src/art.js"
+ },
+ {
+  "k": "Спершу полагодь",
+  "from": "src/base.js"
+ },
+ {
+  "k": "Потрібно: ",
+  "from": "src/base.js"
+ },
+ {
+  "k": "Не вистачає ресурсів",
+  "from": "src/base.js"
+ },
+ {
+  "k": "{0} Побудовано: {1} (рів. {2})",
+  "from": "src/base.js"
+ },
+ {
+  "k": "Майстерня зламана",
+  "from": "src/base.js"
+ },
+ {
+  "k": "Майстерня ще зайнята",
+  "from": "src/base.js"
+ },
+ {
+  "k": "Розібрав {0} → ⚙️{1}",
+  "from": "src/base.js"
+ },
+ {
+  "k": "Потрібна хоч одна зброя",
+  "from": "src/base.js"
+ },
+ {
+  "k": "Максимум {0} зброї",
+  "from": "src/base.js"
+ },
+ {
+  "k": "☠️ отрута {0}×{1}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🛡️ панцир",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "📣 кличе: {0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "💨 тікає, коли поранений",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "✨ Рідкісна поява! ",
+  "from": "src/combat.js"
+ },
+ {
+  "k": " — втече через {0} ходи",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "прислужник −{0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "{0} знищений",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🔥 згоріли прислужники ({0})",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🔥 підпал",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "💫 оглушено!",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🔨 захист −{0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "панцир −{0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "{0} {1}: {2} шкоди",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🛡️ Блок +{0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🌟 СУПЕРАТАКА: {0} шкоди!",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Від рідкісного нема куди тікати — він сам тікає 🙂",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Втік із бою",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Втік!",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🏃 Втекти не вдалося!",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🩸 Кровотеча: {0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🔥 Горить: {0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "💫 {0} оглушений і пропускає хід",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Трофей втрачено",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Здобич утекла разом із ним",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "{0} розчинився в тумані. {1}, але +{2} XP за досвід.",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Ех",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "{0} {1} б'є: {2} шкоди",
+  "from": "src/combat.js"
+ },
+ {
+  "k": " (блок {0})",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "☠️ Отруєно: {0} шкоди {1} ходи",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "📣 {0} кличе: {1}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "👥 Прислужники ({0}) б'ють: {1}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "☠️ Отрута: {0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "{0} тебе здолав.",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "<br>Лут: ",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "<br>✨ Трофей: <b>{0}</b><br><span class=\"mut\">Нічого не посилює, але вижилі за таке багато дають, а повна колекція прикрасить базу.</span>",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "<br>☕ +1 стимулятор",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Переміг: {0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Перемога над «",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Далі",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Ти прокинувся у своєму домі на краю мертвого міста.",
+  "from": "src/day.js"
+ },
+ {
+  "k": "Друге життя",
+  "from": "src/day.js"
+ },
+ {
+  "k": "Почати",
+  "from": "src/day.js"
+ },
+ {
+  "k": "🌙 Вночі хтось обчистив склад: ",
+  "from": "src/day.js"
+ },
+ {
+  "k": "🪵 Спалив {0} дерева в пічці, щоб не замерзнути.",
+  "from": "src/day.js"
+ },
+ {
+  "k": "💧 Спрага!",
+  "from": "src/day.js"
+ },
+ {
+  "k": "🍖 Голод!",
+  "from": "src/day.js"
+ },
+ {
+  "k": "🥶 Холод у домі!",
+  "from": "src/day.js"
+ },
+ {
+  "k": "{0} −{1} HP, менше сил.",
+  "from": "src/day.js"
+ },
+ {
+  "k": " ({0}-й день поспіль)",
+  "from": "src/day.js"
+ },
+ {
+  "k": "😣 У нестачі сон не лікує.",
+  "from": "src/day.js"
+ },
+ {
+  "k": "☀️ Новий день.",
+  "from": "src/day.js"
+ },
+ {
+  "k": "День ",
+  "from": "src/day.js"
+ },
+ {
+  "k": "Ніч минула спокійно.",
+  "from": "src/day.js"
+ },
+ {
+  "k": "<br><br><span class=\"mut\">Витрата за добу: {0}. Виробництво бази вже враховано.</span>",
+  "from": "src/day.js"
+ },
+ {
+  "k": "Більше не лізе",
+  "from": "src/day.js"
+ },
+ {
+  "k": "Треба ",
+  "from": "src/day.js"
+ },
+ {
+  "k": "Поїв досхочу: +{0}⚡",
+  "from": "src/day.js"
+ },
+ {
+  "k": "Ти й так цілий",
+  "from": "src/day.js"
+ },
+ {
+  "k": "💊 Аптечка: +{0}% HP",
+  "from": "src/day.js"
+ },
+ {
+  "k": "☕ Стимулятор: +{0}⚡",
+  "from": "src/day.js"
+ },
+ {
+  "k": "{0} {1} рів. {2}",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🔌 Генератор стоїть: немає ⛽ палива.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "♨️ Обігрівачу бракує енергії (треба 🔋{0}).",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🥬 Теплиці бракує {0} — родить лише як грядки.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🛠️ Зламалось: {0} {1}. Поки не полагодиш — не працює.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🛠️ Полагодив: {0} {1}",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "зброю",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "броню",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🔧 Майстерня взялася за {0} — готово через {1} дн.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "Робота почалась",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "Складна річ: буде готова через <b>{0}</b> дн. (рідкісність: {1}).<br><span class=\"mut\">Поки майстерня зайнята, нового не почати.</span>",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "Ок",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🔧 Скрафчено: ",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "Скрафчено!",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🔧 Майстерня зламана — робота стоїть.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "🔧 Майстерня закінчила: {0} {1}!",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} {1} підросло — тепер це {2}! {3}.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "одужав і знову готовий",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "одужала і знову готова",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "одужало і знову готове",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} {1} {2} йти з тобою.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "приніс",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "принесла",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "принесло",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} {1} {2} вночі ⚙️{3}.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0}<br><br><b>{1} {2}</b> → виросте в: <b>{3}</b>. {4}.<br><span class=\"mut\">Маля їсть щодня {5}, доросла — {6} (восени й узимку ще {7}). Виросте за {8} дн. Доросла ходить з тобою, бʼється і бере на себе частину ударів.</span>",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "<br><br>Але вдома вже {0} тварини — більше не прогодуєш.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} Забрав додому: {1}",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "Хтось маленький",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "Лишити",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "Забрати",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} Відпустив: {1}",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "поранений",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "поранена",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "поранене",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} {1} {2} і ховається. Лікуватиметься вдома кілька днів.",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} {1} {2} в бою",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "прийняв",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "прийняла",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "прийняло",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} {1} {2} на себе {3}",
+  "from": "src/economy.js"
+ },
+ {
+  "k": "{0} Настала пора: <b>{1}</b>. {2}.",
+  "from": "src/events.js"
+ },
+ {
+  "k": "зброя",
+  "from": "src/events.js"
+ },
+ {
+  "k": "броня",
+  "from": "src/events.js"
+ },
+ {
+  "k": "незвичайна",
+  "from": "src/events.js"
+ },
+ {
+  "k": "рідкісна",
+  "from": "src/events.js"
+ },
+ {
+  "k": "🐪 Караван: ",
+  "from": "src/events.js"
+ },
+ {
+  "k": "Обмін із караваном",
+  "from": "src/events.js"
+ },
+ {
+  "k": "Натисни ще раз, щоб відпустити",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Слот ",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Копію скопійовано — встав її в нотатки",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Резервна копія",
+  "from": "src/main.js"
+ },
+ {
+  "k": "<div class=\"mut\">Скопіюй цей текст вручну:</div><textarea rows=\"6\" readonly onclick=\"this.select()\">{0}</textarea>",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Готово",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Відновити з копії",
+  "from": "src/main.js"
+ },
+ {
+  "k": "<div class=\"mut\">Встав текст резервної копії. Поточна гра в цьому слоті буде замінена.</div><textarea id=\"imptxt\" rows=\"6\"></textarea>",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Відновити",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Гру відновлено",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Не вдалося: ",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Скасувати",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Натисни ще раз, щоб почати заново",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Усе вже розвідано",
+  "from": "src/map.js"
+ },
+ {
+  "k": "🔭 Розвідка: знайдено «{0}» ({1} зона)",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Нова локація!",
+  "from": "src/map.js"
+ },
+ {
+  "k": "{0}<br><span class=\"mut\">{1} зона · дорога {2}⚡</span>",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Вирушив до «{0}»",
+  "from": "src/map.js"
+ },
+ {
+  "k": "<br><span class=\"mut\">Рюкзак повний!</span>",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Знахідка",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Знайшов: ",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Тут уже все винесли…",
+  "from": "src/map.js"
+ },
+ {
+  "k": " (хтось був тут до тебе)",
+  "from": "src/map.js"
+ },
+ {
+  "k": " (ти сам тут усе вигріб)",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Схованка!",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Пастка виявилась смертельною…",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Пастка",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Ти наступив на розтяжку. −{0} HP",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Ох",
+  "from": "src/map.js"
+ },
+ {
+  "k": " предм.",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Повернувся додому: {0}{1}",
+  "from": "src/map.js"
+ },
+ {
+  "k": "Ну, привіт",
+  "from": "src/npcs.js"
+ },
+ {
+  "k": "{0} {1} пішов із міста назавжди.",
+  "from": "src/npcs.js"
+ },
+ {
+  "k": "{0} {1} більше не повернеться в місто.",
+  "from": "src/npcs.js"
+ },
+ {
+  "k": "{0} {1} утік і цього не забуде (стосунки {2}).",
+  "from": "src/npcs.js"
+ },
+ {
+  "k": "🌙 {0} {1} вночі напав на базу і виніс: {2}. Стіни допомогли б.",
+  "from": "src/npcs.js"
+ },
+ {
+  "k": "SW не зареєструвався:",
+  "from": "src/platform.js"
+ },
+ {
+  "k": "Збереження з новішої версії гри ({0} > {1})",
+  "from": "src/save.js"
+ },
+ {
+  "k": "Немає міграції збереження з версії {0}",
+  "from": "src/save.js"
+ },
+ {
+  "k": "Це не збереження «Попелу і Туману»",
+  "from": "src/save.js"
+ },
+ {
+  "k": "Не вдалося завантажити збереження:",
+  "from": "src/save.js"
+ },
+ {
+  "k": "Д",
+  "from": "src/state.js"
+ },
+ {
+  "k": "Не вистачає сил ⚡",
+  "from": "src/state.js"
+ },
+ {
+  "k": "⭐ [Система] Рівень {0}. ",
+  "from": "src/state.js"
+ },
+ {
+  "k": "⭐ Рівень ",
+  "from": "src/state.js"
+ },
+ {
+  "k": "Preferences недоступні, лишаюсь на localStorage:",
+  "from": "src/storage.js"
+ },
+ {
+  "k": "🧟 Незнайомець",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "<br><span class=\"mut\">Стосунки: {0} {1}</span>",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Обміняти {0}{1} → {2}{3}",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Обмін із {0}: {1}{2} → {3}{4}",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Продати «{0}» → {1}",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Продав трофей «{0}»",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Піти",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Поміняємось?",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "<br>Пропонує обмін (зі складу вдома).",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": " Другові — краща ціна.",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "<br>Його дуже цікавлять твої трофеї…",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Віддати {0}{1}",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Віддав {0} {1}{2}",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Битися",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Тікати ({0})",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Втік від ",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Не вдалося!",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Плати мито: {0}{1}",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Відлюдник {0} розповів про «{1}»",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Показав на мапі місце: <b>{0}</b>.",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Дякую",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": "Мовчки дав тобі {0}.",
+  "from": "src/survivors.js"
+ },
+ {
+  "k": " Тебе дотягли додому, рюкзак втрачено.",
+  "from": "src/trip.js"
+ },
+ {
+  "k": "Поразка",
+  "from": "src/trip.js"
+ },
+ {
+  "k": "<br>Ти отямився вдома. Весь лут із вилазки втрачено, сил не лишилось.",
+  "from": "src/trip.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🎨 Арт · {0}/{1}</h2>\n  <div class=\"mut\">Арт генерується одною командою (ComfyUI має бути запущений):</div>\n  <textarea rows=\"1\" readonly>python tools/art/generate.py</textarea>\n  <div class=\"mut\" style=\"margin-top:6px\">Файли лягають у <b>public/art/</b>, і гра підхоплює їх сама. ✅ — файл із public/art, 📤 — завантажено вручну (перекриває файл), ⬜ — поки емодзі.</div>\n  <h3>Ручне завантаження для проб</h3>\n  <div class=\"mut\">Назви файли ключами зі списку (напр. <b>loc_gas.png</b>) — зберігається лише в цьому браузері.</div>\n  <div class=\"row\" style=\"margin:10px 0\"><input type=\"file\" id=\"artin\" accept=\"image/*\" multiple><button class=\"sm\" {2}>Прибрати завантажене</button></div>\n  <div class=\"mut\">Спільний стиль:</div><textarea rows=\"3\" readonly>{3}</textarea>\n  <h3>Ключі та описи</h3>{4}</div>",
+  "from": "src/ui/art.js"
+ },
+ {
+  "k": "Дім",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Будівництво",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Майстерня",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Тварини",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🐪 Караван біля бази</h2><div class=\"row col\">{0}</div><div class=\"mut\" style=\"margin-top:6px\">Караван піде вранці.</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": " · 🏆 трофейна стіна",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "{0} · покращень: {1}{2}",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Уся колекція зібрана",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\" style=\"margin-top:10px\"><h2>🏆 Трофейна стіна</h2>{0}<div class=\"mut\" style=\"margin-top:6px\">Ти зібрав усі {1} трофеїв рідкісних істот. Вижилі про це пліткують.</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": " ({0}: тепла ×{1})",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": ", сон не лікує",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "{0}\n  {1}\n  {2}\n  <div class=\"card\" style=\"margin-top:10px\"><h2>Дім</h2>\n    <div class=\"row\">\n      <button {3} {4}>🍖 Поїсти досхочу (+{5}⚡) {6} <span class=\"mut\">{7}/{8}</span></button>\n      <button {9} {10}>💊 Аптечка</button>\n      <button {11} {12}>☕ Стимулятор (+{13}⚡)</button>\n      <button class=\"pri\" {14}>🌙 Спати (кінець дня)</button>\n    </div>\n    <div class=\"mut\" style=\"margin-top:6px\">Щодоби зараз: {15}{16}. Нестача → −{17} HP (і ще −{18} за кожен наступний день поспіль){19}. Брак тепла добирається деревом із пічки.</div>\n  </div>\n  <div class=\"card\"><h2>Журнал</h2><div class=\"log\">{20}</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "🔋+{0} за ⛽{1}",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": " (бере 🔋{0} 🔥{1})",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "нальотів −{0}%",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<button class=\"sm warnb\" {0} {1}>🛠️ Полагодити: {2}</button>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"mut\">✔ максимум</div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"mut\">🔒 Потрібно: <span class=\"miss\">{0}</span></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Покращити",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Збудувати",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": " <span class=\"pill bad\">зламано</span>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Зараз: {0}",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "далі: {0}",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"item{0}\"><b>{1} {2}</b> <span class=\"mut\">рів. {3}/{4}</span>{5}{6}\n      <div class=\"mut\">{7}</div>\n      {8}\n      <div style=\"margin-top:6px\">{9}</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": " Зараз {0}: тепла на покращення треба ×{1}.",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🔨 Будівництво</h2><div class=\"mut\">Будівництво й ремонт — по {0}⚡ і {1}⚡. Червоним — чого бракує.{2} Будівлі зношуються і часом ламаються вночі.</div>\n  <div class=\"grid one\" style=\"margin-top:8px\">{3}</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🔧 Майстерня</h2><div class=\"mut\">Майстерні ще немає. Збудуй її в розділі «🔨 Будівництво», щоб робити зброю та броню.</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": " Робота стоїть.",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🔧 Майстерня</h2><div class=\"mut\"><span class=\"miss\">Майстерня зламана.</span> Полагодь її в розділі «🔨 Будівництво».{0}</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"sys\">⏳ У роботі: {0} ({1}) — ще {2} дн.</div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "{0} дн.",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "одразу",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🔧 Майстерня · рів. {0}</h2>{1}\n  <div class=\"row\"><button {2} {3}>🗡️ Зброя: {4}</button>\n  <button {5} {6}>🛡️ Броня: {7}</button></div>\n  <div class=\"mut\" style=\"margin-top:6px\">Зараз виходить: {8} ({9}%, {10}) або {11} ({12}). Рів. 2 — краща. Поки річ робиться, нову не почати.</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🐾 Тварини</h2><div class=\"mut\">Поки нікого. Під час обшуку іноді трапляються малі тварини — їх можна забрати додому. Доросла тварина ходить з тобою, бʼється і бере на себе частину ударів.</div>\n    <div class=\"grid\" style=\"margin-top:8px\">{0}</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<span class=\"pill bad\">поранено, вдома</span>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<span class=\"pill\">росте: {0}/{1} дн.</span>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<span class=\"pill okb\">йде з тобою</span>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<span class=\"pill\">вдома</span>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"mut\">🗡️ {0} шкоди за хід</div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "✔ Бере з собою",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "Брати з собою",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"item\"><b>{0} {1}</b> {2}<div class=\"mut\">{3}</div>\n      <div class=\"row\" style=\"margin:6px 0\"><div class=\"bar\"><i style=\"width:{4}%\"></i></div><span class=\"mut\">❤️ {5}/{6}</span></div>\n      {7}\n      <div class=\"row\" style=\"margin-top:6px\">{8}<button class=\"sm\" {9}>Відпустити</button></div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🐾 Тварини {0}/{1}</h2><div class=\"mut\">Іде з тобою одна доросла здорова тварина. Поранена лишається вдома й одужує (+{2}% за день).</div>\n  <div class=\"grid\" style=\"margin-top:8px\">{3}</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"top\"><div class=\"row tl\">\n    <b>День {0}</b><span class=\"chip tap\" {1}>{2} {3}</span>{4}<span class=\"chip\">⭐ {5} <span class=\"mut\">{6}/{7}</span></span></div>\n    <div class=\"row tl\"><button class=\"rc{8}\" {9}><span>⚡</span><b>{10}/{11}</b></button><span class=\"chip\">🛡️ {12}</span>\n    <div class=\"bar\"><i style=\"width:{13}%\"></i></div><span class=\"mut\">❤️ {14}/{15}</span></div>\n    <div class=\"rgs\">{16}</div></div>",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "База",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "Карта",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "Спорядження",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "Меню",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "🗡️ Атакує на {0}",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "💢 Важкий удар: {0}",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "🛡️ У захисті (+{0}) і б'є на {1}",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "💨 Збирається втекти!",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "💫 оглушений",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "🛡️ панцир {0}",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": " + прислужники {0}",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "<span class=\"chip low\">☠️ отрута {0}×{1}</span>",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "{0}\n  <div class=\"card\" style=\"margin-top:10px\">\n    <div class=\"row\"><b>{1}</b><div class=\"bar\"><i style=\"width:{2}%\"></i></div><span class=\"mut\">{3}/{4} · 🛡️{5}</span></div>\n    {6}\n    {7}\n    <div class=\"row\" style=\"margin-top:8px\"><span class=\"intent\">Намір: {8}{9}</span> {10}</div>\n  </div>\n  <div class=\"card\"><div class=\"row\" style=\"margin-bottom:8px\"><b>Хід {11}</b><span class=\"chip\">⚡ ОД: {12}/{13}</span><span class=\"chip\">🛡️ Блок: {14}</span>{15}\n    <div class=\"bar sup\"><i style=\"width:{16}%\"></i></div><span class=\"mut\">🌟 {17}%</span></div>\n    <div class=\"hand\">{18}</div>\n    <div class=\"row\" style=\"margin-top:10px\">\n      <button {19} {20}>🛡️ Блок +{21} ({22} ОД)</button>\n      <button {23} {24}>🌟 Супер</button>\n      <button {25}>🏃 Втекти</button>\n      <button class=\"pri\" {26}>Кінець ходу ▶</button>\n    </div></div>\n  <div class=\"card\"><div class=\"log\">{27}</div></div>",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "<b>{0} {1}</b> <span class=\"pill\" style=\"color:{2};border-color:{3}\">{4}</span><br>🗡️ {5} шкоди · ⚡{6} ОД<br><span class=\"mut\">{7}</span>",
+  "from": "src/ui/format.js"
+ },
+ {
+  "k": "<b>{0} {1}</b> <span class=\"pill\" style=\"color:{2};border-color:{3}\">{4}</span><br>🛡️ +{5} захисту{6}",
+  "from": "src/ui/format.js"
+ },
+ {
+  "k": "<span class=\"mut\">Ще ні з ким не зустрічався.</span>",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "торгували {0}",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "платив мито {0}",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "бились {0}",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "ти переміг {0}",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "він переміг {0}",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": " · <span class=\"mut\">пішов із міста</span>",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "лише бачились",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "✔ Екіпіровано",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "Екіпірувати",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "<button class=\"sm\" {0}>Розібрати</button>",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": " і ",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "<span class=\"mut\">Немає</span>",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "<span class=\"mut\">Поки нічого. Шукай рідкісних монстрів (найчастіше — у Туманному розломі).</span>",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🎒 Спорядження</h2><div class=\"mut\">До {0} зброй у бою: кожна дає {1} картки в колоду, щоходу тягнеш {2} випадкові. ОД за хід: {3} (більше на рів. {4}).</div>\n  <h3>Зброя ({5}/{6})</h3><div class=\"grid\">{7}</div>\n  <h3>Броня</h3><div class=\"grid\">{8}</div>\n  <h3>✨ Трофеї на складі</h3>{9}\n  <h3>🏆 Колекція {10}/{11}</h3><div class=\"mut\" style=\"margin-bottom:6px\">Зібраний трофей лишається в колекції, навіть якщо його продати. Повна колекція — трофейна стіна на базі.</div>\n  <div class=\"coll\">{12}</div>\n  <h3>👥 Знайомі вижилі</h3>{13}\n  <h3>Статистика</h3><div class=\"mut\">Перемог: {14} · Захист: рівень/{15} + броня · HP: {16} + {17}/рівень + броня</div></div>\n  <div class=\"row\"><button {18}>🔄 Нова гра</button></div>",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "Зараз: <b>{0}/{1}</b>",
+  "from": "src/ui/info.js"
+ },
+ {
+  "k": "Є: <b>{0}</b>",
+  "from": "src/ui/info.js"
+ },
+ {
+  "k": " · щодня приблизно <span class=\"ok\">+{0}</span> / <span class=\"bad\">−{1}</span> = <b class=\"{2}\">{3}{4}</b>",
+  "from": "src/ui/info.js"
+ },
+ {
+  "k": "{0}<div>{1}</div><div class=\"sys\" style=\"margin:10px 0\">{2}</div>\n      <h3>Де взяти</h3>{3}<h3>На що йде</h3>{4}",
+  "from": "src/ui/info.js"
+ },
+ {
+  "k": "Зрозуміло",
+  "from": "src/ui/info.js"
+ },
+ {
+  "k": "[Система] Мало HP — час додому.",
+  "from": "src/ui/loc.js"
+ },
+ {
+  "k": " · ⚠ хтось тут уже нишпорив",
+  "from": "src/ui/loc.js"
+ },
+ {
+  "k": " · лут ×{0}",
+  "from": "src/ui/loc.js"
+ },
+ {
+  "k": "{0}\n  <div class=\"card\" style=\"margin-top:10px\"><h2>{1} {2}</h2>\n    {3}\n    {4}\n    <div class=\"mut\">{5} зона{6}{7}</div>\n    <h3>Рюкзак {8}/{9}</h3><div>{10} {11} {12}</div>\n    <div class=\"row\" style=\"margin-top:10px\">\n      <button class=\"pri\" {13} {14}>🔍 Обшукати ({15}⚡)</button>\n      <button {16} {17}>💊</button><button {18} {19}>☕</button>\n      <button {20}>🏠 Додому</button>\n    </div><div class=\"mut\" style=\"margin-top:6px\">Аптечки й стимулятори — зі складу вдома. Програєш бій — рюкзак пропаде.</div></div>",
+  "from": "src/ui/loc.js"
+ },
+ {
+  "k": " · ✨ часто рідкісні",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "Вичищено суперником",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "Виснажено",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "<div style=\"color:var(--warn)\">⚠ {0} (лут ×{1})</div>",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "<div style=\"color:var(--acc)\">{0} Тут {1}</div>",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "<div class=\"item\">{0}<b>{1}</b>\n      <div class=\"mut\">{2} · {3}{4}</div>\n      {5}{6}\n      <button class=\"sm pri\" style=\"margin-top:6px;width:100%\" {7} {8}>Вирушити</button></div>",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "<h3 style=\"color:{0}\">{1} зона · {2}⚡{3}</h3><div class=\"grid\">{4}</div>",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🗺️ Карта</h2><div class=\"mut\">Дорога в один бік коштує сили, назад — безкоштовно. Кожен обшук — {0}⚡. Рюкзак: {1} од.</div>\n  <div class=\"row\" style=\"margin-top:8px\"><button {2} {3}>🔭 Розвідка ({4}⚡) — ще не знайдено: {5}</button></div></div>\n  {6}",
+  "from": "src/ui/map.js"
+ },
+ {
+  "k": "Українська",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Увімк.",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Вимк.",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<span class=\"miss\">пошкоджене</span>",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "День {0} · рів. {1}{2}",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<span class=\"mut\">порожньо</span>",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<span class=\"pill okb\">зараз</span>",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Грати",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Нова гра",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<div class=\"slot{0}\"><b>Слот {1}</b> {2}<div class=\"row\" style=\"margin-left:auto\">{3}</div></div>",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "🔊 Звуки",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "🎵 Музика",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "📳 Вібрація",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "🌐 Мова",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "🔠 Шрифт",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Малий",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Звичайний",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Великий",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Дуже великий",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "✨ Анімації",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Звичайні",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Швидкі",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>⚙️ Налаштування</h2>\n    {0}{1}\n    {2}\n    {3}\n    {4}\n    {5}\n  </div>\n  <div class=\"card\"><h2>💾 Збереження</h2><div class=\"mut\">Гра зберігається сама після кожної дії. {6} слоти — окремі ігри.</div>\n    <div style=\"margin:8px 0\">{7}</div>\n    <div class=\"row\"><button {8}>📤 Скопіювати резервну копію</button><button {9}>📥 Відновити з копії</button><button {10}>🔄 Нова гра в цьому слоті</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Резервна копія — це текст: збережи його в нотатках чи надішли собі, а потім встав у «Відновити».</div>\n  </div>\n  <div class=\"card\"><h2>📊 Статистика</h2>\n    <div class=\"stats\">\n      <div><b>{11}</b><span>день</span></div><div><b>{12}</b><span>перемог</span></div><div><b>{13}</b><span>збудовано</span></div>\n      <div><b>{14}</b><span>скрафчено</span></div><div><b>{15}</b><span>тварин знайдено</span></div><div><b>{16}</b><span>трофеїв</span></div>\n    </div>\n    <h3>🏆 Рекорди</h3>\n    <div class=\"stats\">\n      <div><b>{17}</b><span>найдовше днів</span></div><div><b>{18}</b><span>найвищий рівень</span></div>\n      <div><b>{19}</b><span>ігор завершено</span></div><div><b>{20}</b><span>перемог усього</span></div>\n    </div>\n  </div>\n  <details class=\"card\"><summary><b>🎨 Арт (для розробника)</b></summary>{21}</details>\n  <div class=\"mut\" style=\"text-align:center;margin:8px 0\">Попіл і Туман · v{22}</div>",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<div class=\"card\" style=\"text-align:center\"><div style=\"font-size:60px\">🪦</div><h2>Ти не пережив пустку</h2>\n  <p>Протримався днів: <b>{0}</b> · Рівень {1} · Перемог {2}</p><button class=\"pri\" {3}>Почати заново</button></div>",
+  "from": "src/ui/over.js"
+ },
+ {
+  "k": "Невідома дія:",
+  "from": "src/ui/render.js"
+ },
+ {
+  "k": "<div class=\"card tip\"><b>💡 {0}</b><div style=\"margin:6px 0\">{1}</div>\n    <div class=\"row\"><button class=\"sm pri\" {2}>Зрозуміло</button><button class=\"sm\" {3}>Вимкнути навчання</button></div></div>",
+  "from": "src/ui/tutorial.js"
+ },
+ {
+  "k": "Куртка",
+  "from": "data/armor.json"
+ },
+ {
+  "k": "Бронежилет",
+  "from": "data/armor.json"
+ },
+ {
+  "k": "Латні уламки",
+  "from": "data/armor.json"
+ },
+ {
+  "k": "Звичайна",
+  "from": "data/balance.json"
+ },
+ {
+  "k": "Незвичайна",
+  "from": "data/balance.json"
+ },
+ {
+  "k": "Рідкісна",
+  "from": "data/balance.json"
+ },
+ {
+  "k": "Епічна",
+  "from": "data/balance.json"
+ },
+ {
+  "k": "Легендарна",
+  "from": "data/balance.json"
+ },
+ {
+  "k": "Халупа",
+  "from": "data/balance.json"
+ },
+ {
+  "k": "Фортеця",
+  "from": "data/balance.json"
+ },
+ {
+  "k": "Дощозбірник",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "+2 💧 води на день за рівень",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Город",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Грядки",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Теплиця",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "+2 🍖 їжі на день за рівень. З рів. 2 це теплиця: щодня бере 🔋 і 🔥 (по 1 за кожен рівень вище першого), без них родить як грядки",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Генератор",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Потужний генератор",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Ощадний генератор",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Вранці палить ⛽ паливо і дає 🔋 енергію. Рів. 2 — більше енергії, рів. 3 — палить удвічі менше",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Сонячна панель",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Безкоштовна 🔋 енергія щодня. Влітку більше, взимку вдвічі менше. Потрібен потужний генератор (рів. 2)",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Обігрівач",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Вранці бере 🔋 енергію і дає 🔥 тепло. Без енергії стоїть холодний. Потрібен генератор",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Нормальне ліжко",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "+1 ⚡ макс. сил за рівень",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Стіни",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Менше нічних нальотів (рів. 3 — жодних)",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Крафт зброї та броні (рів. 2 — краща). Складні речі робляться кілька днів і їдять енергію",
+  "from": "data/buildings.json"
+ },
+ {
+  "k": "Виживання",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Енергія",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Матеріали",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Припаси",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Без води довго не протягнеш: щодня йде на пиття, а влітку ще більше.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🛢️ Дощозбірник на базі (навесні дає більше)",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки: супермаркет, пральня, водосховище",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Обмін у торговців і каравану",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Щоденне пиття",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Поїсти досхочу",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Щодня потрібна їжа. Без неї голод бʼє по здоровʼю, і що далі — то сильніше.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🥬 Город і теплиця на базі (восени врожай більший)",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🐐 Доросла коза",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки: супермаркет, будинки, ринок",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Лут з переможених ворогів",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Щоденна їжа",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Поїсти досхочу (+⚡)",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Тепло в домі. Щоночі вистигає; восени витрата ×1,5, взимку ×2. Коли тепла бракує, у пічці згорає 🪵 дерево.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "♨️ Обігрівач на базі (їсть 🔋 енергію)",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🪵 Дерево в пічці — автоматично, коли тепла не вистачає",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Караван: паливо на тепло",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Щоденне опалення",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Покращення будівель (взимку більше)",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Електрика бази. Накопичується в акумуляторах (не більше за ліміт).",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🔌 Генератор — палить ⛽ паливо",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "☀️ Сонячна панель — безкоштовно (взимку слабше)",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "♨️ Обігрівач",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Покращення будівель",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🔧 Крафт у майстерні",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Бензин і дизель для генератора.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки: заправка, автобусне депо, військова база",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Лут з мародерів",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Обмін у торговців",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🔌 Генератор",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Обмін у каравані",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Дошки, меблі, гілля. Будматеріал і запасне паливо для пічки.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки: лісосмуга, будинки, ботанічний сад",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Пічка, коли бракує тепла",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Крафт",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Арматура, листи, труби — основа майже всіх будівель.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки: заправка, депо, вежа, військова база",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Лут з людей",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Ремонт",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Крафт зброї та броні",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Дрібна механіка й електроніка: без них не збереш генератор чи панель.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки: депо, лікарня, вежа, метро",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🔧 Розбирання непотрібних речей",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🐈 Кіт вночі",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Енергетичні будівлі",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Аптечка відновлює частину здоровʼя будь-коли, навіть у вилазці.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки: лікарня, школа",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Подарунок відлюдника",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Караван",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Лікування",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Стимулятор дає трохи сил (⚡) просто зараз.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Трофеї рідкісних істот",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Вилазки в далеку зону",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "+⚡ сил",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Сили",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Твій час і витривалість на день: дорога, обшук, будівництво. Повністю відновлюються уві сні.",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Сон",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "☕ Стимулятор",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "🛏️ Ліжко — більший запас",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Дорога і обшук",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Будівництво й крафт",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Розвідка",
+  "from": "data/codex.json"
+ },
+ {
+  "k": "Весна",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Дощі: +1💧 щодня, якщо є дощозбірник",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Літо",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Спрага: +1💧 витрати щодня. Сонячна панель дає на чверть більше",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Осінь",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Врожай: +1🍖 щодня, якщо є город. Холоднішає: тепла йде ×1,5",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Зима",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Холод: тепла йде вдвічі більше (і на будівництво теж), город родить на 1 менше, сонце слабке",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Буря",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Дорога в кожен бік дорожча на 1⚡, зате бочки повні: +2💧",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Густий туман",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Рідкісні трапляються вдвічі частіше, але й бійок більше, а знахідок менше",
+  "from": "data/events.json"
+ },
+ {
+  "k": "До бази прийшов караван — можна поміняти ресурси на речі",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Спека",
+  "from": "data/events.json"
+ },
+ {
+  "k": "+1💧 витрати сьогодні",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Мороз",
+  "from": "data/events.json"
+ },
+ {
+  "k": "+1🔥 витрати сьогодні",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Мародери в окрузі",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Вночі шанс нальоту на склад вищий на 20%",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Щедрий день",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Знахідок більше: лут ×1,5",
+  "from": "data/events.json"
+ },
+ {
+  "k": "Близька",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Середня",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Далека",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Покинута заправка",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Розграбований супермаркет",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Лісосмуга",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Пральня-самообслуговування",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Розбитий автобус",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Приватний сектор",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Зруйнована школа",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Водосховище",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Трамвайне депо",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Блошиний ринок",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Пожежна частина",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Міська бібліотека",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Старий шпиталь",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Вежа зв'язку",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Туманний розлом",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Станція метро",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Покинута військова база",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Ботанічний сад-мутант",
+  "from": "data/locations.json"
+ },
+ {
+  "k": "Щур-мутант",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Здичавілий пес",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Іржавий слиз",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Отруйна сороконіжка",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Щуряча королева",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "щур",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Злодюжка-гоблін",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Мародер-тінь",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Кістяний вовк",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Повзун",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Броньований жук",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Болотяна жаба",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Підліток-некромант",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "скелет",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Мисливець-падальник",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Скляна оса",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Туманний лицар",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Вартовий-дрон",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Багатоокий",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Сталевий голем",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Матір вулика",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "трутень",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Хімічний мутант",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Механічний павук",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Туманний привид",
+  "from": "data/monsters.json"
+ },
+ {
+  "k": "Кай",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Мірра",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Дзвін",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Тесса",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Рудий",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Аска",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Вереск",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Лія",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Борис-Броня",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Нокс",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Ліра",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Грім",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Сова",
+  "from": "data/npcs.json"
+ },
+ {
+  "k": "Пес",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Цуценя",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Найсильніше кусає в бою",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Під перекинутою машиною тремтить худе цуценя й дивиться просто на тебе.",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Кіт",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Кошеня",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Вночі часом приносить ⚙️ деталі",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "З-за ящиків висовується руде кошеня і нахабно вимагає їсти.",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Папуга",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Пташеня папуги",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Розвідка дешевша на 1 ⚡",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "На дроті сидить обскубане папуженя і повторює «додому, додому».",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Єнот",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Єнотеня",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Знаходить більше: лут ×1,15",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "У смітнику хтось шарудить: маленьке єнотеня тягне бляшанку більшу за себе.",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Ворона",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Вороненя",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Вартує: нічних нальотів на 10% менше",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Під деревом лежить вороненя з підбитим крилом. Каркає сердито, але не тікає.",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Коза",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Козеня",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Доросла дає +1 🍖 щодня (молоко), але й п'є більше",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Серед руїн мекає загублене козеня. Схоже, його отара давно пропала.",
+  "from": "data/pets.json"
+ },
+ {
+  "k": "Кришталевий лис",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Кришталевий хвіст",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Мімік-валіза",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Язик міміка",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Сяючий олень",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Сяючий ріг",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Мертвий бард",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Платівка старого світу",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Золотий скарабей",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Золотий панцир",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Співоча медуза",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Медуза в банці",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Паперовий дракончик",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Паперова луска",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Годинниковий кіт",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Шестерня, що цокає",
+  "from": "data/rare.json"
+ },
+ {
+  "k": "Вода",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Їжа",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Тепло",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Паливо",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Дерево",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Метал",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Деталі",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Аптечки",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Стимулятори",
+  "from": "data/resources.json"
+ },
+ {
+  "k": "Ласкаво просимо додому",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Щодоби витрачаються вода, їжа й тепло (запаси — угорі). Сили ⚡ — твій час на день. Збудуй 🛢️ Дощозбірник, а тоді вирушай на вилазку з вкладки 🗺️ Карта.",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Близька зона найдешевша: дорога туди {travel0}⚡, назад — безкоштовно. Обирай місце за ресурсами, яких бракує.",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Вилазка",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Кожен обшук коштує {searchSily}⚡: лут, монстр, люди, схованка чи пастка. Повертайся, поки є HP — програєш бій, і рюкзак пропаде.",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Бій",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Щоходу маєш ОД і {handSize} картки зброї. Дивись на намір ворога: перед сильним ударом лиши ОД на 🛡️ блок. Коли шкала 🌟 повна — доступна суператака.",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Новий день",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Нестача ресурсу б'є по HP, і з кожним днем поспіль сильніше. Город 🥬 і обігрівач ♨️ знімуть тиск. Поїсти досхочу — це ще +{eatSily}⚡.",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Що далі",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Близьку зону поступово вигрібають — десь із 9–10 дня вигідніше ходити в середню. Готуйся: рівень, броня, майстерня 🔧. Розвідка 🔭 відкриває нові місця. Вижилі пам'ятають, як ти з ними повівся, а пори року змінюють витрати.",
+  "from": "data/tutorial.json"
+ },
+ {
+  "k": "Ніж",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Кровотеча: +2 шкоди 2 ходи",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Бита",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "30% оглушити ворога",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Арбалет",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Ігнорує захист і панцир",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Сокира",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Ламає 2 захисту і 4 панцира",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Обріз",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Шкода ±50%",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Посох туману",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Лікує 50% завданої шкоди",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Спис",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Б'є повз прислужників просто у ватажка",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Цвяхомет",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Три постріли (кожен окремо проти захисту)",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Коктейль Молотова",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Підпал: 3 шкоди 3 ходи, спалює всіх прислужників",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "Шокер",
+  "from": "data/weapons.json"
+ },
+ {
+  "k": "50% оглушити ворога",
+  "from": "data/weapons.json"
+ }
+]

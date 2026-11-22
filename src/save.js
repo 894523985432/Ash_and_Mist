@@ -5,6 +5,7 @@ import { S, setState } from './state.js';
 import { initNpcs } from './npcs.js';
 import { getItem, setItem } from './storage.js';
 import { settings, setSetting } from './settings.js';
+import { t } from './i18n.js';
 
 export const SAVE_VERSION = 5;
 export const KEY = 'ashfog_save';
@@ -33,10 +34,10 @@ const MIGRATIONS = {
 
 export function migrate(data) {
   let v = data.saveVersion ?? 1;
-  if (v > SAVE_VERSION) throw new Error(`Збереження з новішої версії гри (${v} > ${SAVE_VERSION})`);
+  if (v > SAVE_VERSION) throw new Error(t`Збереження з новішої версії гри (${v} > ${SAVE_VERSION})`);
   while (v < SAVE_VERSION) {
     const m = MIGRATIONS[v];
-    if (!m) throw new Error(`Немає міграції збереження з версії ${v}`);
+    if (!m) throw new Error(t`Немає міграції збереження з версії ${v}`);
     data = m(data); v++;
   }
   data.saveVersion = SAVE_VERSION;
@@ -68,7 +69,7 @@ export const exportSave = () => JSON.stringify({ ...S, saveVersion: SAVE_VERSION
 /** Відновлює гру з тексту резервної копії. Кидає помилку, якщо текст не схожий на збереження. */
 export function importSave(text) {
   const data = migrate(JSON.parse(text));
-  if (!data?.res || !data?.bld) throw new Error('Це не збереження «Попелу і Туману»');
+  if (!data?.res || !data?.bld) throw new Error(t('Це не збереження «Попелу і Туману»'));
   setState(data); save();
 }
 
@@ -83,7 +84,7 @@ export function load(slot = settings.slot) {
     setState(data);
     return true;
   } catch (e) {
-    console.warn('Не вдалося завантажити збереження:', e);
+    console.warn(t('Не вдалося завантажити збереження:'), e);
     return false;
   }
 }

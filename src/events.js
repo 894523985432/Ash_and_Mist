@@ -6,6 +6,7 @@ import { S, log, canPay, pay, resStr } from './state.js';
 import { mkWeapon, mkArmor, itemName, itemEmoji } from './items.js';
 import { itemHTML } from './ui/format.js';
 import { line } from './texts.js';
+import { t } from './i18n.js';
 
 export const season = (day = S.day) => EVENTS.seasons[Math.floor((day - 1) / EVENTS.seasonLength) % EVENTS.seasons.length];
 export const event = () => (S.event && EVENTS.events.find(e => e.id === S.event)) || null;
@@ -28,7 +29,7 @@ export function dayModifiers() {
 export function rollEvent() {
   S.event = null; S.caravan = null;
   const s = season(), lines = [];
-  if (S.day > 1 && (S.day - 1) % EVENTS.seasonLength === 0) lines.push(`${s.e} Настала пора: <b>${s.n}</b>. ${s.d}.` + (line(`seasons.${s.id}`) ? `<br><i>${line(`seasons.${s.id}`)}</i>` : ''));
+  if (S.day > 1 && (S.day - 1) % EVENTS.seasonLength === 0) lines.push(t`${s.e} Настала пора: <b>${s.n}</b>. ${s.d}.` + (line(`seasons.${s.id}`) ? `<br><i>${line(`seasons.${s.id}`)}</i>` : ''));
   if (chance(EVENTS.eventChance)) {
     const pool = EVENTS.events.filter(e => S.day >= (e.fromDay || 1) && (!e.seasons || e.seasons.includes(s.id)));
     const total = pool.reduce((a, e) => a + e.w, 0);
@@ -47,21 +48,21 @@ export function rollEvent() {
 }
 
 export function offerText(o) {
-  const got = o.item ? `${o.item === 'w' ? 'зброя' : 'броня'} (${o.rar === 'u' ? 'незвичайна' : 'рідкісна'})` : resStr(o.get);
+  const got = o.item ? `${o.item === 'w' ? t('зброя') : t('броня')} (${o.rar === 'u' ? t('незвичайна') : t('рідкісна')})` : resStr(o.get);
   return `${resStr(o.give)} → ${got}`;
 }
 
 export function caravanTrade(i) {
   const o = S.caravan?.[+i]; if (!o || o.done) return;
-  if (!canPay(o.give)) return ui.toast('Не вистачає ресурсів');
+  if (!canPay(o.give)) return ui.toast(t('Не вистачає ресурсів'));
   pay(o.give); o.done = true;
   if (o.item) {
     const it = o.item === 'w' ? mkWeapon(pick(Object.keys(WPN)), o.rar) : mkArmor(pick(Object.keys(ARM)), o.rar);
-    S.inv.push(it); log('🐪 Караван: ' + itemName(it));
-    ui.showEvent({ e: itemEmoji(it), t: 'Обмін із караваном', txt: itemHTML(it), b: [['Ок', null]] });
+    S.inv.push(it); log(t('🐪 Караван: ') + itemName(it));
+    ui.showEvent({ e: itemEmoji(it), t: t('Обмін із караваном'), txt: itemHTML(it), b: [[t('Ок'), null]] });
   } else {
     for (const k in o.get) S.res[k] += o.get[k];
-    log('🐪 Караван: ' + offerText(o));
+    log(t('🐪 Караван: ') + offerText(o));
   }
   ui.render();
 }

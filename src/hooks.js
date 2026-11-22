@@ -6,5 +6,6 @@ export const ui = {
   showEvent(ev) {},
   toast(text) {},
   shake() {},
+  sfx(name) {},
 };
 export function setUI(impl) { Object.assign(ui, impl); }

@@ -1,4 +1,5 @@
-// Сховище ключ-значення для збережень.
+
+import { t } from './i18n.js';// Сховище ключ-значення для збережень.
 // У браузері — localStorage. В APK — Capacitor Preferences (SharedPreferences на Android):
 // не зникає, коли система чистить дані WebView. Читання синхронне з копії в памʼяті,
 // тому initStorage() треба дочекатися до першого load().
@@ -19,7 +20,7 @@ export async function initStorage(keys) {
       if (value != null) mem[k] = value;
     }
     prefs = Preferences;
-  } catch (e) { console.warn('Preferences недоступні, лишаюсь на localStorage:', e); }
+  } catch (e) { console.warn(t('Preferences недоступні, лишаюсь на localStorage:'), e); }
 }
 
 export function getItem(k) {

@@ -10,6 +10,7 @@ import { npcBeaten, npcWon } from './npcs.js';
 import { itemHTML } from './ui/format.js';
 import { petAttackDmg, petTakeShare, companion, petName } from './economy.js';
 import { PETS } from './data.js';
+import { t, tr } from './i18n.js';
 
 const C = BAL.combat;
 
@@ -24,18 +25,19 @@ export function mkEnemy(key, rare, z) {
 
 /** Короткий опис особливостей ворога для інтерфейсу. */
 export function traitText(en) {
-  const t = en.traits || {}, out = [];
-  if (t.poison) out.push(`☠️ отрута ${t.poison.dmg}×${t.poison.turns}`);
-  if (t.armor) out.push('🛡️ панцир');
-  if (en.summon) out.push(`📣 кличе: ${en.summon.n}`);
-  if (t.flee) out.push('💨 тікає, коли поранений');
+  const tt = en.traits || {}, out = [];
+  if (tt.poison) out.push(t`☠️ отрута ${tt.poison.dmg}×${tt.poison.turns}`);
+  if (tt.armor) out.push(t('🛡️ панцир'));
+  if (en.summon) out.push(t`📣 кличе: ${en.summon.n}`);
+  if (tt.flee) out.push(t('💨 тікає, коли поранений'));
   return out.join(' · ');
 }
 
 export function startFight(en) {
   en.bleed = 0; en.bleedT = 0; en.burn = 0; en.burnT = 0; en.stun = false; en.guard = false; en.minions = [];
   S.fight = { en, ap: 0, hand: [], block: 0, turn: 0, flog: [], poison: 0, poisonT: 0 };
-  if (en.rare) S.fight.flog.push('✨ Рідкісна поява! ' + en.n + (en.flee ? ` — втече через ${en.flee} ходи` : ''));
+  ui.sfx(en.rare ? 'rare' : 'alert');
+  if (en.rare) S.fight.flog.push(t('✨ Рідкісна поява! ') + tr(en.n) + (en.flee ? t` — втече через ${en.flee} ходи` : ''));
   const tt = traitText(en); if (tt) S.fight.flog.push(`${en.e} ${en.n}: ${tt}`);
   newTurn(); ui.go('fight');
 }
@@ -73,8 +75,8 @@ function hitFront(raw, pierce, note) {
   const en = S.fight.en, m = en.minions?.[0];
   if (!m) return hitEnemy(raw, pierce);
   const dmg = Math.max(C.minDmg, Math.round(raw));
-  if (dmg < m.hp) { m.hp -= dmg; note.push(`прислужник −${dmg}`); return 0; }
-  en.minions.shift(); note.push(`${en.summon.n} знищений`);
+  if (dmg < m.hp) { m.hp -= dmg; note.push(t`прислужник −${dmg}`); return 0; }
+  en.minions.shift(); note.push(t`${en.summon.n} знищений`);
   const rest = dmg - m.hp;
   return rest > 0 ? hitEnemy(rest, pierce) : 0;
 }
@@ -89,36 +91,37 @@ export function playCard(i) {
   if (tr === 'multi') { for (let k = 0; k < T.multi.hits; k++) d += hitFront(raw, false, note); }
   else if (tr === 'reach') d = hitEnemy(raw, false);
   else if (tr === 'burn') {
-    if (en.minions?.length) { note.push(`🔥 згоріли прислужники (${en.minions.length})`); en.minions = []; }
-    d = hitEnemy(raw, false); en.burn = T.burn.dmg; en.burnT = T.burn.turns; note.push('🔥 підпал');
+    if (en.minions?.length) { note.push(t`🔥 згоріли прислужники (${en.minions.length})`); en.minions = []; }
+    d = hitEnemy(raw, false); en.burn = T.burn.dmg; en.burnT = T.burn.turns; note.push(t('🔥 підпал'));
   } else d = hitFront(raw, tr === 'pierce', note);
   if (tr === 'bleed') { en.bleed = T.bleed.dmg; en.bleedT = T.bleed.turns; note.push('🩸'); }
-  if ((tr === 'stun' && chance(T.stun.chance)) || (tr === 'shock' && chance(T.shock.chance))) { en.stun = true; note.push('💫 оглушено!'); }
+  if ((tr === 'stun' && chance(T.stun.chance)) || (tr === 'shock' && chance(T.shock.chance))) { en.stun = true; note.push(t('💫 оглушено!')); }
   if (tr === 'heavy') {
-    en.def = Math.max(0, en.def - T.heavy.defBreak); note.push(`🔨 захист −${T.heavy.defBreak}`);
-    if (en.shield > 0) { en.shield = Math.max(0, en.shield - T.heavy.shieldBreak); note.push(`панцир −${T.heavy.shieldBreak}`); }
+    en.def = Math.max(0, en.def - T.heavy.defBreak); note.push(t`🔨 захист −${T.heavy.defBreak}`);
+    if (en.shield > 0) { en.shield = Math.max(0, en.shield - T.heavy.shieldBreak); note.push(t`панцир −${T.heavy.shieldBreak}`); }
   }
   if (tr === 'drain') { const h = Math.ceil(d * T.drain.pct); S.hp = Math.min(maxHP(), S.hp + h); note.push(`💚 +${h}`); }
-  F.flog.unshift(`${WPN[w.type].e} ${itemName(w)}: ${d} шкоди` + (note.length ? ' · ' + note.join(' · ') : ''));
+  ui.sfx(tr === 'shock' || tr === 'burn' ? 'zap' : 'hit');
+  F.flog.unshift(t`${WPN[w.type].e} ${itemName(w)}: ${d} шкоди` + (note.length ? ' · ' + note.join(' · ') : ''));
   afterPlayer();
 }
 
 export function blockAct() {
   const F = S.fight, B = C.block; if (F.ap < B.cost) return;
-  F.ap -= B.cost; F.block += B.value; F.flog.unshift(`🛡️ Блок +${B.value}`); ui.render();
+  F.ap -= B.cost; F.block += B.value; F.flog.unshift(t`🛡️ Блок +${B.value}`); ui.render();
 }
 
 export function superAct() {
   if (S.sup < C.super.max) return;
   const best = Math.max(...S.eq.map(id => item(id)?.dmg || 0));
-  const d = hitEnemy(best * C.super.mult, true); S.sup = 0;
-  S.fight.flog.unshift(`🌟 СУПЕРАТАКА: ${d} шкоди!`); afterPlayer();
+  const d = hitEnemy(best * C.super.mult, true); S.sup = 0; ui.sfx('super');
+  S.fight.flog.unshift(t`🌟 СУПЕРАТАКА: ${d} шкоди!`); afterPlayer();
 }
 
 export function flee() {
-  if (S.fight.en.rare) { S.fight.flog.unshift('Від рідкісного нема куди тікати — він сам тікає 🙂'); return ui.render(); }
-  if (chance(C.fleeChance)) { S.fight = null; log('Втік із бою'); ui.go('loc'); ui.toast('Втік!'); }
-  else { S.fight.flog.unshift('🏃 Втекти не вдалося!'); S.fight.ap = 0; endTurn(); }
+  if (S.fight.en.rare) { S.fight.flog.unshift(t('Від рідкісного нема куди тікати — він сам тікає 🙂')); return ui.render(); }
+  if (chance(C.fleeChance)) { S.fight = null; log(t('Втік із бою')); ui.go('loc'); ui.toast(t('Втік!')); }
+  else { S.fight.flog.unshift(t('🏃 Втекти не вдалося!')); S.fight.ap = 0; endTurn(); }
 }
 
 function afterPlayer() { if (S.fight.en.hp <= 0) return win(); ui.render(); }
@@ -130,57 +133,59 @@ function hurtPlayer(raw) {
   const d = Math.max(0, raw - pDef() - F.block);
   F.block -= absorbed;
   S.hp -= d; S.sup = Math.min(C.super.max, S.sup + d * C.super.perDmgTaken);
+  if (d > 0) ui.sfx('hurt');
   return d;
 }
 
 export function endTurn() {
   const F = S.fight, en = F.en;
   en.minions ||= [];
-  if (en.bleedT > 0) { en.hp -= en.bleed; en.bleedT--; F.flog.unshift(`🩸 Кровотеча: ${en.bleed}`); if (en.hp <= 0) return win(); }
-  if (en.burnT > 0) { en.hp -= en.burn; en.burnT--; F.flog.unshift(`🔥 Горить: ${en.burn}`); if (en.hp <= 0) return win(); }
+  if (en.bleedT > 0) { en.hp -= en.bleed; en.bleedT--; F.flog.unshift(t`🩸 Кровотеча: ${en.bleed}`); if (en.hp <= 0) return win(); }
+  if (en.burnT > 0) { en.hp -= en.burn; en.burnT--; F.flog.unshift(t`🔥 Горить: ${en.burn}`); if (en.hp <= 0) return win(); }
   const pd = petAttackDmg();
   if (pd) {
     const p = companion(), note = [], d = hitFront(pd, false, note);
-    F.flog.unshift(`${PETS[p.type].e} ${petName(p)}: ${d} шкоди` + (note.length ? ' · ' + note.join(' · ') : ''));
+    F.flog.unshift(t`${PETS[p.type].e} ${petName(p)}: ${d} шкоди` + (note.length ? ' · ' + note.join(' · ') : ''));
     if (en.hp <= 0) return win();
   }
-  if (en.stun) { en.stun = false; F.flog.unshift(`💫 ${en.n} оглушений і пропускає хід`); }
+  if (en.stun) { en.stun = false; F.flog.unshift(t`💫 ${en.n} оглушений і пропускає хід`); }
   else if (en.intent.t === 'flee') {
     S.fight = null; const xp = Math.ceil(en.xp * C.rareFleeXpMult); gainXP(xp);
     ui.go('loc');
-    const what = en.trophy ? 'Трофей втрачено' : 'Здобич утекла разом із ним';
-    return ui.showEvent({ e: en.e, t: 'Втік!', txt: `${en.n} розчинився в тумані. ${what}, але +${xp} XP за досвід.`, b: [['Ех', null]] });
+    const what = en.trophy ? t('Трофей втрачено') : t('Здобич утекла разом із ним');
+    return ui.showEvent({ e: en.e, t: t('Втік!'), txt: t`${en.n} розчинився в тумані. ${what}, але +${xp} XP за досвід.`, b: [[t('Ех'), null]] });
   } else {
     const blk = F.block, d = hurtPlayer(en.intent.v);
-    F.flog.unshift(`${en.e} ${en.n} б'є: ${d} шкоди` + (blk ? ` (блок ${blk})` : ''));
+    F.flog.unshift(t`${en.e} ${en.n} б'є: ${d} шкоди` + (blk ? t` (блок ${blk})` : ''));
     const P = en.traits?.poison;
-    if (P && d > 0) { F.poison = P.dmg; F.poisonT = P.turns; F.flog.unshift(`☠️ Отруєно: ${P.dmg} шкоди ${P.turns} ходи`); }
+    if (P && d > 0) { F.poison = P.dmg; F.poisonT = P.turns; F.flog.unshift(t`☠️ Отруєно: ${P.dmg} шкоди ${P.turns} ходи`); }
     if (en.summon && F.turn % en.summon.every === 0 && en.minions.length < en.summon.max) {
-      en.minions.push({ hp: en.summon.hp }); F.flog.unshift(`📣 ${en.n} кличе: ${en.summon.n}`);
+      en.minions.push({ hp: en.summon.hp }); F.flog.unshift(t`📣 ${en.n} кличе: ${en.summon.n}`);
     }
   }
   if (en.minions.length) {
     const d = hurtPlayer(en.minions.length * en.summon.atk);
-    F.flog.unshift(`👥 Прислужники (${en.minions.length}) б'ють: ${d}`);
+    F.flog.unshift(t`👥 Прислужники (${en.minions.length}) б'ють: ${d}`);
   }
-  if (F.poisonT > 0) { S.hp -= F.poison; F.poisonT--; F.flog.unshift(`☠️ Отрута: ${F.poison}`); }
+  if (F.poisonT > 0) { S.hp -= F.poison; F.poisonT--; F.flog.unshift(t`☠️ Отрута: ${F.poison}`); }
   ui.shake();
-  if (S.hp <= 0) { if (en.npc) npcWon(en.npc); return lose(`${en.n} тебе здолав.`); }
+  if (S.hp <= 0) { if (en.npc) npcWon(en.npc); return lose(t`${en.n} тебе здолав.`); }
   newTurn(); ui.render();
 }
 
 function win() {
+  ui.sfx('win');
   const en = S.fight.en, L = locById(S.trip.loc), Lt = BAL.loot; S.fight = null; S.kills++;
   gainXP(en.xp);
   let txt = `+${en.xp} XP`;
-  const got = addBag(rollLoot(en.loot, zoneDecay(L.z))); if (Object.keys(got).length) txt += '<br>Лут: ' + resStr(got);
+  const got = addBag(rollLoot(en.loot, zoneDecay(L.z))); if (Object.keys(got).length) txt += t('<br>Лут: ') + resStr(got);
   if (en.trophy) {
     S.trip.trophies.push(en.trophy);
-    txt += `<br>✨ Трофей: <b>${en.trophy}</b><br><span class="mut">Нічого не посилює, але вижилі за таке багато дають, а повна колекція прикрасить базу.</span>`;
-    if (chance(Lt.trophyStimChance)) { S.trip.bag.stim = (S.trip.bag.stim || 0) + 1; txt += '<br>☕ +1 стимулятор'; }
+    txt += t`<br>✨ Трофей: <b>${en.trophy}</b><br><span class="mut">Нічого не посилює, але вижилі за таке багато дають, а повна колекція прикрасить базу.</span>`;
+    if (chance(Lt.trophyStimChance)) { S.trip.bag.stim = (S.trip.bag.stim || 0) + 1; txt += t('<br>☕ +1 стимулятор'); }
   }
   if (en.npc) txt += '<br>' + npcBeaten(en.npc);
   if (chance(en.rare ? Lt.winItemChanceRare : Lt.winItemChance)) { const it = randomItem(L.z); S.trip.items.push(it); txt += '<br><br>' + itemHTML(it); }
-  log(`Переміг: ${en.n}`); ui.go('loc');
-  ui.showEvent({ e: '🏆', t: 'Перемога над «' + en.n + '»', txt, b: [['Далі', null]] });
+  log(t`Переміг: ${en.n}`); ui.go('loc');
+  ui.showEvent({ e: '🏆', t: t('Перемога над «') + tr(en.n) + '»', txt, b: [[t('Далі'), null]] });
 }

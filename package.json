@@ -10,11 +10,14 @@
     "smoke": "node tools/smoke.js",
     "sim": "node tools/sim.js",
     "icons": "node tools/icons.js",
-    "apk": "tools\\apk.cmd"
+    "apk": "tools\\apk.cmd",
+    "i18n": "node tools/i18n/check-shadow.mjs && node tools/i18n/extract.mjs && python tools/i18n/translate.py"
   },
   "devDependencies": {
     "@capacitor/android": "^8.6.2",
     "@capacitor/cli": "^8.6.2",
+    "acorn": "^8.19.0",
+    "acorn-walk": "^8.3.5",
     "sharp": "^0.35.5",
     "vite": "^8.3.8"
   },

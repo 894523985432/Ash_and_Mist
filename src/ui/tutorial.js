@@ -2,9 +2,10 @@
 import { TUTORIAL, ZONE, BAL } from '../data.js';
 import { S } from '../state.js';
 import { act } from './common.js';
+import { t, tr } from '../i18n.js';
 
 const VARS = () => ({ travel0: ZONE[0].travel, searchSily: BAL.actions.searchSily, handSize: BAL.combat.handSize, eatSily: BAL.actions.eat.sily });
-const fill = t => t.replace(/\{(\w+)\}/g, (m, k) => VARS()[k] ?? m);
+const fill = s => s.replace(/\{(\w+)\}/g, (m, k) => VARS()[k] ?? m);
 
 export function currentTip(screen) {
   if (!S.tut || S.tut.off) return null;
@@ -13,7 +14,7 @@ export function currentTip(screen) {
 
 export function tutorialCard(screen) {
   const s = currentTip(screen); if (!s) return '';
-  return `<div class="card tip"><b>💡 ${s.t}</b><div style="margin:6px 0">${fill(s.txt)}</div>
+  return t`<div class="card tip"><b>💡 ${s.t}</b><div style="margin:6px 0">${fill(tr(s.txt))}</div>
     <div class="row"><button class="sm pri" ${act('tutOk', s.id)}>Зрозуміло</button><button class="sm" ${act('tutOff')}>Вимкнути навчання</button></div></div>`;
 }
 

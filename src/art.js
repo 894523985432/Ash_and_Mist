@@ -3,6 +3,7 @@
 // Поверх нього можна вручну завантажити картинки у вкладці «Арт» (IndexedDB) — для швидких проб.
 import { LOCS, MON, RARE, NPCS, ART_DATA } from './data.js';
 import { ui } from './hooks.js';
+import { t } from './i18n.js';
 
 /** key → URL зображення (завантажене вручну перекриває файл) */
 export const ART = {};
@@ -54,7 +55,7 @@ export async function loadArt(files) {
     const key = f.name.replace(/\.[^.]+$/, '').toLowerCase(); UPLOADS[key] = URL.createObjectURL(f); n++;
     if (d) try { d.transaction('img', 'readwrite').objectStore('img').put(f, key); } catch (e) {}
   }
-  rebuild(); ui.toast(`Завантажено ${n} зображень`); ui.render();
+  rebuild(); ui.toast(t`Завантажено ${n} зображень`); ui.render();
 }
 
 export async function restoreArt() {

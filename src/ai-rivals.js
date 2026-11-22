@@ -2,6 +2,7 @@
 import { LOCS, BAL } from './data.js';
 import { pick } from './util.js';
 import { S, log } from './state.js';
+import { t } from './i18n.js';
 
 export function rivalsMove() {
   const R = BAL.rivals;
@@ -10,6 +11,6 @@ export function rivalsMove() {
     const pool = LOCS.filter(l => l.z <= Math.floor(r.pow));
     const L = pick(pool); S.rivalAt[L.id] = i; S.depleted[L.id] = R.depleteDays;
     r.pow = Math.min(R.powMax, r.pow + R.powGain);
-    if (S.open.includes(L.id)) log(`${r.e} ${r.n} нишпорить біля «${L.n}» — ресурсів там поменшає.`);
+    if (S.open.includes(L.id)) log(t`${r.e} ${r.n} нишпорить біля «${L.n}» — ресурсів там поменшає.`);
   });
 }

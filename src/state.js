@@ -1,6 +1,7 @@
 import { RES, LOCS, BLD, BAL } from './data.js';
 import { ui } from './hooks.js';
 import { line } from './texts.js';
+import { t } from './i18n.js';
 
 /** Поточний стан гри. Міняти посилання — тільки через setState. */
 export let S = null;
@@ -18,15 +19,15 @@ export const maxSily = () => Math.max(P.silyMin, P.silyBase + bl('bed') * BLD.be
 export const xpNeed = () => P.xpBase + S.lvl * P.xpPerLvl;
 export const locById = id => LOCS.find(l => l.id === id);
 
-export function log(t) { S.log.unshift('Д' + S.day + ': ' + t); S.log.length = Math.min(S.log.length, BAL.logMax); }
+export function log(msg) { S.log.unshift(t('Д') + S.day + ': ' + msg); S.log.length = Math.min(S.log.length, BAL.logMax); }
 
 export const resStr = o => Object.entries(o).filter(([k, v]) => v > 0).map(([k, v]) => RES[k][0] + v).join(' ') || '—';
 export const canPay = o => Object.entries(o).every(([k, v]) => S.res[k] >= v);
 export const pay = o => { for (const k in o) S.res[k] -= o[k]; };
-export function useSily(n) { if (S.sily < n) { ui.toast('Не вистачає сил ⚡'); return false; } S.sily -= n; return true; }
+export function useSily(n) { if (S.sily < n) { ui.toast(t('Не вистачає сил ⚡')); return false; } S.sily -= n; return true; }
 
 export function gainXP(x) {
   S.xp += x; let up = false;
   while (S.xp >= xpNeed()) { S.xp -= xpNeed(); S.lvl++; up = true; S.hp += P.hpPerLvl; }
-  if (up) { log(`⭐ [Система] Рівень ${S.lvl}. ` + line('system.levelUp').replace(/^\[Система\]\s*/, '')); ui.toast('⭐ Рівень ' + S.lvl + '!'); }
+  if (up) { ui.sfx('level'); log(t`⭐ [Система] Рівень ${S.lvl}. ` + line('system.levelUp').replace(/^\[(Система|System)\]\s*/, '')); ui.toast(t('⭐ Рівень ') + S.lvl + '!'); }
 }

@@ -108,3 +108,13 @@ button:disabled:has(.miss){opacity:.75;border-color:#5a2a3a}
 .stats b{display:block;font-size:20px}.stats span{font-size:11px;color:var(--mut)}
 details.card summary{cursor:pointer;min-height:32px;display:flex;align-items:center}
 @media (max-width:420px){.grid.one{grid-template-columns:1fr}.rc{padding:3px 7px;font-size:13px;min-height:32px}.rgs{gap:5px}.seg button{font-size:12px;padding:6px 5px}}
+
+/* Анімації переходів (тривалість множиться на --anim з налаштувань; «Вимк.» — .noanim) */
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(255,90,106,.0)}30%{box-shadow:0 0 0 3px rgba(255,90,106,.6)}100%{box-shadow:0 0 0 0 rgba(255,90,106,0)}}
+#app.enter>.card,#app.enter>.seg,#app.enter>.art{animation:fadeUp calc(.22s * var(--anim,1)) ease-out both}
+.modal{animation:fadeUp calc(.15s * var(--anim,1)) ease-out both}
+.modal .card{animation:pop calc(.2s * var(--anim,1)) ease-out both}
+.toast{animation:fadeUp calc(.2s * var(--anim,1)) ease-out both}
+.dmg .card{animation:flash calc(.35s * var(--anim,1))}
