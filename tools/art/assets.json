@@ -1,0 +1,386 @@
+[
+  {
+    "key": "hero",
+    "prompt": "main character, young man with white hair and red eyes, black coat, survivor gear, portrait",
+    "size": "square",
+    "seed": 1372483206
+  },
+  {
+    "key": "base_1",
+    "prompt": "tiny ruined shack on the edge of a ruined city, boarded windows, dusk",
+    "size": "wide",
+    "seed": 197596695
+  },
+  {
+    "key": "base_2",
+    "prompt": "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk",
+    "size": "wide",
+    "seed": 315508653
+  },
+  {
+    "key": "base_3",
+    "prompt": "well fortified survivor compound, walls with spikes, greenhouse, solar panels, workshop, warm lights, dusk",
+    "size": "wide",
+    "seed": 1707702075
+  },
+  {
+    "key": "base_trophy",
+    "prompt": "survivor house interior, wall of strange glowing trophies, crystal tail, golden shell, cozy, night",
+    "size": "wide",
+    "seed": 2034918016
+  },
+  {
+    "key": "survivor",
+    "prompt": "hostile wasteland survivor, hood, gas mask, makeshift weapon",
+    "size": "square",
+    "seed": 65651744
+  },
+  {
+    "key": "loc_gas",
+    "prompt": "abandoned gas station, no people, scenery",
+    "size": "wide",
+    "seed": 492237260
+  },
+  {
+    "key": "loc_mart",
+    "prompt": "looted supermarket interior, no people, scenery",
+    "size": "wide",
+    "seed": 1635996647
+  },
+  {
+    "key": "loc_wood",
+    "prompt": "dead forest belt with fog, no people, scenery",
+    "size": "wide",
+    "seed": 912438638
+  },
+  {
+    "key": "loc_laundry",
+    "prompt": "abandoned laundromat, rows of rusty washing machines, no people, scenery",
+    "size": "wide",
+    "seed": 1714819604
+  },
+  {
+    "key": "loc_bus",
+    "prompt": "wrecked city bus overgrown with weeds, no people, scenery",
+    "size": "wide",
+    "seed": 892593266
+  },
+  {
+    "key": "loc_houses",
+    "prompt": "abandoned suburban private houses, overgrown gardens, no people, scenery",
+    "size": "wide",
+    "seed": 73902227
+  },
+  {
+    "key": "loc_school",
+    "prompt": "destroyed school hallway, no people, scenery",
+    "size": "wide",
+    "seed": 1747879907
+  },
+  {
+    "key": "loc_res",
+    "prompt": "water reservoir with rusted pipes, no people, scenery",
+    "size": "wide",
+    "seed": 1675056467
+  },
+  {
+    "key": "loc_depot",
+    "prompt": "abandoned tram depot, no people, scenery",
+    "size": "wide",
+    "seed": 329598194
+  },
+  {
+    "key": "loc_market",
+    "prompt": "abandoned flea market stalls under torn tarps, no people, scenery",
+    "size": "wide",
+    "seed": 2048710803
+  },
+  {
+    "key": "loc_fire",
+    "prompt": "abandoned fire station with old red fire truck, no people, scenery",
+    "size": "wide",
+    "seed": 1377936812
+  },
+  {
+    "key": "loc_library",
+    "prompt": "ruined city library, fallen bookshelves, light beams, no people, scenery",
+    "size": "wide",
+    "seed": 1151463719
+  },
+  {
+    "key": "loc_hosp",
+    "prompt": "old hospital corridor, flickering lights, no people, scenery",
+    "size": "wide",
+    "seed": 1119189895
+  },
+  {
+    "key": "loc_tower",
+    "prompt": "radio tower in fog, night, no people, scenery",
+    "size": "wide",
+    "seed": 171665454
+  },
+  {
+    "key": "loc_rift",
+    "prompt": "glowing fog rift, floating debris, magic, no people, scenery",
+    "size": "wide",
+    "seed": 1229230787
+  },
+  {
+    "key": "loc_metro",
+    "prompt": "flooded metro station, flickering lamps, no people, scenery",
+    "size": "wide",
+    "seed": 1823812527
+  },
+  {
+    "key": "loc_army",
+    "prompt": "abandoned military base, rusted tanks, barbed wire, no people, scenery",
+    "size": "wide",
+    "seed": 115245909
+  },
+  {
+    "key": "loc_bgarden",
+    "prompt": "mutated botanical garden, giant glowing flowers, broken glass dome, no people, scenery",
+    "size": "wide",
+    "seed": 1773097568
+  },
+  {
+    "key": "mon_rat",
+    "prompt": "mutant rat the size of a dog, patchy fur, glowing red eyes, monster, full body",
+    "size": "square",
+    "seed": 1194904305
+  },
+  {
+    "key": "mon_dog",
+    "prompt": "feral wild dog, scarred, bared teeth, matted fur, monster, full body",
+    "size": "square",
+    "seed": 1169062243
+  },
+  {
+    "key": "mon_slime",
+    "prompt": "rust-colored slime monster with metal scraps inside, dripping, monster, full body",
+    "size": "square",
+    "seed": 28372966
+  },
+  {
+    "key": "mon_centi",
+    "prompt": "giant venomous centipede, purple carapace, dripping poison, monster, full body",
+    "size": "square",
+    "seed": 195150936
+  },
+  {
+    "key": "mon_ratqueen",
+    "prompt": "huge rat queen with a crown of bones, surrounded by small rats, monster, full body",
+    "size": "square",
+    "seed": 1527361247
+  },
+  {
+    "key": "mon_goblin",
+    "prompt": "small sneaky goblin thief with a sack of loot, grin, monster, full body",
+    "size": "square",
+    "seed": 351390743
+  },
+  {
+    "key": "mon_raider",
+    "prompt": "shadowy marauder in a black hood and mask, glowing eyes, knife, monster, full body",
+    "size": "square",
+    "seed": 427566244
+  },
+  {
+    "key": "mon_bwolf",
+    "prompt": "skeletal wolf with exposed bones and ghostly flames, monster, full body",
+    "size": "square",
+    "seed": 1605868803
+  },
+  {
+    "key": "mon_crawler",
+    "prompt": "giant scorpion-like crawler mutant, armored tail, monster, full body",
+    "size": "square",
+    "seed": 30281646
+  },
+  {
+    "key": "mon_beetle",
+    "prompt": "huge armored beetle with thick iron-like shell, monster, full body",
+    "size": "square",
+    "seed": 1808507577
+  },
+  {
+    "key": "mon_toad",
+    "prompt": "bloated swamp toad mutant, toxic green warts, monster, full body",
+    "size": "square",
+    "seed": 1247814734
+  },
+  {
+    "key": "mon_necro",
+    "prompt": "teenage necromancer in torn hoodie raising skeletons, green magic, monster, full body",
+    "size": "square",
+    "seed": 1154519305
+  },
+  {
+    "key": "mon_scav",
+    "prompt": "scavenger hunter with makeshift bow and trophies, gas mask, monster, full body",
+    "size": "square",
+    "seed": 756323547
+  },
+  {
+    "key": "mon_wasp",
+    "prompt": "giant glass wasp with translucent crystal body, monster, full body",
+    "size": "square",
+    "seed": 811926020
+  },
+  {
+    "key": "mon_knight",
+    "prompt": "fog knight in rusted plate armor, faceless helmet, mist around, monster, full body",
+    "size": "square",
+    "seed": 1635681543
+  },
+  {
+    "key": "mon_drone",
+    "prompt": "military sentinel drone, red scanner light, rotors, monster, full body",
+    "size": "square",
+    "seed": 1276554153
+  },
+  {
+    "key": "mon_eyes",
+    "prompt": "many-eyed abomination, eyes all over its body, tentacles, monster, full body",
+    "size": "square",
+    "seed": 1574013877
+  },
+  {
+    "key": "mon_golem",
+    "prompt": "steel golem made of car parts and rebar, glowing core, monster, full body",
+    "size": "square",
+    "seed": 1185722779
+  },
+  {
+    "key": "mon_hive",
+    "prompt": "hive mother, giant insect queen with drones, honeycomb, monster, full body",
+    "size": "square",
+    "seed": 648414427
+  },
+  {
+    "key": "mon_chem",
+    "prompt": "chemical mutant in torn hazmat suit, glowing green fluids, monster, full body",
+    "size": "square",
+    "seed": 525410381
+  },
+  {
+    "key": "mon_spider",
+    "prompt": "mechanical spider robot, sharp metal legs, red optics, monster, full body",
+    "size": "square",
+    "seed": 262162739
+  },
+  {
+    "key": "mon_wraith",
+    "prompt": "fog wraith ghost, tattered cloak, pale glowing face, monster, full body",
+    "size": "square",
+    "seed": 220608915
+  },
+  {
+    "key": "mon_fox",
+    "prompt": "crystal fox with a glowing crystalline tail, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 1260560632
+  },
+  {
+    "key": "mon_mimic",
+    "prompt": "mimic monster disguised as an old suitcase, tongue and teeth, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 1673068250
+  },
+  {
+    "key": "mon_deer",
+    "prompt": "radiant glowing deer with antlers of light, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 123110994
+  },
+  {
+    "key": "mon_bard",
+    "prompt": "undead bard skeleton playing a violin, ghostly notes, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 1415790741
+  },
+  {
+    "key": "mon_scarab",
+    "prompt": "golden scarab beetle, shining gold shell, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 203720236
+  },
+  {
+    "key": "mon_jelly",
+    "prompt": "singing jellyfish floating in the air, bioluminescent, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 446298746
+  },
+  {
+    "key": "mon_paper",
+    "prompt": "small dragon made of folded paper, origami scales, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 1820842715
+  },
+  {
+    "key": "mon_clock",
+    "prompt": "clockwork cat with visible gears, brass body, rare mystical creature, glowing, full body",
+    "size": "square",
+    "seed": 484836447
+  },
+  {
+    "key": "survivor_kai",
+    "prompt": "blind old survivor with a cane and goggles, kind smile, portrait, upper body",
+    "size": "square",
+    "seed": 1941531822
+  },
+  {
+    "key": "survivor_mirra",
+    "prompt": "young woman mechanic with wrench, oil-stained overalls, short hair, portrait, upper body",
+    "size": "square",
+    "seed": 1214383670
+  },
+  {
+    "key": "survivor_dzvin",
+    "prompt": "bearded bandit with a bell on his belt, scarred face, portrait, upper body",
+    "size": "square",
+    "seed": 962519777
+  },
+  {
+    "key": "survivor_tessa",
+    "prompt": "punk girl trader with colorful mohawk and backpack full of goods, portrait, upper body",
+    "size": "square",
+    "seed": 2006783755
+  },
+  {
+    "key": "survivor_rudyi",
+    "prompt": "red-haired thug with brass knuckles, freckles, portrait, upper body",
+    "size": "square",
+    "seed": 1167679609
+  },
+  {
+    "key": "survivor_aska",
+    "prompt": "masked female ninja raider, dark clothes, katana, portrait, upper body",
+    "size": "square",
+    "seed": 461601848
+  },
+  {
+    "key": "survivor_veresk",
+    "prompt": "old hermit wizard with heather flowers in long beard, portrait, upper body",
+    "size": "square",
+    "seed": 183270077
+  },
+  {
+    "key": "survivor_liia",
+    "prompt": "quiet little girl survivor with a teddy bear and big coat, portrait, upper body",
+    "size": "square",
+    "seed": 1248780481
+  },
+  {
+    "key": "survivor_borys",
+    "prompt": "huge man with a mechanical prosthetic arm, heavy armor, portrait, upper body",
+    "size": "square",
+    "seed": 2132043448
+  },
+  {
+    "key": "survivor_noks",
+    "prompt": "pale mysterious man in a long coat, vampire-like, calm, portrait, upper body",
+    "size": "square",
+    "seed": 627394354
+  }
+]

@@ -23,7 +23,7 @@ export function vBase() {
   const fullSet = trophyCount() >= trophyTotal();
   const caravan = S.caravan ? `<div class="card"><h2>🐪 Караван біля бази</h2><div class="row" style="flex-direction:column;align-items:stretch">${S.caravan.map((o, i) =>
     `<button ${act('caravanTrade', i)} ${dis(!o.done && canPay(o.give))}>${o.done ? '✔ ' : ''}${offerText(o)}</button>`).join('')}</div><div class="mut" style="margin-top:6px">Караван піде вранці.</div></div>` : '';
-  return `${artBox(look.key, look.e, '', `${look.n} · покращень: ${look.sum}${fullSet ? ' · 🏆 трофейна стіна' : ''}`)}
+  return `${artBox(BAL.baseLooks.filter(l => l.min <= look.min).map(l => l.key).reverse(), look.e, '', `${look.n} · покращень: ${look.sum}${fullSet ? ' · 🏆 трофейна стіна' : ''}`)}
   ${fullSet ? `<div class="card" style="margin-top:10px"><h2>🏆 Трофейна стіна</h2>${artBox('base_trophy', '🏆', 'sq', 'Уся колекція зібрана')}<div class="mut" style="margin-top:6px">Ти зібрав усі ${trophyTotal()} трофеїв рідкісних істот. Вижилі про це пліткують.</div></div>` : ''}
   ${caravan}
   <div class="card" style="margin-top:10px"><h2>Дім</h2>

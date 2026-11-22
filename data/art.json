@@ -1,12 +1,30 @@
 {
-  "style": "anime style, post-apocalyptic dark fantasy, ruined city, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece",
+  "style": "anime style, post-apocalyptic dark fantasy, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece",
   "fixed": [
-    ["hero", "main character, young man with white hair and red eyes, black coat, survivor gear, portrait"],
-    ["base_1", "tiny ruined shack on the edge of a ruined city, boarded windows, dusk"],
-    ["base_2", "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk"],
-    ["base_3", "well fortified survivor compound, walls with spikes, greenhouse, solar panels, workshop, warm lights, dusk"],
-    ["base_trophy", "survivor house interior, wall of strange glowing trophies, crystal tail, golden shell, cozy, night"],
-    ["survivor", "hostile wasteland survivor, hood, gas mask, makeshift weapon"]
+    [
+      "hero",
+      "main character, young man with white hair and red eyes, black coat, survivor gear, portrait"
+    ],
+    [
+      "base_1",
+      "tiny ruined shack on the edge of a ruined city, boarded windows, dusk"
+    ],
+    [
+      "base_2",
+      "small fortified house on the edge of a ruined city, barricades, garden, solar panel, dusk"
+    ],
+    [
+      "base_3",
+      "well fortified survivor compound, walls with spikes, greenhouse, solar panels, workshop, warm lights, dusk"
+    ],
+    [
+      "base_trophy",
+      "survivor house interior, wall of strange glowing trophies, crystal tail, golden shell, cozy, night"
+    ],
+    [
+      "survivor",
+      "hostile wasteland survivor, hood, gas mask, makeshift weapon"
+    ]
   ],
   "locations": {
     "gas": "abandoned gas station",
@@ -29,5 +47,51 @@
     "bgarden": "mutated botanical garden, giant glowing flowers, broken glass dome"
   },
   "monsterSuffix": ", monster, full body",
-  "rareSuffix": ", rare mystical creature, glowing, full body"
+  "rareSuffix": ", rare mystical creature, glowing, full body",
+  "monsters": {
+    "rat": "mutant rat the size of a dog, patchy fur, glowing red eyes",
+    "dog": "feral wild dog, scarred, bared teeth, matted fur",
+    "slime": "rust-colored slime monster with metal scraps inside, dripping",
+    "centi": "giant venomous centipede, purple carapace, dripping poison",
+    "ratqueen": "huge rat queen with a crown of bones, surrounded by small rats",
+    "goblin": "small sneaky goblin thief with a sack of loot, grin",
+    "raider": "shadowy marauder in a black hood and mask, glowing eyes, knife",
+    "bwolf": "skeletal wolf with exposed bones and ghostly flames",
+    "crawler": "giant scorpion-like crawler mutant, armored tail",
+    "beetle": "huge armored beetle with thick iron-like shell",
+    "toad": "bloated swamp toad mutant, toxic green warts",
+    "necro": "teenage necromancer in torn hoodie raising skeletons, green magic",
+    "scav": "scavenger hunter with makeshift bow and trophies, gas mask",
+    "wasp": "giant glass wasp with translucent crystal body",
+    "knight": "fog knight in rusted plate armor, faceless helmet, mist around",
+    "drone": "military sentinel drone, red scanner light, rotors",
+    "eyes": "many-eyed abomination, eyes all over its body, tentacles",
+    "golem": "steel golem made of car parts and rebar, glowing core",
+    "hive": "hive mother, giant insect queen with drones, honeycomb",
+    "chem": "chemical mutant in torn hazmat suit, glowing green fluids",
+    "spider": "mechanical spider robot, sharp metal legs, red optics",
+    "wraith": "fog wraith ghost, tattered cloak, pale glowing face"
+  },
+  "rare": {
+    "fox": "crystal fox with a glowing crystalline tail",
+    "mimic": "mimic monster disguised as an old suitcase, tongue and teeth",
+    "deer": "radiant glowing deer with antlers of light",
+    "bard": "undead bard skeleton playing a violin, ghostly notes",
+    "scarab": "golden scarab beetle, shining gold shell",
+    "jelly": "singing jellyfish floating in the air, bioluminescent",
+    "paper": "small dragon made of folded paper, origami scales",
+    "clock": "clockwork cat with visible gears, brass body"
+  },
+  "npcs": {
+    "kai": "blind old survivor with a cane and goggles, kind smile",
+    "mirra": "young woman mechanic with wrench, oil-stained overalls, short hair",
+    "dzvin": "bearded bandit with a bell on his belt, scarred face",
+    "tessa": "punk girl trader with colorful mohawk and backpack full of goods",
+    "rudyi": "red-haired thug with brass knuckles, freckles",
+    "aska": "masked female ninja raider, dark clothes, katana",
+    "veresk": "old hermit wizard with heather flowers in long beard",
+    "liia": "quiet little girl survivor with a teddy bear and big coat",
+    "borys": "huge man with a mechanical prosthetic arm, heavy armor",
+    "noks": "pale mysterious man in a long coat, vampire-like, calm"
+  }
 }

@@ -1,4 +1,4 @@
-import { WPN, RAR, BAL } from '../data.js';
+import { WPN, RAR, BAL, NPCS } from '../data.js';
 import { S, item, baseAP } from '../state.js';
 import { itemName } from '../items.js';
 import { traitText } from '../combat.js';
@@ -7,7 +7,8 @@ import { act, dis, artBox } from './common.js';
 export function vFight() {
   const F = S.fight, en = F.en, C = BAL.combat, mins = en.minions || [];
   const it = { atk: `🗡️ Атакує на ${en.intent.v}`, heavy: `💢 Важкий удар: ${en.intent.v}`, guard: `🛡️ У захисті (+${C.guardDef}) і б'є на ${en.intent.v}`, flee: '💨 Збирається втекти!' }[en.intent.t];
-  const key = en.human ? 'survivor' : 'mon_' + en.key;
+  const npc = en.npc && S.npcs?.find(p => p.id === en.npc), npcKey = npc && NPCS.names.find(x => x.n === npc.n)?.key;
+  const key = en.human ? [npcKey && 'survivor_' + npcKey, 'survivor'].filter(Boolean) : 'mon_' + en.key;
   const chips = [
     en.stun && '💫 оглушений', en.bleedT && `🩸 ${en.bleedT}`, en.burnT && `🔥 ${en.burnT}`,
     en.shield > 0 && `🛡️ панцир ${en.shield}`, mins.length && `👥 ${en.summon.n} ×${mins.length} (${mins.map(m => m.hp).join('/')} HP)`,

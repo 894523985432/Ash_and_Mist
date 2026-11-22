@@ -24,7 +24,7 @@
 |---|---|
 | ПК | Ryzen 5 7500F, **RX 6700 XT 12 ГБ (AMD)** |
 | LLM | `F:\AI\models\`: Qwen3.5-9B Q4_K_M (unsloth), Huihui-Qwen3.5-9B abliterated, Qwen3.5-27B Q5_K_XL, Huihui-27B, Qwen3.5-35B-A3B |
-| Генерація зображень | **Ще немає.** Потрібні ComfyUI (AMD: ZLUDA / DirectML / ROCm) і аніме-модель SDXL (Illustrious XL / NoobAI-XL) |
+| Генерація зображень | ComfyUI portable у `F:\AI\ComfyUI_windows_portable` на **NVIDIA P102-100 10 ГБ** (CUDA); модель Pony Diffusion V6 XL; є IPAdapter Plus, ControlNet Union |
 | Папка гри | `F:\Game` |
 
 ---
@@ -71,16 +71,18 @@
 - Збереження — версія 4 (NPC, подія, караван, колекція, навчання), старим збереженням навчання вимкнене
 
 ### Етап 4 — Пайплайн арту (ComfyUI)
-- [ ] Встановити ComfyUI для AMD і модель SDXL (Illustrious XL або NoobAI-XL)
-- [ ] `tools/art/assets.json` — список ключів (зараз у `data/art.json`): `hero`, `base_1..3`, `base_trophy`, `survivor_*`, `loc_*`, `mon_*`, а також промпт, розмір і seed для кожного
-- [ ] Спільний стиль:
-  `anime style, post-apocalyptic dark fantasy, ruined city, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece`
-- [ ] Негатив: `lowres, bad anatomy, text, watermark, signature, blurry`
-- [ ] `tools/art/generate.py` — шле воркфлоу (API-формат JSON) на `http://127.0.0.1:8188/prompt`, чекає результат через `/history`, зберігає в `public/art/<key>.webp`. Пропускає готові файли, приймає `--only <key>` і `--seed`
-- [ ] Однакові персонажі: фіксований seed і докладний опис зовнішності. Далі IPAdapter з референсом героя, а в ідеалі — LoRA на головного героя
-- [ ] Розміри: локації 1344×768 (16:9), монстри й портрети 1024×1024; після генерації стиснути у WebP
-- [ ] Гра бере арт з `public/art/`, а коли файлу нема — показує емодзі
-- **Готово, коли:** одна команда генерує весь арт, і гра підхоплює його без ручних кроків
+- [x] ComfyUI: `F:\AI\ComfyUI_windows_portable` (рахує на **NVIDIA P102-100 10 ГБ**, CUDA). Модель — **Pony Diffusion V6 XL** (`ponyDiffusionV6XL.safetensors`); теги якості Pony (`score_9…`) — у `tools/art/config.json`
+- [x] `tools/art/assets.json` — 64 ключі: `hero`, `base_1..3`, `base_trophy`, `survivor`, `survivor_<npc>` (10), `loc_*` (18), `mon_*` (30). Будується з `data/*.json` автоматично; ручні правки prompt/seed/ref зберігаються
+- [x] Англійські описи для SDXL — у `data/art.json` (локації, монстри, рідкісні, NPC)
+- [x] Спільний стиль: `anime style, post-apocalyptic dark fantasy, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece` («ruined city» прибрано зі стилю: воно перебивало опис і все ставало руїнами міста)
+- [x] Негатив: `score_4, score_5, score_6, lowres, bad anatomy, text, watermark, signature, blurry`
+- [x] `tools/art/generate.py` (лише стандартна бібліотека Python) — шле воркфлоу `tools/art/workflow.json` на `/prompt`, чекає через `/history`, зберігає `public/art/<key>.webp` (WebP робить сам ComfyUI, якість 85) і `manifest.json`. Пропускає готові файли; `--only key,mon_*`, `--seed`, `--force`, `--dry-run`, `--sync`
+- [x] Однакові персонажі: фіксований seed (від ключа) і докладний опис. IPAdapter Plus: поле `"ref": "hero"` у записі assets.json → воркфлоу `workflow_ref.json` з референсом (механізм є, **ще не перевірений**). LoRA на героя — пізніше
+- [x] Розміри: локації й база 1344×768, монстри й портрети 1024×1024
+- [x] Гра бере арт з `public/art/` (через `manifest.json`), а коли файлу нема — показує емодзі. Ручне завантаження у вкладці «Арт» лишилось для проб і перекриває файл
+- [ ] Повний прогін усіх 64 ключів (~100 с на зображення, разом ~2 год) і відбір/перегенерація невдалих
+- [ ] Підібрати промпти: перший тест `loc_gas` вийшов загальними руїнами без заправки — після зміни стилю й ваги опису `(…:1.3)` ще не перевірено
+- **Готово, коли:** одна команда генерує весь арт, і гра підхоплює його без ручних кроків — команда й підхоплення працюють, лишився повний прогін і якість
 
 ### Етап 5 — Тексти з локальної LLM
 - [ ] Запустити Qwen3.5-9B через llama.cpp `llama-server` (Vulkan-збірка для AMD) або LM Studio з OpenAI-сумісним API на `127.0.0.1:8080`

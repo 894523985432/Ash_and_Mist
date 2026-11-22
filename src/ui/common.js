@@ -1,15 +1,17 @@
 // Спільні шматки інтерфейсу: верхня панель, вкладки, блок арту.
 import { RES } from '../data.js';
 import { S, maxHP, maxSily, pDef, xpNeed } from '../state.js';
-import { ART } from '../art.js';
+import { ART, artKey } from '../art.js';
 import { season, event } from '../events.js';
 
 /** Атрибути для кнопки: клік викликає ACTIONS[name](arg) (див. ui/render.js). */
 export const act = (name, arg) => `data-act="${name}"${arg !== undefined ? ` data-arg="${arg}"` : ''}`;
 export const dis = ok => (ok ? '' : 'disabled');
 
-export function artBox(key, emoji, cls = '', cap = '') {
-  return `<div class="art ${cls}">${ART[key] ? `<img src="${ART[key]}" alt="">` : emoji}${cap ? `<span class="cap">${cap}</span>` : ''}</div>`;
+/** Картинка за ключем (або першим наявним зі списку ключів), інакше — емодзі. */
+export function artBox(keys, emoji, cls = '', cap = '') {
+  const k = artKey(keys);
+  return `<div class="art ${cls}">${k ? `<img src="${ART[k]}" alt="">` : emoji}${cap ? `<span class="cap">${cap}</span>` : ''}</div>`;
 }
 
 export function topBar() {
