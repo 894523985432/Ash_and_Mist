@@ -3,7 +3,8 @@
     "day": 1,
     "sily": 8,
     "open": ["gas", "mart", "wood"],
-    "res": { "water": 6, "food": 6, "heat": 5, "fuel": 2, "wood": 3, "metal": 1, "parts": 0, "med": 1, "stim": 0 },
+    "bld": { "gen": 1 },
+    "res": { "water": 6, "food": 6, "heat": 5, "energy": 0, "fuel": 4, "wood": 3, "metal": 1, "parts": 0, "med": 1, "stim": 0 },
     "items": [
       { "k": "w", "type": "knife", "rar": "c", "equip": true },
       { "k": "w", "type": "bat", "rar": "c", "equip": true },
@@ -33,6 +34,18 @@
     "noHealOnShortage": true,
     "shortageTired": 2,
     "sleepHealPct": 0.5
+  },
+
+  "energy": { "cap": 30, "costHeatSeasonMult": true },
+
+  "wear": { "fromDay": 5, "chance": 0.025, "maxPerNight": 1, "repairMult": 0.5, "repairSily": 1 },
+
+  "pets": {
+    "fromDay": 2, "findChance": 0.03, "max": 2, "growDays": 5,
+    "consume": { "food": 1, "water": 1 },
+    "coldConsume": { "heat": 1 },
+    "babyConsume": { "food": 1 },
+    "dmgShare": 0.3, "healPctPerDay": 0.25
   },
 
   "exhaust": {
@@ -66,8 +79,9 @@
   },
 
   "craft": {
-    "weapon": { "wood": 2, "metal": 3, "parts": 2 },
-    "armor": { "metal": 3, "parts": 1, "wood": 1 },
+    "weapon": { "wood": 2, "metal": 3, "parts": 2, "energy": 3 },
+    "armor": { "metal": 3, "parts": 1, "wood": 1, "energy": 2 },
+    "days": { "c": 0, "u": 1, "r": 2, "e": 3, "l": 3 },
     "rarityByShopLvl": {
       "1": { "main": "c", "alt": "u", "mainChance": 0.7 },
       "2": { "main": "u", "alt": "r", "mainChance": 0.7 }

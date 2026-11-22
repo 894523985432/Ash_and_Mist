@@ -8,6 +8,8 @@ import { randomItem, itemName } from './items.js';
 import { addBag, rollLoot, zoneDecay, lose } from './trip.js';
 import { npcBeaten, npcWon } from './npcs.js';
 import { itemHTML } from './ui/format.js';
+import { petAttackDmg, petTakeShare, companion, petName } from './economy.js';
+import { PETS } from './data.js';
 
 const C = BAL.combat;
 
@@ -123,6 +125,7 @@ function afterPlayer() { if (S.fight.en.hp <= 0) return win(); ui.render(); }
 
 /** Вдарити гравця: захист і блок зменшують, повертає завдану шкоду. */
 function hurtPlayer(raw) {
+  raw = petTakeShare(raw, S.fight.flog);
   const F = S.fight, absorbed = Math.min(F.block, Math.max(0, raw - pDef()));
   const d = Math.max(0, raw - pDef() - F.block);
   F.block -= absorbed;
@@ -135,6 +138,12 @@ export function endTurn() {
   en.minions ||= [];
   if (en.bleedT > 0) { en.hp -= en.bleed; en.bleedT--; F.flog.unshift(`🩸 Кровотеча: ${en.bleed}`); if (en.hp <= 0) return win(); }
   if (en.burnT > 0) { en.hp -= en.burn; en.burnT--; F.flog.unshift(`🔥 Горить: ${en.burn}`); if (en.hp <= 0) return win(); }
+  const pd = petAttackDmg();
+  if (pd) {
+    const p = companion(), note = [], d = hitFront(pd, false, note);
+    F.flog.unshift(`${PETS[p.type].e} ${petName(p)}: ${d} шкоди` + (note.length ? ' · ' + note.join(' · ') : ''));
+    if (en.hp <= 0) return win();
+  }
   if (en.stun) { en.stun = false; F.flog.unshift(`💫 ${en.n} оглушений і пропускає хід`); }
   else if (en.intent.t === 'flee') {
     S.fight = null; const xp = Math.ceil(en.xp * C.rareFleeXpMult); gainXP(xp);

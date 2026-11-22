@@ -9,11 +9,14 @@ import { startFight, mkEnemy } from './combat.js';
 import { survivor } from './survivors.js';
 import { itemHTML } from './ui/format.js';
 import { travelCost, evNum } from './events.js';
+import { petPerk, petFound } from './economy.js';
+
+export const scoutCost = () => Math.max(1, BAL.actions.scoutSily - petPerk('scoutDiscount').reduce((a, b) => a + b, 0));
 
 export function scout() {
   const A = BAL.actions, hidden = LOCS.filter(l => !S.open.includes(l.id));
   if (!hidden.length) return ui.toast('Усе вже розвідано');
-  if (!useSily(A.scoutSily)) return;
+  if (!useSily(scoutCost())) return;
   const L = hidden.sort((a, b) => a.z - b.z)[chance(A.scoutNearestChance) ? 0 : rnd(0, hidden.length - 1)];
   S.open.push(L.id); log(`🔭 Розвідка: знайдено «${L.n}» (${ZONE[L.z].n} зона)`);
   ui.showEvent({ e: L.e, t: 'Нова локація!', txt: `${L.n}<br><span class="mut">${ZONE[L.z].n} зона · дорога ${travelCost(L.z)}⚡</span>`, b: [['Ок', null]] });
@@ -28,10 +31,11 @@ export function goTo(id) {
 export function search() {
   const SR = BAL.search;
   if (!useSily(BAL.actions.searchSily)) return;
-  const L = locById(S.trip.loc), dep = !!S.depleted[L.id], mult = lootMult(L) * evNum('lootMult', 1);
+  const L = locById(S.trip.loc), dep = !!S.depleted[L.id], mult = lootMult(L) * evNum('lootMult', 1) * petPerk('lootMult', true).reduce((a, b) => a * b, 1);
   S.exhaust[L.id] = (S.exhaust[L.id] || 0) + 1;
   const rareP = (SR.rareBase + L.z * SR.rarePerZone + (L.rareBoost ? SR.rareBoost : 0)) * evNum('rareMult', 1);
   if (chance(rareP)) return startFight(mkEnemy(pick(Object.keys(RARE)), true, L.z));
+  if (S.day >= BAL.pets.fromDay && chance(BAL.pets.findChance)) return petFound();
   const r = Math.random(), rivalHere = S.rivalAt[L.id] !== undefined;
   const fightP = SR.fight + evNum('fightAdd', 0);
   if (r < fightP) return startFight(mkEnemy(pick(L.mon), false, L.z));

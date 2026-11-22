@@ -1,7 +1,7 @@
 // Постійні вижилі: стосунки, пам'ять про тебе, ростуть із часом, ворожі нападають на базу.
 import { RES, NPCS, BAL } from './data.js';
 import { rnd, pick, chance } from './util.js';
-import { S, log } from './state.js';
+import { S, log, bl } from './state.js';
 import { line } from './texts.js';
 
 const N = () => BAL.npc;
@@ -79,7 +79,7 @@ export function npcNightRaid() {
   const R = N().raid;
   if (S.day < R.fromDay) return null;
   for (const p of S.npcs.filter(x => !x.gone && isHostile(x))) {
-    if (!chance(R.chancePerHostile - S.bld.wall * R.perWall)) continue;
+    if (!chance(R.chancePerHostile - bl('wall') * R.perWall)) continue;
     const keys = Object.keys(RES).filter(k => S.res[k] > 0), lost = [];
     for (let i = 0; i < R.rolls && keys.length; i++) { const k = pick(keys), n = Math.min(S.res[k], rnd(...R.amount)); S.res[k] -= n; lost.push(RES[k][0] + n); }
     if (lost.length) return `🌙 ${p.e} ${p.n} вночі напав на базу і виніс: ${lost.join(' ')}. Стіни допомогли б.`;

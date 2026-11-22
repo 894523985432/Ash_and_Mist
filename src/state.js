@@ -7,12 +7,14 @@ export let S = null;
 export function setState(s) { S = s; }
 
 const P = BAL.player;
+/** Рівень будівлі, що реально працює (зламана — 0). */
+export const bl = k => (S.broken?.[k] ? 0 : S.bld[k]);
 export const item = id => S.inv.find(i => i.id === id);
 export const armor = () => S.armor ? item(S.armor) : null;
 export const maxHP = () => P.hpBase + (S.lvl - 1) * P.hpPerLvl + (armor()?.hp || 0);
 export const pDef = () => Math.floor(S.lvl / P.defLvlDivisor) + (armor()?.def || 0);
 export const baseAP = () => P.apBase + P.apBonusLevels.filter(l => S.lvl >= l).length;
-export const maxSily = () => Math.max(P.silyMin, P.silyBase + S.bld.bed * BLD.bed.sily - S.tired);
+export const maxSily = () => Math.max(P.silyMin, P.silyBase + bl('bed') * BLD.bed.sily - S.tired);
 export const xpNeed = () => P.xpBase + S.lvl * P.xpPerLvl;
 export const locById = id => LOCS.find(l => l.id === id);
 

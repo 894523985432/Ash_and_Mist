@@ -11,8 +11,10 @@ import ART_DATA from '../data/art.json' with { type: 'json' };
 import BAL from '../data/balance.json' with { type: 'json' };
 import EVENTS from '../data/events.json' with { type: 'json' };
 import TUTORIAL from '../data/tutorial.json' with { type: 'json' };
+import PETS from '../data/pets.json' with { type: 'json' };
+import CODEX from '../data/codex.json' with { type: 'json' };
 
-export { RES, WPN, ARM, MON, RARE, BLD, NPCS, ART_DATA, BAL, EVENTS, TUTORIAL };
+export { RES, WPN, ARM, MON, RARE, BLD, NPCS, ART_DATA, BAL, EVENTS, TUTORIAL, PETS, CODEX };
 export const ZONE = LOCATIONS.zones;
 export const LOCS = LOCATIONS.locations;
 export const RAR = BAL.rarity;

@@ -31,4 +31,5 @@ export default defineConfig({
   base: './', // відносні шляхи — потрібні для Capacitor/APK
   build: { outDir: 'dist', target: 'es2022' },
   plugins: [serviceWorker()],
+  define: { __APP_VERSION__: JSON.stringify(JSON.parse(readFileSync('package.json', 'utf8')).version) },
 });

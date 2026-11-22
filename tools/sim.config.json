@@ -6,15 +6,15 @@
   "strategies": {
     "cautious": {
       "d": "Обережна: будує, ходить у зону під свій рівень, тікає при малому HP, платить мито",
-      "build": true, "zone": "level", "riskyHp": 0.75, "retreatHp": 0.45, "fleeHp": 0.3, "payToll": true, "eatSurplus": 4
+      "build": true, "zone": "level", "riskyHp": 0.75, "retreatHp": 0.45, "fleeHp": 0.3, "payToll": true, "eatSurplus": 4, "pets": 1
     },
     "greedy": {
       "d": "Жадібна: будує, ходить у найдальшу відкриту зону, обшукує до останнього",
-      "build": true, "zone": "far", "retreatHp": 0.2, "fleeHp": 0, "payToll": false, "eatSurplus": 2
+      "build": true, "zone": "far", "retreatHp": 0.2, "fleeHp": 0, "payToll": false, "eatSurplus": 2, "pets": 1
     },
     "near": {
       "d": "Тільки близька зона",
-      "build": true, "zone": "near", "retreatHp": 0.35, "fleeHp": 0.25, "payToll": true, "eatSurplus": 4
+      "build": true, "zone": "near", "retreatHp": 0.35, "fleeHp": 0.25, "payToll": true, "eatSurplus": 4, "pets": 1
     },
     "nobuild": {
       "d": "Розумна гра, але без жодної будівлі",
@@ -23,6 +23,8 @@
   },
 
   "zoneForLevel": [1, 4, 7],
+
+  "buildOrder": ["rain", "garden", "gen", "heater", "bed", "rain", "wall", "gen", "heater", "shop", "garden", "solar", "bed", "wall", "solar", "heater", "gen", "garden", "rain", "solar", "wall", "shop"],
 
   "goals": {
     "noBuildDeathDay": [6, 9],

@@ -9,12 +9,13 @@ import { vMap } from './map.js';
 import { vLoc } from './loc.js';
 import { vFight } from './fight.js';
 import { vGear } from './gear.js';
-import { vArt } from './art.js';
+import { vMenu } from './menu.js';
+import { settings, onSettings, FONT_SIZES, ANIM } from '../settings.js';
 import { vOver } from './over.js';
 import { tutorialCard } from './tutorial.js';
 
 const $ = s => document.querySelector(s);
-const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, art: vArt, over: vOver };
+const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, menu: vMenu, art: vMenu, over: vOver };
 let EV = null;
 
 export function render() {
@@ -42,12 +43,30 @@ export function toast(t) {
 }
 
 function shake() {
-  const a = $('#app'); a.classList.add('dmg'); setTimeout(() => $('#app')?.classList.remove('dmg'), 300);
+  if (settings.vibro) try { navigator.vibrate?.(60); } catch (e) {}
+  if (!ANIM[settings.anim]) return;
+  const a = $('#app'); a.classList.add('dmg'); setTimeout(() => $('#app')?.classList.remove('dmg'), 300 * ANIM[settings.anim]);
+}
+
+/** Розмір шрифту й швидкість анімацій — через CSS-змінні на <html>. */
+function applySettings(s) {
+  const r = document.documentElement;
+  r.style.setProperty('--zoom', (FONT_SIZES[s.font] || 15) / 15);
+  r.style.setProperty('--anim', ANIM[s.anim] ?? 1);
+  r.classList.toggle('noanim', !ANIM[s.anim]);
+  r.lang = s.lang;
 }
 
 /** Підключає UI до логіки і вішає один обробник кліків на всі кнопки з data-act. */
 export function mountUI(actions) {
   setUI({ render, go, showEvent, toast, shake });
+  onSettings(applySettings); applySettings(settings);
+  // Повзунки налаштувань (гучність): data-set="ключ"
+  $('#app').addEventListener('input', e => {
+    const k = e.target.dataset?.set; if (!k) return;
+    actions.setting(`${k}:${e.target.value}`, true);
+    const b = e.target.nextElementSibling; if (b) b.textContent = Math.round(e.target.value * 100) + '%';
+  });
   $('#app').addEventListener('click', e => {
     const b = e.target.closest('[data-act]');
     if (!b || b.disabled) return;

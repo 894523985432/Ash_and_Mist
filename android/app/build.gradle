@@ -1,5 +1,15 @@
 apply plugin: 'com.android.application'
 
+// Версія — з package.json: 0.2.0 → versionCode 200. Кожна нова версія мусить мати більший versionCode,
+// інакше Android не оновить гру поверх старої.
+def pkg = new groovy.json.JsonSlurper().parse(file('../../package.json'))
+def (vMaj, vMin, vPat) = pkg.version.tokenize('.').collect { it.toInteger() }
+
+// Ключ підпису лежить поза репозиторієм. Однаковий ключ для всіх збірок = оновлення без втрати збережень.
+def keyProps = new Properties()
+def keyFile = file(System.getenv('ASHFOG_KEYSTORE') ?: 'F:/Android/keys/keystore.properties')
+if (keyFile.exists()) keyFile.withInputStream { keyProps.load(it) }
+
 android {
     namespace = "ua.darke.ashfog"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -7,8 +17,8 @@ android {
         applicationId "ua.darke.ashfog"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode vMaj * 10000 + vMin * 100 + vPat
+        versionName pkg.version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,8 +26,22 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        ashfog {
+            if (keyProps['storeFile']) {
+                storeFile file(keyProps['storeFile'])
+                storePassword keyProps['storePassword']
+                keyAlias keyProps['keyAlias']
+                keyPassword keyProps['keyPassword']
+            }
+        }
+    }
     buildTypes {
+        debug {
+            if (keyProps['storeFile']) signingConfig signingConfigs.ashfog
+        }
         release {
+            if (keyProps['storeFile']) signingConfig signingConfigs.ashfog
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

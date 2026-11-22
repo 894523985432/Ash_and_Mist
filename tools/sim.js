@@ -21,6 +21,7 @@ import { playCard, blockAct, superAct, flee, endTurn } from '../src/combat.js';
 import { item, maxHP, pDef, baseAP, canPay } from '../src/state.js';
 import { bagCount } from '../src/trip.js';
 import { travelCost } from '../src/events.js';
+import { bldCostNow, missingNeeds, repair, repairCost } from '../src/economy.js';
 
 /* ---------- параметри ---------- */
 const CFG = JSON.parse(readFileSync(new URL('./sim.config.json', import.meta.url), 'utf-8'));
@@ -77,6 +78,7 @@ function makeBot(st, stats) {
     const L = ev.b.map(b => b[0]);
     const find = p => L.findIndex(l => l.startsWith(p));
     // (за підписами кнопок, а не емодзі: 🔪 — це ще й ніж у схованці)
+    if (find('Забрати') >= 0 && find('Лишити') >= 0) return (S.pets.length < (st.pets || 0) && S.res.food >= 5 && S.res.water >= 5) ? find('Забрати') : find('Лишити');
     if (find('Піти') >= 0) { const i = find('Продати'); if (i >= 0) return i; const j = find('Обміняти'); return j >= 0 ? j : 0; }
     if (find('Битися') >= 0) {
       const pay = find('Віддати'), fight = find('Битися');
@@ -138,7 +140,7 @@ function makeBot(st, stats) {
 
   // Що зараз найпотрібніше (для вибору локації)
   function need(r) {
-    const target = { water: 8, food: 8, heat: 8, wood: 10 + Math.max(0, 8 - S.res.heat), metal: 8, parts: 8, fuel: S.bld.gen ? 6 : 2, med: 3 }[r] ?? 2;
+    const target = { water: 8, food: 8, heat: 8, wood: 10 + Math.max(0, 8 - S.res.heat), metal: 8, parts: 8, fuel: S.bld.gen ? 8 : 2, med: 3 }[r] ?? 2;
     return Math.max(0.2, (target - S.res[r]) / target + 0.3);
   }
 
@@ -177,11 +179,12 @@ function makeBot(st, stats) {
   }
 
   // Будує в порядку пріоритету, поки вистачає ресурсів і лишається сил на вилазку
-  const ORDER = ['rain', 'garden', 'solar', 'bed', 'garden', 'rain', 'wall', 'solar', 'shop', 'gen', 'bed', 'wall', 'garden', 'rain', 'solar', 'wall', 'gen', 'shop'];
+  const ORDER = CFG.buildOrder;
   const canBuild = k => {
-    const B = BLD[k]; if (S.bld[k] >= B.max) return false;
-    const c = bldCost(k, S.bld[k]);
+    const B = BLD[k]; if (S.bld[k] >= B.max || S.broken?.[k] || missingNeeds(k).length) return false;
+    const c = bldCostNow(k, S.bld[k]);
     if (!canPay(c)) return false;
+    if (c.heat && S.res.heat - c.heat < 4) return false;
     // не проїдати їжу/воду на будівництво, якщо їх мало
     if ((c.water && S.res.water - c.water < 4) || (c.food && S.res.food - c.food < 4)) return false;
     // дрова — це тепло на ніч: не будуємо з них, якщо в пічці порожньо
@@ -191,13 +194,14 @@ function makeBot(st, stats) {
   function buildStep(homeDay = false) {
     if (!st.build) return;
     const reserve = homeDay ? 0 : travelCost(0) + 3;
+    for (const k of Object.keys(S.broken || {})) if (canPay(repairCost(k)) && S.sily > reserve) { repair(k); stats.repairs = (stats.repairs || 0) + 1; }
     for (const k of ORDER) {
       if (!canBuild(k)) continue;
       if (S.sily - BAL.actions.buildSily < reserve && S.day > 1) break;
       const before = S.bld[k]; build(k);
       if (S.bld[k] > before) stats.builds[k] = (stats.builds[k] || 0) + 1;
     }
-    if (S.bld.shop && S.sily > reserve + 2) {
+    if (S.bld.shop && !S.job && S.sily > reserve + 2) {
       if (canPay(BAL.craft.weapon) && S.res.metal > 6) craft('w');
       else if (canPay(BAL.craft.armor) && S.res.metal > 6) craft('a');
       resolve();

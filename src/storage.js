@@ -3,6 +3,8 @@
 // не зникає, коли система чистить дані WebView. Читання синхронне з копії в памʼяті,
 // тому initStorage() треба дочекатися до першого load().
 const mem = {};
+// У Node (smoke, sim) localStorage нема — не чіпаємо його взагалі, щоб не було попереджень
+const LS = () => (typeof window !== 'undefined' ? window.localStorage : null);
 let prefs = null;
 
 export async function initStorage(keys) {
@@ -22,10 +24,10 @@ export async function initStorage(keys) {
 
 export function getItem(k) {
   if (prefs) return mem[k] ?? null;
-  try { return globalThis.localStorage?.getItem(k) ?? null; } catch (e) { return null; }
+  try { return LS()?.getItem(k) ?? null; } catch (e) { return null; }
 }
 
 export function setItem(k, v) {
   if (prefs) { mem[k] = v; prefs.set({ key: k, value: v }).catch(() => {}); return; }
-  try { globalThis.localStorage?.setItem(k, v); } catch (e) {}
+  try { LS()?.setItem(k, v); } catch (e) {}
 }
