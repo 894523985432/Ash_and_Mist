@@ -26,8 +26,8 @@
 | Що | Де / яке |
 |---|---|
 | ПК | Ryzen 5 7500F, **RX 6700 XT 12 ГБ (AMD)** |
-| LLM | `F:\AI\models\`: Qwen3.5-9B Q4_K_M (unsloth), Huihui-Qwen3.5-9B abliterated, Qwen3.5-27B Q5_K_XL, Huihui-27B, Qwen3.5-35B-A3B |
-| Генерація зображень | ComfyUI portable у `F:\AI\ComfyUI_windows_portable` на **NVIDIA P102-100 10 ГБ** (CUDA); модель Pony Diffusion V6 XL; є IPAdapter Plus, ControlNet Union |
+| LLM | `E:\AI\models\`: Qwen3.5-9B Q4_K_M (unsloth), Huihui-Qwen3.5-9B abliterated, Qwen3.5-27B Q5_K_XL, Huihui-27B, Qwen3.5-35B-A3B |
+| Генерація зображень | ComfyUI portable у `E:\AI\ComfyUI_windows_portable` на **NVIDIA P102-100 10 ГБ** (CUDA); модель Pony Diffusion V6 XL; є IPAdapter Plus, ControlNet Union |
 | Папка гри | `F:\Game` |
 
 ---
@@ -74,7 +74,7 @@
 - Збереження — версія 4 (NPC, подія, караван, колекція, навчання), старим збереженням навчання вимкнене
 
 ### Етап 4 — Пайплайн арту (ComfyUI)
-- [x] ComfyUI: `F:\AI\ComfyUI_windows_portable` (рахує на **NVIDIA P102-100 10 ГБ**, CUDA). Модель — **Pony Diffusion V6 XL** (`ponyDiffusionV6XL.safetensors`); теги якості Pony (`score_9…`) — у `tools/art/config.json`
+- [x] ComfyUI: `E:\AI\ComfyUI_windows_portable` (рахує на **NVIDIA P102-100 10 ГБ**, CUDA). Модель — **Pony Diffusion V6 XL** (`ponyDiffusionV6XL.safetensors`); теги якості Pony (`score_9…`) — у `tools/art/config.json`
 - [x] `tools/art/assets.json` — 64 ключі: `hero`, `base_1..3`, `base_trophy`, `survivor`, `survivor_<npc>` (10), `loc_*` (18), `mon_*` (30). Будується з `data/*.json` автоматично; ручні правки prompt/seed/ref зберігаються
 - [x] Англійські описи для SDXL — у `data/art.json` (локації, монстри, рідкісні, NPC)
 - [x] Спільний стиль: `anime style, post-apocalyptic dark fantasy, muted colors with neon pink and violet accents, dramatic lighting, detailed, masterpiece` («ruined city» прибрано зі стилю: воно перебивало опис і все ставало руїнами міста)
@@ -120,9 +120,9 @@
 - [x] Оновлення APK зберігає дані: власний ключ підпису `F:\Android\keys\ashfog.jks` (пароль у `keystore.properties` поряд, **поза git — зроби резервну копію обох файлів**), versionCode з `package.json` (0.2.0 → 200). Збереження в Capacitor Preferences переживають оновлення, якщо ключ той самий
 - [x] Звук у грі: `src/audio.js` (звуки через `ui.sfx`, музика за екраном з плавним переходом, гучність і вимкнення — з налаштувань, пауза у фоні)
 - [x] Пайплайн звуку: `tools/audio/generate.py` + `tools/audio/assets.json` (17 звуків — Stable Audio Open 1.0, 4 треки — ACE-Step 1.5 turbo, моделі вже в ComfyUI) → `public/audio/*.ogg` + `manifest.json`
-- [ ] Згенерувати звуки й музику (потрібен робочий ComfyUI: у `F:\AI\ComfyUI_windows_portable` зник `python_embeded\python.exe` і `run_nvidia_gpu.bat`)
+- [ ] Згенерувати звуки й музику (ComfyUI з `E:\AI\ComfyUI_windows_portable`)
 - [x] Англійська: `src/i18n.js` — t`…` з українським рядком як ключем, підставлені назви з даних теж перекладаються; `data/i18n/en.json` (564 рядки інтерфейсу й даних, перекладено вручну). Нові рядки: `npm run i18n` (перевірка затінення `t`, збір ключів, переклад локальною LLM)
-- [ ] Англійські художні тексти: `python tools/i18n/translate.py --texts` → `data/texts.en.json` (потрібен llama-server: зникла папка `F:\AI\llama.cpp-vulkan`). Поки їх нема, показується українське
+- [ ] Англійські художні тексти: `python tools/i18n/translate.py --texts` → `data/texts.en.json` (llama-server з `E:\AI\llama.cpp-vulkan`). Поки їх нема, показується українське
 - [x] Анімації переходів: поява екрана й вікон, спалах при ударі (швидкість — з налаштувань)
 
 **Енергія і тепло** (`data/buildings.json`)

@@ -1,5 +1,5 @@
 // Вилазка: рюкзак, лут, поразка.
-import { BAL } from './data.js';
+import { BAL, LOCS } from './data.js';
 import { rnd } from './util.js';
 import { ui } from './hooks.js';
 import { S, maxHP, log } from './state.js';
@@ -23,18 +23,24 @@ export function rollLoot(tbl, mult = 1) {
   return o;
 }
 
-/** Наскільки зону вже вигребли інші вижилі до цього дня (1 — ціла). */
-export function zoneDecay(z, day = S.day) {
-  const D = BAL.exhaust.zoneDecay[z];
-  if (!D || day <= D.from) return 1;
-  return Math.max(D.min, 1 - (day - D.from) * D.perDay);
+/** Запас локації: 1 — повна, 0 — порожня. Відновлюється щодня (balance.stock). */
+export const stock = id => S.stock?.[id] ?? 1;
+export function takeStock(id, amount) { (S.stock ||= {})[id] = Math.max(0, stock(id) - amount); }
+export function regenStock() {
+  for (const id in S.stock || {}) {
+    const L = LOCS.find(l => l.id === id); S.stock[id] += BAL.stock.regenPerDay[L?.z ?? 0];
+    if (S.stock[id] >= 1) delete S.stock[id];
+  }
 }
-
-/** Множник луту локації: вигребена зона × твоє власне виснаження × суперник (÷ дільник). */
+/** Множник луту: від minMult при майже порожній до 1 при повній; порожня — нічого. */
 export function lootMult(L) {
-  const E = BAL.exhaust;
-  const ex = Math.max(E.minMult, 1 - (S.exhaust[L.id] || 0) * E.perSearch[L.z]);
-  return zoneDecay(L.z) * ex / (S.depleted[L.id] ? BAL.rivals.depletedLootDivisor : 1);
+  const v = stock(L.id), K = BAL.stock;
+  return v <= K.empty ? 0 : K.minMult + (1 - K.minMult) * v;
+}
+/** Підпис запасу для інтерфейсу: [текст, рівень 0..3]. */
+export function stockLabel(id) {
+  const v = stock(id), L = BAL.stock.labels, i = L.findIndex(([min]) => v >= min && (min > 0 || v <= BAL.stock.empty));
+  return [L[Math.max(0, i)][1], Math.max(0, i)];
 }
 
 export function lose(why) {

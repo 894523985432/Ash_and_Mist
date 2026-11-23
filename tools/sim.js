@@ -19,7 +19,7 @@ import { build, craft, dismantle, toggleEq } from '../src/base.js';
 import { goTo, search, goHome, scout } from '../src/map.js';
 import { playCard, blockAct, superAct, flee, endTurn } from '../src/combat.js';
 import { item, maxHP, pDef, baseAP, canPay } from '../src/state.js';
-import { bagCount } from '../src/trip.js';
+import { bagCount, lootMult } from '../src/trip.js';
 import { travelCost } from '../src/events.js';
 import { bldCostNow, missingNeeds, repair, repairCost } from '../src/economy.js';
 
@@ -152,7 +152,7 @@ function makeBot(st, stats) {
     let cands = [];
     for (; z >= 0 && !cands.length; z--) cands = open.filter(l => l.z === z && S.sily >= travelCost(l.z) + 2);
     if (!cands.length) return null;
-    const val = L => Object.entries(L.res).reduce((a, [r, [lo, hi]]) => a + need(r) * (lo + hi) / 2, 0) * (S.depleted[L.id] ? 0.5 : 1);
+    const val = L => Object.entries(L.res).reduce((a, [r, [lo, hi]]) => a + need(r) * (lo + hi) / 2, 0) * (lootMult(L) || 0.05);
     return cands.sort((a, b) => val(b) - val(a))[0];
   }
 

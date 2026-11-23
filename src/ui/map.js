@@ -1,6 +1,6 @@
 import { RES, MON, LOCS, ZONE, BAL } from '../data.js';
 import { S } from '../state.js';
-import { lootMult } from '../trip.js';
+import { stockHTML } from './common.js';
 import { travelCost, event } from '../events.js';
 import { act, dis, artBox } from './common.js';
 import { t } from '../i18n.js';
@@ -13,9 +13,9 @@ export function vMap() {
     const ls = LOCS.filter(l => l.z === z && S.open.includes(l.id)); if (!ls.length) return '';
     return t`<h3 style="color:${Z.col}">${Z.n} зона · ${travelCost(z)}⚡${travelCost(z) !== Z.travel ? ' (' + event().e + ')' : ''}</h3><div class="grid">${ls.map(L => {
       const rv = S.rivalAt[L.id] !== undefined ? S.rivals[S.rivalAt[L.id]] : null;
-      return t`<div class="item">${artBox('loc_' + L.id, L.e, 'sq')}<b>${L.n}</b>
+      return t`<div class="item">${artBox('loc_' + L.id, L.e)}<b>${L.n}</b>
       <div class="mut">${Object.keys(L.res).map(k => RES[k][0]).join(' ')} · ${L.mon.map(m => MON[m].e).join('')}${L.rareBoost ? t(' · ✨ часто рідкісні') : ''}</div>
-      ${lootMult(L) < 0.99 ? t`<div style="color:var(--warn)">⚠ ${S.depleted[L.id] ? t('Вичищено суперником') : t('Виснажено')} (лут ×${lootMult(L).toFixed(1)})</div>` : ''}${rv ? t`<div style="color:var(--acc)">${rv.e} Тут ${rv.n}</div>` : ''}
+      ${stockHTML(L.id)}${rv ? t`<div style="color:var(--acc)">${rv.e} Тут ${rv.n}</div>` : ''}
       <button class="sm pri" style="margin-top:6px;width:100%" ${act('goTo', L.id)} ${dis(S.sily >= travelCost(z))}>Вирушити</button></div>`;
     }).join('')}</div>`;
   }).join('')}`;

@@ -7,7 +7,7 @@ import { getItem, setItem } from './storage.js';
 import { settings, setSetting } from './settings.js';
 import { t } from './i18n.js';
 
-export const SAVE_VERSION = 5;
+export const SAVE_VERSION = 6;
 export const KEY = 'ashfog_save';
 export const LEGACY_KEYS = ['ashfog_v1']; // прототип index.html (версія 1, без поля saveVersion)
 
@@ -30,6 +30,8 @@ const MIGRATIONS = {
     stats: { maxDay: s.day, kills: s.kills || 0 },
     bld: { ...s.bld, heater: Math.max(s.bld.heater || 0, s.bld.solar || 0), gen: Math.max(s.bld.gen || 0, 1) },
   }),
+  // v5 → v6: запас на локаціях замість виснаження й «вичищено суперником».
+  5: s => { const { exhaust, depleted, ...rest } = s; return { ...rest, stock: {} }; },
 };
 
 export function migrate(data) {

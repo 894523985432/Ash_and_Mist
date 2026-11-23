@@ -48,15 +48,13 @@
     "dmgShare": 0.3, "healPctPerDay": 0.25
   },
 
-  "exhaust": {
-    "perSearch": [0.05, 0.03, 0.02],
-    "minMult": 0.2,
-    "regenPerDay": 1,
-    "zoneDecay": [
-      { "from": 4, "perDay": 0.06, "min": 0.3 },
-      { "from": 15, "perDay": 0.02, "min": 0.5 },
-      null
-    ]
+  "stock": {
+    "perSearch": [0.1, 0.08, 0.06],
+    "regenPerDay": [0.08, 0.06, 0.05],
+    "rivalTake": 0.3,
+    "minMult": 0.4,
+    "empty": 0.05,
+    "labels": [[0.7, "Багато"], [0.35, "Є"], [0.05, "Мало"], [0, "Порожньо"]]
   },
 
   "raid": {
@@ -91,10 +89,10 @@
 
   "rarity": {
     "c": { "n": "Звичайна",   "col": "#9aa4ad", "dm": 1,   "ap": 0 },
-    "u": { "n": "Незвичайна", "col": "#5fd38a", "dm": 1.3, "ap": 0 },
-    "r": { "n": "Рідкісна",   "col": "#4ea3ff", "dm": 1.6, "ap": -1 },
-    "e": { "n": "Епічна",     "col": "#b779ff", "dm": 2,   "ap": -1 },
-    "l": { "n": "Легендарна", "col": "#ffb23f", "dm": 2.5, "ap": -2 }
+    "u": { "n": "Незвичайна", "col": "#5fd38a", "dm": 1.3, "ap": 0, "dmgAdd": 1, "defAdd": 1, "hpAdd": 3 },
+    "r": { "n": "Рідкісна",   "col": "#4ea3ff", "dm": 1.6, "ap": -1, "dmgAdd": 2, "defAdd": 2, "hpAdd": 6 },
+    "e": { "n": "Епічна",     "col": "#b779ff", "dm": 2,   "ap": -1, "dmgAdd": 3, "defAdd": 3, "hpAdd": 10 },
+    "l": { "n": "Легендарна", "col": "#ffb23f", "dm": 2.5, "ap": -2, "dmgAdd": 4, "defAdd": 4, "hpAdd": 15 }
   },
   "minAp": 1,
 
@@ -161,9 +159,7 @@
 
   "rivals": {
     "powGain": 0.12,
-    "powMax": 2.9,
-    "depleteDays": 2,
-    "depletedLootDivisor": 2
+    "powMax": 2.9
   },
 
   "combat": {

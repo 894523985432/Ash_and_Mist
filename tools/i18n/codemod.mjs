@@ -44,8 +44,10 @@ for (const f of files) {
   if (!/import \{[^}]*\bt\b[^}]*\} from '[^']*i18n\.js'/.test(out)) {
     let rel = relative(dirname(f), 'src/i18n.js').split('\\').join('/'); if (!rel.startsWith('.')) rel = './' + rel;
     const m = [...out.matchAll(/^import .*;$/gm)].pop();
-    const at = m ? m.index + m[0].length : 0;
-    out = out.slice(0, at) + `\nimport { t } from '${rel}';` + out.slice(at);
+    // без імпортів — одразу після початкового коментаря-заголовка
+    const head = out.match(/^(?:\/\/[^\n]*\n)*/)[0].length;
+    out = m ? out.slice(0, m.index + m[0].length) + `\nimport { t } from '${rel}';` + out.slice(m.index + m[0].length)
+      : out.slice(0, head) + `import { t } from '${rel}';\n` + out.slice(head);
   }
   total += edits.filter(e => e[1] !== ')').length;
   console.log(`${f}: ${edits.filter(e => e[1] !== ')').length}`);

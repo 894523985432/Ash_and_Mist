@@ -6,6 +6,7 @@ import { S, setState, log, maxHP, maxSily, resStr, canPay, pay, bl } from './sta
 import { heatMult, morningPower, rollWear, craftTick, petConsume, petsMorning, petPerk } from './economy.js';
 import { mkWeapon, mkArmor } from './items.js';
 import { rivalsMove } from './ai-rivals.js';
+import { regenStock } from './trip.js';
 import { initNpcs, npcsDaily, npcNightRaid } from './npcs.js';
 import { rollEvent, dayModifiers, evNum } from './events.js';
 import { TEXTS, line } from './texts.js';
@@ -21,8 +22,8 @@ export function newGame() {
     bld: { ...Object.fromEntries(Object.keys(BLD).map(k => [k, 0])), ...(st.bld || {}) },
     inv: [], eq: [], armor: null, trophies: {},
     open: [...st.open],
-    depleted: {}, rivals: NPCS.rivals.map(r => ({ ...r })),
-    rivalAt: {}, exhaust: {}, starve: {}, broken: {}, job: null, pets: [], petOut: null, fuelAcc: 0, stats: {}, npcs: initNpcs(), event: null, caravan: null, collection: {}, tut: { seen: {}, off: false }, eaten: 0, tired: 0, screen: 'base', trip: null, fight: null, log: [], over: false, kills: 0,
+    rivals: NPCS.rivals.map(r => ({ ...r })),
+    rivalAt: {}, stock: {}, starve: {}, broken: {}, job: null, pets: [], petOut: null, fuelAcc: 0, stats: {}, npcs: initNpcs(), event: null, caravan: null, collection: {}, tut: { seen: {}, off: false }, eaten: 0, tired: 0, screen: 'base', trip: null, fight: null, log: [], over: false, kills: 0,
   });
   for (const d of st.items) {
     const it = d.k === 'w' ? mkWeapon(d.type, d.rar) : mkArmor(d.type, d.rar);
@@ -85,15 +86,13 @@ export function sleep() {
   if (pen && D.noHealOnShortage) msgs.push(t('😣 У нестачі сон не лікує.'));
   S.hp = healed - dmg;
   S.sily = maxSily(); S.eaten = 0;
-  for (const k in S.depleted) { if (--S.depleted[k] <= 0) delete S.depleted[k]; }
-  // Виснажені тобою локації потроху відновлюються
-  for (const k in S.exhaust) { S.exhaust[k] = Math.max(0, S.exhaust[k] - BAL.exhaust.regenPerDay); if (!S.exhaust[k]) delete S.exhaust[k]; }
+  regenStock(); // запаси локацій потроху відновлюються
   rivalsMove();
   const job = craftTick(); if (job) msgs.push(job);
   const wear = rollWear(); if (wear) msgs.push(wear);
   S.stats.maxDay = Math.max(S.stats.maxDay || 0, S.day);
   const evLines = rollEvent(); // подія нового дня
-  if (chance(BAL.flavor.systemMemoryChance)) { const m = line('system.memory'); if (m) evLines.push(`<span class="sys">${m}</span>`); }
+  if (chance(BAL.flavor.systemMemoryChance)) { const m = line('system.memory'); if (m) evLines.push(`<div class="sys">${m}</div>`); }
   msgs.forEach(m => log(m)); log(t('☀️ Новий день.'));
   if (S.hp <= 0) { S.over = true; recordGame(S, true); }
   ui.showEvent({ e: '🌅', t: t('День ') + S.day, txt: (evLines.length ? evLines.join('<br>') + '<br><br>' : '') + (msgs.length ? msgs.join('<br>') : t('Ніч минула спокійно.')) + t`<br><br><span class="mut">Витрата за добу: ${Object.entries(consume).filter(([, v]) => v > 0).map(([r, v]) => `−${v}${RES[r][0]}`).join(' ')}. Виробництво бази вже враховано.</span>`, b: [[t('Далі'), null]] });

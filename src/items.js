@@ -3,11 +3,11 @@ import { pick, chance, uid } from './util.js';
 
 export function mkWeapon(type, rar) {
   const b = WPN[type], R = RAR[rar];
-  return { id: uid(), k: 'w', type, rar, dmg: Math.round(b.dmg * R.dm), ap: Math.max(BAL.minAp, b.ap + R.ap) };
+  return { id: uid(), k: 'w', type, rar, dmg: Math.round(b.dmg * R.dm) + (R.dmgAdd || 0), ap: Math.max(BAL.minAp, b.ap + R.ap) };
 }
 export function mkArmor(type, rar) {
   const b = ARM[type], R = RAR[rar];
-  return { id: uid(), k: 'a', type, rar, def: Math.round(b.def * R.dm), hp: Math.round(b.hp * R.dm) };
+  return { id: uid(), k: 'a', type, rar, def: b.def + (R.defAdd || 0), hp: b.hp + (R.hpAdd || 0) };
 }
 export function rollRar(z) {
   const { base, perZone } = BAL.loot.rarityWeights, w = {};

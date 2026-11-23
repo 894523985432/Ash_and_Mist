@@ -93,5 +93,22 @@
     "liia": "1girl, young woman, quiet, oversized coat, teddy bear keychain, long dark hair, shy",
     "borys": "1boy, huge muscular man, mechanical prosthetic arm, heavy scrap armor, buzz cut",
     "noks": "1boy, pale man, long black coat, slicked back black hair, red eyes, calm, mysterious"
+  },
+  "petSuffix": ", feral animal, no humans, solo, full body, soft rim light",
+  "pets": {
+    "dog": "scruffy loyal mongrel dog, torn red bandana, alert ears, ruined street",
+    "cat": "lean ginger cat with a notched ear, sly green eyes, sitting on rusty crate",
+    "parrot": "colorful scruffy parrot with ragged feathers, perched on broken wire",
+    "raccoon": "clever raccoon holding a tin can, masked face, ruined alley",
+    "crow": "large black crow with glossy feathers, bandaged wing, perched on dead branch",
+    "goat": "small white goat with short horns and a bell collar, ruined field"
+  },
+  "petBaby": {
+    "dog": "tiny skinny puppy shivering under a car, big eyes",
+    "cat": "tiny ginger kitten with big eyes, peeking from behind crates",
+    "parrot": "small fluffy parrot chick with few feathers, on a wire",
+    "raccoon": "tiny raccoon kit dragging a tin can bigger than itself",
+    "crow": "small fluffy crow chick with hurt wing, under a tree",
+    "goat": "tiny lost goat kid bleating among ruins"
   }
 }

@@ -16,7 +16,7 @@ export function vFight() {
     en.shield > 0 && t`🛡️ панцир ${en.shield}`, mins.length && t`👥 ${en.summon.n} ×${mins.length} (${mins.map(m => m.hp).join('/')} HP)`,
   ].filter(Boolean).map(c => t`<span class="chip">${c}</span>`).join('');
   const tt = traitText(en);
-  return t`${artBox(key, en.e, '', tr(en.n) + (en.rare ? ' ✨' : ''))}
+  return t`${artBox(key, en.e, 'mon', tr(en.n) + (en.rare ? ' ✨' : ''))}
   <div class="card" style="margin-top:10px">
     <div class="row"><b>${en.n}</b><div class="bar"><i style="width:${Math.max(0, en.hp / en.max * 100)}%"></i></div><span class="mut">${Math.max(0, en.hp)}/${en.max} · 🛡️${en.def + (en.guard ? C.guardDef : 0)}</span></div>
     ${!en.human && lineStable(t`monsters.${en.key}`, en.key + S.day) ? t`<div style="margin-top:4px"><i>${lineStable(t`monsters.${en.key}`, en.key + S.day)}</i></div>` : ''}

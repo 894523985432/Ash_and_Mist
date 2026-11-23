@@ -3,7 +3,8 @@ import { S } from '../state.js';
 import { setUI } from '../hooks.js';
 import { save } from '../save.js';
 import { loadArt } from '../art.js';
-import { topBar, tabs } from './common.js';
+import { topBar, tabs, artBox } from './common.js';
+import { artKey } from '../art.js';
 import { vBase } from './base.js';
 import { vMap } from './map.js';
 import { vLoc } from './loc.js';
@@ -38,7 +39,7 @@ export function showEvent(ev) { EV = ev; renderModal(); }
 
 function renderModal() {
   const m = $('#modal'); if (!EV) { m.innerHTML = ''; return; }
-  m.innerHTML = t`<div class="modal"><div class="card"><div style="font-size:42px;text-align:center">${EV.e}</div><h2 style="text-align:center">${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row" style="flex-direction:column;align-items:stretch">${EV.b.map((b, i) => t`<button class="${i === 0 ? 'pri' : ''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
+  m.innerHTML = t`<div class="modal"><div class="card">${EV.art && artKey(EV.art) ? artBox(EV.art, EV.e, 'sq evart') : `<div style="font-size:42px;text-align:center">${EV.e}</div>`}<h2 style="text-align:center">${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row" style="flex-direction:column;align-items:stretch">${EV.b.map((b, i) => t`<button class="${i === 0 ? 'pri' : ''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
   m.querySelectorAll('[data-evb]').forEach(btn => btn.onclick = () => {
     const f = EV.b[+btn.dataset.evb][1]; EV = null; renderModal(); if (f) f(); render();
   });

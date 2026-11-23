@@ -5,7 +5,7 @@ import { pick, chance } from './util.js';
 import { ui } from './hooks.js';
 import { S, item, maxHP, pDef, baseAP, log, locById, gainXP, resStr } from './state.js';
 import { randomItem, itemName } from './items.js';
-import { addBag, rollLoot, zoneDecay, lose } from './trip.js';
+import { addBag, rollLoot, lose } from './trip.js';
 import { npcBeaten, npcWon } from './npcs.js';
 import { itemHTML } from './ui/format.js';
 import { petAttackDmg, petTakeShare, companion, petName } from './economy.js';
@@ -178,7 +178,7 @@ function win() {
   const en = S.fight.en, L = locById(S.trip.loc), Lt = BAL.loot; S.fight = null; S.kills++;
   gainXP(en.xp);
   let txt = `+${en.xp} XP`;
-  const got = addBag(rollLoot(en.loot, zoneDecay(L.z))); if (Object.keys(got).length) txt += t('<br>Лут: ') + resStr(got);
+  const got = addBag(rollLoot(en.loot)); if (Object.keys(got).length) txt += t('<br>Лут: ') + resStr(got);
   if (en.trophy) {
     S.trip.trophies.push(en.trophy);
     txt += t`<br>✨ Трофей: <b>${en.trophy}</b><br><span class="mut">Нічого не посилює, але вижилі за таке багато дають, а повна колекція прикрасить базу.</span>`;

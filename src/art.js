@@ -1,7 +1,7 @@
 // Арт за ключами (loc_gas, mon_rat, survivor_kai, …).
 // Основне джерело — public/art/*.webp з маніфестом (генерує tools/art/generate.py).
 // Поверх нього можна вручну завантажити картинки у вкладці «Арт» (IndexedDB) — для швидких проб.
-import { LOCS, MON, RARE, NPCS, ART_DATA } from './data.js';
+import { LOCS, MON, RARE, NPCS, ART_DATA, PETS } from './data.js';
 import { ui } from './hooks.js';
 import { t } from './i18n.js';
 
@@ -25,6 +25,7 @@ export function artKeys() {
   Object.entries(MON).forEach(([id, m]) => k.push(['mon_' + id, m.n + ' — ' + (A.monsters?.[id] || '')]));
   Object.entries(RARE).forEach(([id, m]) => k.push(['mon_' + id, m.n + ' — ' + (A.rare?.[id] || '')]));
   NPCS.names.forEach(p => k.push(['survivor_' + p.key, p.n + ' — ' + (A.npcs?.[p.key] || '')]));
+  Object.entries(PETS).forEach(([id, p]) => { k.push(['pet_' + id, p.n + ' — ' + (A.pets?.[id] || '')]); k.push(['pet_' + id + '_baby', p.baby + ' — ' + (A.petBaby?.[id] || '')]); });
   return k;
 }
 

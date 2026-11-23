@@ -1,8 +1,8 @@
-
-import { t } from './i18n.js';// Сховище ключ-значення для збережень.
+// Сховище ключ-значення для збережень.
 // У браузері — localStorage. В APK — Capacitor Preferences (SharedPreferences на Android):
 // не зникає, коли система чистить дані WebView. Читання синхронне з копії в памʼяті,
 // тому initStorage() треба дочекатися до першого load().
+import { t } from './i18n.js';
 const mem = {};
 // У Node (smoke, sim) localStorage нема — не чіпаємо його взагалі, щоб не було попереджень
 const LS = () => (typeof window !== 'undefined' ? window.localStorage : null);

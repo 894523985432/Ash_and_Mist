@@ -184,7 +184,7 @@ export function petFound() {
     log(t`${P.e} Забрав додому: ${P.baby}`);
   };
   ui.sfx('pet');
-  ui.showEvent({ e: P.e, t: t('Хтось маленький'), txt, b: full ? [[t('Лишити'), null]] : [[t('Забрати'), take], [t('Лишити'), null]] });
+  ui.showEvent({ e: P.e, art: ['pet_' + type + '_baby', 'pet_' + type], t: t('Хтось маленький'), txt, b: full ? [[t('Лишити'), null]] : [[t('Забрати'), take], [t('Лишити'), null]] });
 }
 
 export function petFollow(id) {

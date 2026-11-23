@@ -1,9 +1,10 @@
 // Спільні шматки інтерфейсу: верхня панель, вкладки, блок арту.
 import { RES, CODEX } from '../data.js';
+import { stock, stockLabel } from '../trip.js';
 import { S, maxHP, maxSily, pDef, xpNeed } from '../state.js';
 import { ART, artKey } from '../art.js';
 import { season, event } from '../events.js';
-import { t } from '../i18n.js';
+import { t, tr } from '../i18n.js';
 
 /** Атрибути для кнопки: клік викликає ACTIONS[name](arg) (див. ui/render.js). */
 export const act = (name, arg) => t`data-act="${name}"${arg !== undefined ? t` data-arg="${arg}"` : ''}`;
@@ -12,7 +13,13 @@ export const dis = ok => (ok ? '' : 'disabled');
 /** Картинка за ключем (або першим наявним зі списку ключів), інакше — емодзі. */
 export function artBox(keys, emoji, cls = '', cap = '') {
   const k = artKey(keys);
-  return t`<div class="art ${cls}">${k ? t`<img src="${ART[k]}" alt="">` : emoji}${cap ? t`<span class="cap">${cap}</span>` : ''}</div>`;
+  return t`<div class="art ${cls}">${k ? t`<img class="bg" src="${ART[k]}" alt=""><img src="${ART[k]}" alt="">` : emoji}${cap ? t`<span class="cap">${cap}</span>` : ''}</div>`;
+}
+
+/** Запас локації: смужка й підпис (Багато / Є / Мало / Порожньо). */
+export function stockHTML(id) {
+  const v = stock(id), [label, lvl] = stockLabel(id);
+  return t`<div class="stock s${lvl}"><span>📦 ${tr(label)}</span><div class="bar"><i style="width:${Math.round(v * 100)}%"></i></div></div>`;
 }
 
 /** Ціна: кожен ресурс, якого не вистачає, світиться червоним. sily — скільки ⚡ сил треба. */

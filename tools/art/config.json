@@ -8,6 +8,7 @@
     "base":   { "suffix": "no humans, scenery, wide shot", "negative": "people, person, 1girl, 1boy, character" },
     "mon":    { "suffix": "solo, full body, dark background", "negative": "human, 1girl, 1boy, nsfw, nude, breasts" },
     "hero":   { "weight": 1, "suffix": "upper body, wasteland background, anime coloring", "negative": "loli, shota, chibi, toddler, nsfw, nude, suggestive, revealing clothes" },
+    "pet":    { "suffix": "cute, animal focus, wasteland background", "negative": "human, 1girl, 1boy, anthro, furry, humanoid, nsfw" },
     "person": { "weight": 1, "suffix": "adult, solo, upper body, looking at viewer, wasteland background, anime coloring", "negative": "child, loli, shota, chibi, nsfw, nude, suggestive, cleavage, revealing clothes" }
   },
   "negative": "score_4, score_5, score_6, lowres, bad anatomy, text, watermark, signature, blurry",

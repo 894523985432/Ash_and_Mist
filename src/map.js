@@ -4,7 +4,7 @@ import { rnd, pick, chance } from './util.js';
 import { ui } from './hooks.js';
 import { S, log, locById, resStr, useSily } from './state.js';
 import { randomItem, itemEmoji } from './items.js';
-import { bagCount, addBag, rollLoot, lootMult, lose } from './trip.js';
+import { bagCount, addBag, rollLoot, lootMult, lose, takeStock } from './trip.js';
 import { startFight, mkEnemy } from './combat.js';
 import { survivor } from './survivors.js';
 import { itemHTML } from './ui/format.js';
@@ -32,8 +32,8 @@ export function goTo(id) {
 export function search() {
   const SR = BAL.search;
   if (!useSily(BAL.actions.searchSily)) return;
-  const L = locById(S.trip.loc), dep = !!S.depleted[L.id], mult = lootMult(L) * evNum('lootMult', 1) * petPerk('lootMult', true).reduce((a, b) => a * b, 1);
-  S.exhaust[L.id] = (S.exhaust[L.id] || 0) + 1;
+  const L = locById(S.trip.loc), empty = lootMult(L) === 0, mult = lootMult(L) * evNum('lootMult', 1) * petPerk('lootMult', true).reduce((a, b) => a * b, 1);
+  takeStock(L.id, BAL.stock.perSearch[L.z]);
   const rareP = (SR.rareBase + L.z * SR.rarePerZone + (L.rareBoost ? SR.rareBoost : 0)) * evNum('rareMult', 1);
   if (chance(rareP)) return startFight(mkEnemy(pick(Object.keys(RARE)), true, L.z));
   if (S.day >= BAL.pets.fromDay && chance(BAL.pets.findChance)) return petFound();
@@ -43,7 +43,7 @@ export function search() {
   if (r < SR.loot) { // лут займає частину від fightP до SR.loot
     const o = rollLoot(L.res, mult), got = addBag(o); ui.sfx(Object.keys(got).length ? 'loot' : 'empty');
     const full = bagCount() >= BAL.trip.bagCap ? t('<br><span class="mut">Рюкзак повний!</span>') : '';
-    return ui.showEvent({ e: '📦', t: t('Знахідка'), txt: (Object.keys(got).length ? t('Знайшов: ') + resStr(got) : t('Тут уже все винесли…') + (dep ? t(' (хтось був тут до тебе)') : mult < 1 ? t(' (ти сам тут усе вигріб)') : '')) + full, b: [[t('Ок'), null]] });
+    return ui.showEvent({ e: '📦', t: t('Знахідка'), txt: (Object.keys(got).length ? t('Знайшов: ') + resStr(got) : t('Тут уже все винесли…') + (empty ? t(' Запас вичерпано — місце відновиться за кілька днів.') : '')) + full, b: [[t('Ок'), null]] });
   }
   if (r < SR.survivor || (rivalHere && r < SR.survivorWithRival)) return survivor(L, rivalHere);
   if (r < SR.cache) { const it = randomItem(L.z); S.trip.items.push(it); return ui.showEvent({ e: itemEmoji(it), t: t('Схованка!'), txt: itemHTML(it), b: [[t('Забрати'), null]] }); }

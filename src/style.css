@@ -22,7 +22,9 @@ button.sm{padding:6px 10px;min-height:36px;font-size:13px}
 h2{margin:0 0 8px;font-size:17px}
 h3{margin:12px 0 6px;font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
 .art{width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(135deg,#2b1d40,#14202e 60%,#3a1a2a);position:relative}
-.art img{width:100%;height:100%;object-fit:cover}
+.art img{width:100%;height:100%;object-fit:contain;position:relative}
+.art img.bg{position:absolute;inset:0;object-fit:cover;filter:blur(14px) brightness(.45);transform:scale(1.15)}
+.art.mon{aspect-ratio:4/3}
 .art.sq{aspect-ratio:1/1;font-size:48px}
 .art .cap{position:absolute;left:8px;bottom:6px;font-size:12px;background:rgba(0,0,0,.55);padding:2px 7px;border-radius:6px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
@@ -55,7 +57,7 @@ textarea{width:100%;background:#0b0d12;color:var(--tx);border:1px solid var(--li
 .npc{display:flex;gap:6px;align-items:center;padding:4px 0;border-bottom:1px dashed #252b38;font-size:13px}
 .coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
 .coll .item.no{opacity:.45}
-.sys{font-family:ui-monospace,monospace;font-size:13px;color:#8fe3ff;background:#0c1a22;border:1px solid #1f4a5c;border-radius:8px;padding:6px 8px;margin:6px 0}
+.sys{display:block;font-family:ui-monospace,monospace;font-size:13px;color:#8fe3ff;background:#0c1a22;border:1px solid #1f4a5c;border-radius:8px;padding:6px 8px;margin:6px 0}
 
 /* Телефони: дві колонки карток, менше відступів */
 @media (max-width:420px){.card{padding:10px}.grid,.coll{grid-template-columns:repeat(2,minmax(0,1fr))}.hand{grid-template-columns:repeat(2,minmax(0,1fr))}.art{font-size:52px}.top .row{gap:5px}.top .chip{font-size:12px;padding:2px 7px}}
@@ -118,3 +120,9 @@ details.card summary{cursor:pointer;min-height:32px;display:flex;align-items:cen
 .modal .card{animation:pop calc(.2s * var(--anim,1)) ease-out both}
 .toast{animation:fadeUp calc(.2s * var(--anim,1)) ease-out both}
 .dmg .card{animation:flash calc(.35s * var(--anim,1))}
+.art.evart{max-width:220px;margin:0 auto 6px}
+
+/* Запас локації */
+.stock{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:4px}
+.stock .bar{height:6px;min-width:40px}
+.stock.s0 i{background:var(--ok)}.stock.s1 i{background:#c9d36a}.stock.s2 i{background:var(--warn)}.stock.s3{color:var(--bad)}

@@ -4,6 +4,9 @@ import { dailyConsumeText } from '../day.js';
 import { dayModifiers, offerText, season } from '../events.js';
 import { bldCostNow, missingNeeds, bldName, repairCost, heatMult, isAdult, petName, petMaxHp, companion } from '../economy.js';
 import { act, dis, artBox, costHTML } from './common.js';
+import { artKey } from '../art.js';
+
+const petArt = p => (isAdult(p) ? ['pet_' + p.type] : ['pet_' + p.type + '_baby', 'pet_' + p.type]);
 import { t } from '../i18n.js';
 
 /** Як виглядає база: залежить від суми рівнів будівель (balance.baseLooks). */
@@ -99,7 +102,7 @@ function vPets() {
   <div class="grid" style="margin-top:8px">${list.map(p => {
     const T = PETS[p.type], ad = isAdult(p), out = comp?.id === p.id;
     const st = p.hurt ? t('<span class="pill bad">поранено, вдома</span>') : !ad ? t`<span class="pill">росте: ${p.age}/${P.growDays} дн.</span>` : out ? t('<span class="pill okb">йде з тобою</span>') : t('<span class="pill">вдома</span>');
-    return t`<div class="item"><b>${T.e} ${petName(p)}</b> ${st}<div class="mut">${T.d}</div>
+    return t`<div class="item">${artKey(petArt(p)) ? artBox(petArt(p), T.e, 'sq') : ''}<b>${T.e} ${petName(p)}</b> ${st}<div class="mut">${T.d}</div>
       <div class="row" style="margin:6px 0"><div class="bar"><i style="width:${p.hp / petMaxHp(p) * 100}%"></i></div><span class="mut">❤️ ${p.hp}/${petMaxHp(p)}</span></div>
       ${ad ? t`<div class="mut">🗡️ ${T.atk + Math.floor(S.lvl / 2)} шкоди за хід</div>` : ''}
       <div class="row" style="margin-top:6px">${ad && !p.hurt ? t`<button class="sm ${out ? 'pri' : ''}" ${act('petFollow', p.id)}>${out ? t('✔ Бере з собою') : t('Брати з собою')}</button>` : ''}<button class="sm" ${act('petRelease', p.id)}>Відпустити</button></div></div>`;
