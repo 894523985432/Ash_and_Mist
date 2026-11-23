@@ -84,6 +84,27 @@
     "cat": "loc"
   },
   {
+    "key": "loc_pharmacy",
+    "cat": "loc",
+    "prompt": "interior of a looted small drugstore, (pharmacy shelves:1.3), broken glass counter, pill bottles on the floor, green cross sign",
+    "size": "wide",
+    "seed": 9090
+  },
+  {
+    "key": "loc_garage",
+    "cat": "loc",
+    "prompt": "row of rusty garage boxes, open metal doors, car parts and tires, weeds",
+    "size": "wide",
+    "seed": 244726867
+  },
+  {
+    "key": "loc_kiosk",
+    "cat": "loc",
+    "prompt": "bus stop with abandoned street kiosks, faded posters, broken glass, empty road",
+    "size": "wide",
+    "seed": 656857214
+  },
+  {
     "key": "loc_school",
     "prompt": "destroyed school hallway",
     "size": "wide",
@@ -126,6 +147,27 @@
     "cat": "loc"
   },
   {
+    "key": "loc_bakery",
+    "cat": "loc",
+    "prompt": "abandoned bread factory interior, big industrial ovens, conveyor belts, flour dust",
+    "size": "wide",
+    "seed": 1475848050
+  },
+  {
+    "key": "loc_parking",
+    "cat": "loc",
+    "prompt": "dark underground parking garage, abandoned cars, concrete pillars, dripping water",
+    "size": "wide",
+    "seed": 1461074913
+  },
+  {
+    "key": "loc_church",
+    "cat": "loc",
+    "prompt": "old orthodox church in ruins, broken domes, candles, overgrown graveyard",
+    "size": "wide",
+    "seed": 25002013
+  },
+  {
     "key": "loc_hosp",
     "prompt": "old hospital corridor, flickering lights",
     "size": "wide",
@@ -137,13 +179,6 @@
     "prompt": "radio tower in fog, night",
     "size": "wide",
     "seed": 171665454,
-    "cat": "loc"
-  },
-  {
-    "key": "loc_rift",
-    "prompt": "glowing fog rift, floating debris, magic",
-    "size": "wide",
-    "seed": 1229230787,
     "cat": "loc"
   },
   {
@@ -168,10 +203,101 @@
     "cat": "loc"
   },
   {
+    "key": "loc_power",
+    "cat": "loc",
+    "prompt": "abandoned thermal power plant, huge cooling towers, rusted pipes, smoke",
+    "size": "wide",
+    "seed": 2143014638
+  },
+  {
+    "key": "loc_port",
+    "cat": "loc",
+    "prompt": "abandoned river port, rusted cranes, beached barges, foggy river",
+    "size": "wide",
+    "seed": 1232007599
+  },
+  {
+    "key": "loc_mall",
+    "cat": "loc",
+    "prompt": "abandoned shopping mall atrium, broken escalators, dead plants, skylight",
+    "size": "wide",
+    "seed": 649000046
+  },
+  {
+    "key": "loc_prison",
+    "cat": "loc",
+    "prompt": "abandoned prison yard, barbed wire, watchtowers, cell blocks",
+    "size": "wide",
+    "seed": 1890850594
+  },
+  {
+    "key": "loc_rift",
+    "prompt": "glowing fog rift, floating debris, magic",
+    "size": "wide",
+    "seed": 1229230787,
+    "cat": "loc"
+  },
+  {
+    "key": "loc_lab",
+    "cat": "loc",
+    "prompt": "(laboratory:1.3) underground research lab interior, broken glass tanks with green liquid, computers, cables, flickering lights, purple mist",
+    "size": "wide",
+    "seed": 9090
+  },
+  {
+    "key": "loc_airport",
+    "cat": "loc",
+    "prompt": "dead airport terminal, crashed airplane on runway, broken jet bridges, fog",
+    "size": "wide",
+    "seed": 464559705
+  },
+  {
+    "key": "loc_bridge",
+    "cat": "loc",
+    "prompt": "collapsed city bridge over a foggy river, twisted steel, cars hanging off the edge",
+    "size": "wide",
+    "seed": 2026394311
+  },
+  {
+    "key": "loc_stadium",
+    "cat": "loc",
+    "prompt": "ruined football stadium overgrown with fungus, nests, collapsed stands",
+    "size": "wide",
+    "seed": 52784596
+  },
+  {
+    "key": "loc_dam",
+    "cat": "loc",
+    "prompt": "huge concrete dam, roaring water, cracked wall, rusted control tower",
+    "size": "wide",
+    "seed": 1696559862
+  },
+  {
+    "key": "loc_crater",
+    "cat": "loc",
+    "prompt": "giant impact crater in the city, glowing crystals, purple fog, debris ring",
+    "size": "wide",
+    "seed": 1541664184
+  },
+  {
+    "key": "loc_tvcenter",
+    "cat": "loc",
+    "prompt": "abandoned television center, giant antenna, broken screens showing static",
+    "size": "wide",
+    "seed": 1409975344
+  },
+  {
+    "key": "loc_core",
+    "cat": "loc",
+    "prompt": "heart of the fog, swirling purple vortex above a crater, floating ruins, ominous light",
+    "size": "wide",
+    "seed": 1634871596
+  },
+  {
     "key": "mon_rat",
-    "prompt": "mutant rat the size of a dog, patchy fur, glowing red eyes, monster, full body",
+    "prompt": "giant mutant rat, rodent, long hairless tail, pointed snout, big incisors, patchy grey fur, glowing red eyes, monster, full body",
     "size": "square",
-    "seed": 1194904305,
+    "seed": 7711,
     "cat": "mon"
   },
   {
@@ -322,6 +448,62 @@
     "cat": "mon"
   },
   {
+    "key": "mon_hound",
+    "cat": "mon",
+    "prompt": "rift hound, skeletal dog with glowing purple cracks in its skin, mist trailing, monster, full body",
+    "size": "square",
+    "seed": 1294196698
+  },
+  {
+    "key": "mon_giant",
+    "cat": "mon",
+    "prompt": "fog giant, towering grey humanoid made of mist and rubble, glowing eyes, monster, full body",
+    "size": "square",
+    "seed": 1820331039
+  },
+  {
+    "key": "mon_hybrid",
+    "cat": "mon",
+    "prompt": "flesh hybrid mutant, mass of fused limbs and teeth, oozing green slime, monster, full body",
+    "size": "square",
+    "seed": 2087353220
+  },
+  {
+    "key": "mon_sniper",
+    "cat": "mon",
+    "prompt": "renegade sniper in a ragged ghillie cloak and gas mask, long rifle, monster, full body",
+    "size": "square",
+    "seed": 1264544636
+  },
+  {
+    "key": "mon_worm",
+    "cat": "mon",
+    "prompt": "giant fog worm bursting from asphalt, ring of teeth, pale segmented body, monster, full body",
+    "size": "square",
+    "seed": 1088844438
+  },
+  {
+    "key": "mon_puppet",
+    "cat": "mon",
+    "prompt": "creepy puppeteer creature with long thin fingers and strings, porcelain mask, monster, full body",
+    "size": "square",
+    "seed": 512295521
+  },
+  {
+    "key": "mon_sentinel",
+    "cat": "mon",
+    "prompt": "rift sentinel, armored stone knight with a glowing rune shield, monster, full body",
+    "size": "square",
+    "seed": 1909801525
+  },
+  {
+    "key": "mon_angel",
+    "cat": "mon",
+    "prompt": "grey angel, gaunt winged figure with ashen feathers and a blank halo, monster, full body",
+    "size": "square",
+    "seed": 167967785
+  },
+  {
     "key": "mon_fox",
     "prompt": "crystal fox with a glowing crystalline tail, rare mystical creature, glowing, full body",
     "size": "square",
@@ -446,5 +628,117 @@
     "size": "square",
     "seed": 627394354,
     "cat": "person"
+  },
+  {
+    "key": "mon_scar",
+    "cat": "person",
+    "prompt": "gang lieutenant, scarred bald man, grey armband, crowbar, menacing grin",
+    "size": "square",
+    "seed": 712593602
+  },
+  {
+    "key": "mon_keeper",
+    "cat": "person",
+    "prompt": "gang enforcer in heavy riot armor, big key on a chain around neck, grey cloak",
+    "size": "square",
+    "seed": 433874211
+  },
+  {
+    "key": "mon_prima",
+    "cat": "mon",
+    "prompt": "tall puppeteer woman in a torn ballet dress, porcelain mask, puppet strings from her fingers, purple mist",
+    "size": "square",
+    "seed": 1908109699
+  },
+  {
+    "key": "mon_yarema",
+    "cat": "hero",
+    "prompt": "teenage boy merged with dark fog, black hair, glowing purple eyes, fog wings, dark aura",
+    "size": "square",
+    "seed": 956736792
+  },
+  {
+    "key": "pet_dog",
+    "cat": "pet",
+    "prompt": "scruffy loyal mongrel dog, torn red bandana, alert ears, ruined street, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 1215047720
+  },
+  {
+    "key": "pet_dog_baby",
+    "cat": "pet",
+    "prompt": "(puppy:1.4), tiny skinny puppy, big sad eyes, floppy ears, sitting on cracked asphalt, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 9090
+  },
+  {
+    "key": "pet_cat",
+    "cat": "pet",
+    "prompt": "lean ginger cat with a notched ear, sly green eyes, sitting on rusty crate, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 1461605117
+  },
+  {
+    "key": "pet_cat_baby",
+    "cat": "pet",
+    "prompt": "(kitten:1.4), tiny ginger kitten, big green eyes, sitting next to wooden crates, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 9090
+  },
+  {
+    "key": "pet_parrot",
+    "cat": "pet",
+    "prompt": "colorful scruffy parrot with ragged feathers, perched on broken wire, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 1921935977
+  },
+  {
+    "key": "pet_parrot_baby",
+    "cat": "pet",
+    "prompt": "small fluffy parrot chick with few feathers, on a wire, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 1817370240
+  },
+  {
+    "key": "pet_raccoon",
+    "cat": "pet",
+    "prompt": "(raccoon:1.4), clever raccoon animal, black mask around eyes, striped bushy tail, holding a tin can, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 9090
+  },
+  {
+    "key": "pet_raccoon_baby",
+    "cat": "pet",
+    "prompt": "(raccoon kit:1.4), tiny baby raccoon, masked face, holding a tin can, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 9090
+  },
+  {
+    "key": "pet_crow",
+    "cat": "pet",
+    "prompt": "large black crow with glossy feathers, bandaged wing, perched on dead branch, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 1760447826
+  },
+  {
+    "key": "pet_crow_baby",
+    "cat": "pet",
+    "prompt": "(baby crow:1.4), small fluffy black crow chick, hurt wing, sitting on the ground, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 9090
+  },
+  {
+    "key": "pet_goat",
+    "cat": "pet",
+    "prompt": "small white goat with short horns and a bell collar, ruined field, feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 1962448402
+  },
+  {
+    "key": "pet_goat_baby",
+    "cat": "pet",
+    "prompt": "(baby goat:1.4), close-up portrait of a cute tiny white goat kid, big eyes, small nubs instead of horns, (animal focus:1.2), feral animal, no humans, solo, full body, soft rim light",
+    "size": "square",
+    "seed": 4242
   }
 ]

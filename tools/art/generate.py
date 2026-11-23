@@ -53,6 +53,8 @@ def wanted_assets():
         out.append({'key': 'mon_' + k, 'cat': 'mon', 'prompt': art['rare'].get(k, k) + art['rareSuffix'], 'size': 'square'})
     for p in npcs:
         out.append({'key': 'survivor_' + p['key'], 'cat': 'person', 'prompt': art['npcs'].get(p['key'], 'wasteland survivor'), 'size': 'square'})
+    for k, prompt in art.get('bosses', {}).items():
+        out.append({'key': 'mon_' + k, 'cat': 'hero' if k == 'yarema' else 'person' if k in ('scar', 'keeper') else 'mon', 'prompt': prompt, 'size': 'square'})
     pets = load(os.path.join(ROOT, 'data', 'pets.json'))
     for k in pets:
         out.append({'key': 'pet_' + k, 'cat': 'pet', 'prompt': art.get('pets', {}).get(k, k) + art.get('petSuffix', ''), 'size': 'square'})

@@ -44,12 +44,30 @@
     "rift": "glowing fog rift, floating debris, magic",
     "metro": "flooded metro station, flickering lamps",
     "army": "abandoned military base, rusted tanks, barbed wire fence, watchtower, sandbags",
-    "bgarden": "mutated botanical garden, giant glowing flowers, broken glass dome"
+    "bgarden": "mutated botanical garden, giant glowing flowers, broken glass dome",
+    "pharmacy": "interior of a looted small drugstore, (pharmacy shelves:1.3), broken glass counter, pill bottles on the floor, green cross sign",
+    "garage": "row of rusty garage boxes, open metal doors, car parts and tires, weeds",
+    "kiosk": "bus stop with abandoned street kiosks, faded posters, broken glass, empty road",
+    "bakery": "abandoned bread factory interior, big industrial ovens, conveyor belts, flour dust",
+    "parking": "dark underground parking garage, abandoned cars, concrete pillars, dripping water",
+    "church": "old orthodox church in ruins, broken domes, candles, overgrown graveyard",
+    "power": "abandoned thermal power plant, huge cooling towers, rusted pipes, smoke",
+    "port": "abandoned river port, rusted cranes, beached barges, foggy river",
+    "mall": "abandoned shopping mall atrium, broken escalators, dead plants, skylight",
+    "prison": "abandoned prison yard, barbed wire, watchtowers, cell blocks",
+    "lab": "(laboratory:1.3) underground research lab interior, broken glass tanks with green liquid, computers, cables, flickering lights, purple mist",
+    "airport": "dead airport terminal, crashed airplane on runway, broken jet bridges, fog",
+    "bridge": "collapsed city bridge over a foggy river, twisted steel, cars hanging off the edge",
+    "stadium": "ruined football stadium overgrown with fungus, nests, collapsed stands",
+    "dam": "huge concrete dam, roaring water, cracked wall, rusted control tower",
+    "crater": "giant impact crater in the city, glowing crystals, purple fog, debris ring",
+    "tvcenter": "abandoned television center, giant antenna, broken screens showing static",
+    "core": "heart of the fog, swirling purple vortex above a crater, floating ruins, ominous light"
   },
   "monsterSuffix": ", monster, full body",
   "rareSuffix": ", rare mystical creature, glowing, full body",
   "monsters": {
-    "rat": "mutant rat the size of a dog, patchy fur, glowing red eyes",
+    "rat": "giant mutant rat, rodent, long hairless tail, pointed snout, big incisors, patchy grey fur, glowing red eyes",
     "dog": "feral wild dog, scarred, bared teeth, matted fur",
     "slime": "rust-colored slime monster with metal scraps inside, dripping",
     "centi": "giant venomous centipede, purple carapace, dripping poison",
@@ -70,7 +88,15 @@
     "hive": "hive mother, giant insect queen with drones, honeycomb",
     "chem": "chemical mutant in torn hazmat suit, glowing green fluids",
     "spider": "mechanical spider robot, sharp metal legs, red optics",
-    "wraith": "fog wraith ghost, tattered cloak, pale glowing face"
+    "wraith": "fog wraith ghost, tattered cloak, pale glowing face",
+    "hound": "rift hound, skeletal dog with glowing purple cracks in its skin, mist trailing",
+    "giant": "fog giant, towering grey humanoid made of mist and rubble, glowing eyes",
+    "hybrid": "flesh hybrid mutant, mass of fused limbs and teeth, oozing green slime",
+    "sniper": "renegade sniper in a ragged ghillie cloak and gas mask, long rifle",
+    "worm": "giant fog worm bursting from asphalt, ring of teeth, pale segmented body",
+    "puppet": "creepy puppeteer creature with long thin fingers and strings, porcelain mask",
+    "sentinel": "rift sentinel, armored stone knight with a glowing rune shield",
+    "angel": "grey angel, gaunt winged figure with ashen feathers and a blank halo"
   },
   "rare": {
     "fox": "crystal fox with a glowing crystalline tail",
@@ -99,16 +125,22 @@
     "dog": "scruffy loyal mongrel dog, torn red bandana, alert ears, ruined street",
     "cat": "lean ginger cat with a notched ear, sly green eyes, sitting on rusty crate",
     "parrot": "colorful scruffy parrot with ragged feathers, perched on broken wire",
-    "raccoon": "clever raccoon holding a tin can, masked face, ruined alley",
+    "raccoon": "(raccoon:1.4), clever raccoon animal, black mask around eyes, striped bushy tail, holding a tin can",
     "crow": "large black crow with glossy feathers, bandaged wing, perched on dead branch",
     "goat": "small white goat with short horns and a bell collar, ruined field"
   },
   "petBaby": {
-    "dog": "tiny skinny puppy shivering under a car, big eyes",
-    "cat": "tiny ginger kitten with big eyes, peeking from behind crates",
+    "dog": "(puppy:1.4), tiny skinny puppy, big sad eyes, floppy ears, sitting on cracked asphalt",
+    "cat": "(kitten:1.4), tiny ginger kitten, big green eyes, sitting next to wooden crates",
     "parrot": "small fluffy parrot chick with few feathers, on a wire",
-    "raccoon": "tiny raccoon kit dragging a tin can bigger than itself",
-    "crow": "small fluffy crow chick with hurt wing, under a tree",
-    "goat": "tiny lost goat kid bleating among ruins"
+    "raccoon": "(raccoon kit:1.4), tiny baby raccoon, masked face, holding a tin can",
+    "crow": "(baby crow:1.4), small fluffy black crow chick, hurt wing, sitting on the ground",
+    "goat": "(baby goat:1.4), close-up portrait of a cute tiny white goat kid, big eyes, small nubs instead of horns, (animal focus:1.2)"
+  },
+  "bosses": {
+    "scar": "gang lieutenant, scarred bald man, grey armband, crowbar, menacing grin",
+    "keeper": "gang enforcer in heavy riot armor, big key on a chain around neck, grey cloak",
+    "prima": "tall puppeteer woman in a torn ballet dress, porcelain mask, puppet strings from her fingers, purple mist",
+    "yarema": "teenage boy merged with dark fog, black hair, glowing purple eyes, fog wings, dark aura"
   }
 }

@@ -1,0 +1,132 @@
+{
+ "version": 1795426472,
+ "sfx": {
+  "click": {
+   "files": [
+    "sfx_click_0.opus",
+    "sfx_click_1.opus"
+   ],
+   "gain": 0.5
+  },
+  "hit": {
+   "files": [
+    "sfx_hit_0.opus",
+    "sfx_hit_1.opus",
+    "sfx_hit_2.opus"
+   ],
+   "gain": 0.9
+  },
+  "zap": {
+   "files": [
+    "sfx_zap_0.opus",
+    "sfx_zap_1.opus"
+   ],
+   "gain": 0.8
+  },
+  "hurt": {
+   "files": [
+    "sfx_hurt_0.opus",
+    "sfx_hurt_1.opus"
+   ],
+   "gain": 0.8
+  },
+  "super": {
+   "files": [
+    "sfx_super_0.opus"
+   ],
+   "gain": 1
+  },
+  "win": {
+   "files": [
+    "sfx_win_0.opus"
+   ],
+   "gain": 0.8
+  },
+  "lose": {
+   "files": [
+    "sfx_lose_0.opus"
+   ],
+   "gain": 0.8
+  },
+  "rare": {
+   "files": [
+    "sfx_rare_0.opus"
+   ],
+   "gain": 0.9
+  },
+  "alert": {
+   "files": [
+    "sfx_alert_0.opus"
+   ],
+   "gain": 0.7
+  },
+  "build": {
+   "files": [
+    "sfx_build_0.opus",
+    "sfx_build_1.opus"
+   ],
+   "gain": 0.8
+  },
+  "break": {
+   "files": [
+    "sfx_break_0.opus"
+   ],
+   "gain": 0.8
+  },
+  "craft": {
+   "files": [
+    "sfx_craft_0.opus"
+   ],
+   "gain": 0.8
+  },
+  "pet": {
+   "files": [
+    "sfx_pet_0.opus"
+   ],
+   "gain": 0.7
+  },
+  "level": {
+   "files": [
+    "sfx_level_0.opus"
+   ],
+   "gain": 0.8
+  },
+  "sleep": {
+   "files": [
+    "sfx_sleep_0.opus"
+   ],
+   "gain": 0.6
+  },
+  "loot": {
+   "files": [
+    "sfx_loot_0.opus",
+    "sfx_loot_1.opus"
+   ],
+   "gain": 0.7
+  },
+  "empty": {
+   "files": [
+    "sfx_empty_0.opus"
+   ],
+   "gain": 0.6
+  }
+ },
+ "music": {
+  "home": {
+   "file": "music_home.opus",
+   "gain": 0.6
+  },
+  "explore": {
+   "file": "music_explore.opus",
+   "gain": 0.6
+  },
+  "fight": {
+   "file": "music_fight.opus",
+   "gain": 0.55
+  },
+  "rare": {
+   "file": "music_rare.opus",
+   "gain": 0.55
+  }
+ }
+}

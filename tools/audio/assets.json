@@ -1,27 +1,132 @@
 {
   "sfx": {
-    "click":  { "sec": 1,   "variants": 2, "gain": 0.5, "p": "single soft UI click, short wooden tap, clean, no reverb, game interface sound" },
-    "hit":    { "sec": 1.5, "variants": 3, "gain": 0.9, "p": "single heavy melee punch impact, blunt hit on flesh, short, punchy, game sound effect" },
-    "zap":    { "sec": 1.5, "variants": 2, "gain": 0.8, "p": "short electric zap crackle with fire whoosh, magic hit, game sound effect" },
-    "hurt":   { "sec": 1.5, "variants": 2, "gain": 0.8, "p": "short painful body hit thud with cloth rustle, taking damage, game sound effect, no voice" },
-    "super":  { "sec": 3,   "variants": 1, "gain": 1,   "p": "powerful anime special attack, rising energy charge then explosive slash impact, epic game sound effect" },
-    "win":    { "sec": 3,   "variants": 1, "gain": 0.8, "p": "short triumphant victory sting, dark fantasy brass and taiko drum hit, game jingle" },
-    "lose":   { "sec": 4,   "variants": 1, "gain": 0.8, "p": "short sad defeat sting, low cello and fading piano, dark game jingle" },
-    "rare":   { "sec": 3,   "variants": 1, "gain": 0.9, "p": "mysterious magical shimmer with deep choir swell, rare creature appears, dark fantasy game sound" },
-    "alert":  { "sec": 2,   "variants": 1, "gain": 0.7, "p": "tense short danger sting, low string hit and metallic scrape, enemy appears, game sound effect" },
-    "build":  { "sec": 2,   "variants": 2, "gain": 0.8, "p": "hammering nails into wood and metal clank, short construction sound, game sound effect" },
-    "break":  { "sec": 2,   "variants": 1, "gain": 0.8, "p": "metal machine breaking, snap of a broken part, spring twang and sparks, short game sound effect" },
-    "craft":  { "sec": 2.5, "variants": 1, "gain": 0.8, "p": "blacksmith forging, metal file scraping and anvil ring, item crafted, short game sound" },
-    "pet":    { "sec": 2,   "variants": 1, "gain": 0.7, "p": "small cute animal squeak and soft rustle, warm gentle, short game sound effect" },
-    "level":  { "sec": 3,   "variants": 1, "gain": 0.8, "p": "level up chime, sparkling digital system notification, ascending synth arpeggio, game sound" },
-    "sleep":  { "sec": 3,   "variants": 1, "gain": 0.6, "p": "calm night transition, soft wind and crickets with a gentle low chime, short game sound" },
-    "loot":   { "sec": 1.5, "variants": 2, "gain": 0.7, "p": "picking up items into a backpack, rustling bag, clinking cans and metal scraps, short game sound" },
-    "empty":  { "sec": 1.5, "variants": 1, "gain": 0.6, "p": "rummaging through empty cardboard box, dust, disappointed shuffle, short game sound" }
+    "click": {
+      "sec": 1,
+      "variants": 2,
+      "gain": 0.5,
+      "p": "single soft UI click, short wooden tap, clean, no reverb, game interface sound"
+    },
+    "hit": {
+      "sec": 1.5,
+      "variants": 3,
+      "gain": 0.9,
+      "p": "single heavy melee punch impact, blunt hit on flesh, short, punchy, game sound effect"
+    },
+    "zap": {
+      "sec": 1.5,
+      "variants": 2,
+      "gain": 0.8,
+      "p": "short electric zap crackle with fire whoosh, magic hit, game sound effect"
+    },
+    "hurt": {
+      "sec": 1.5,
+      "variants": 2,
+      "gain": 0.8,
+      "p": "short painful body hit thud with cloth rustle, taking damage, game sound effect, no voice"
+    },
+    "super": {
+      "sec": 3,
+      "variants": 1,
+      "gain": 1,
+      "p": "powerful anime special attack, rising energy charge then explosive slash impact, epic game sound effect"
+    },
+    "win": {
+      "sec": 3,
+      "variants": 1,
+      "gain": 0.8,
+      "p": "short triumphant victory sting, dark fantasy brass and taiko drum hit, game jingle"
+    },
+    "lose": {
+      "sec": 4,
+      "variants": 1,
+      "gain": 0.8,
+      "p": "short sad defeat sting, low cello and fading piano, dark game jingle"
+    },
+    "rare": {
+      "sec": 3,
+      "variants": 1,
+      "gain": 0.9,
+      "p": "mysterious magical shimmer with deep choir swell, rare creature appears, dark fantasy game sound"
+    },
+    "alert": {
+      "sec": 2,
+      "variants": 1,
+      "gain": 0.7,
+      "p": "tense short danger sting, low string hit and metallic scrape, enemy appears, game sound effect"
+    },
+    "build": {
+      "sec": 2,
+      "variants": 2,
+      "gain": 0.8,
+      "p": "hammering nails into wood and metal clank, short construction sound, game sound effect"
+    },
+    "break": {
+      "sec": 2,
+      "variants": 1,
+      "gain": 0.8,
+      "p": "metal machine breaking, snap of a broken part, spring twang and sparks, short game sound effect"
+    },
+    "craft": {
+      "sec": 2.5,
+      "variants": 1,
+      "gain": 0.8,
+      "p": "blacksmith forging, metal file scraping and anvil ring, item crafted, short game sound"
+    },
+    "pet": {
+      "sec": 2,
+      "variants": 1,
+      "gain": 0.7,
+      "p": "small cute animal squeak and soft rustle, warm gentle, short game sound effect"
+    },
+    "level": {
+      "sec": 3,
+      "variants": 1,
+      "gain": 0.8,
+      "p": "level up chime, sparkling digital system notification, ascending synth arpeggio, game sound"
+    },
+    "sleep": {
+      "sec": 3,
+      "variants": 1,
+      "gain": 0.6,
+      "p": "calm night transition, soft wind and crickets with a gentle low chime, short game sound"
+    },
+    "loot": {
+      "sec": 1.5,
+      "variants": 2,
+      "gain": 0.7,
+      "p": "picking up items into a backpack, rustling bag, clinking cans and metal scraps, short game sound"
+    },
+    "empty": {
+      "sec": 1.5,
+      "variants": 1,
+      "gain": 0.6,
+      "p": "rummaging through empty cardboard box, dust, disappointed shuffle, short game sound"
+    }
   },
   "music": {
-    "home":    { "sec": 90, "gain": 0.6, "tags": "instrumental, melancholic post-apocalyptic ambient, soft felt piano, warm analog synth pads, distant wind, anime soundtrack, slow, calm, hopeful, 70 bpm, loopable" },
-    "explore": { "sec": 90, "gain": 0.6, "tags": "instrumental, dark exploration ambient, foggy ruined city, low drones, sparse plucked guitar, subtle percussion, eerie, anime soundtrack, 85 bpm, loopable" },
-    "fight":   { "sec": 75, "gain": 0.55, "tags": "instrumental, intense anime battle music, driving taiko drums, distorted cello, fast strings, dark fantasy, 140 bpm, energetic, loopable" },
-    "rare":    { "sec": 75, "gain": 0.55, "tags": "instrumental, epic dark fantasy boss battle, choir, heavy drums, brass stabs, mysterious, anime soundtrack, 130 bpm, loopable" }
+    "home": {
+      "sec": 90,
+      "gain": 0.6,
+      "tags": "instrumental, melancholic post-apocalyptic ambient, soft felt piano, warm analog synth pads, distant wind, anime soundtrack, slow, calm, hopeful, 70 bpm, loopable",
+      "bpm": 70
+    },
+    "explore": {
+      "sec": 90,
+      "gain": 0.6,
+      "tags": "instrumental, dark exploration ambient, foggy ruined city, low drones, sparse plucked guitar, subtle percussion, eerie, anime soundtrack, 85 bpm, loopable",
+      "bpm": 85
+    },
+    "fight": {
+      "sec": 75,
+      "gain": 0.55,
+      "tags": "instrumental, intense anime battle music, driving taiko drums, distorted cello, fast strings, dark fantasy, 140 bpm, energetic, loopable",
+      "bpm": 140
+    },
+    "rare": {
+      "sec": 75,
+      "gain": 0.55,
+      "tags": "instrumental, epic dark fantasy boss battle, choir, heavy drums, brass stabs, mysterious, anime soundtrack, 130 bpm, loopable",
+      "bpm": 130
+    }
   }
 }

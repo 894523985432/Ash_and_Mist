@@ -58,12 +58,18 @@ class Comfy:
         return self._req('/view?' + q, timeout=120)
 
 
+def combo(spec):
+    """Варіанти COMBO: старий формат [[...], {...}] або новий ['COMBO', {'options': [...]}]."""
+    if isinstance(spec[0], list): return spec[0]
+    return (spec[1] if len(spec) > 1 else {}).get('options', [])
+
+
 def save_node(c, audio_ref, prefix):
     """Ogg Opus, якщо є вузол SaveAudioOpus; інакше — звичайний SaveAudio (flac)."""
     if c.info('SaveAudioOpus'):
         inp = {'audio': audio_ref, 'filename_prefix': prefix}
         q = c.info('SaveAudioOpus')['input'].get('optional', {}).get('quality') or c.info('SaveAudioOpus')['input'].get('required', {}).get('quality')
-        if q: inp['quality'] = '96k' if '96k' in q[0] else q[0][len(q[0]) // 2]
+        if q: inp['quality'] = '96k' if '96k' in combo(q) else combo(q)[len(combo(q)) // 2]
         return {'class_type': 'SaveAudioOpus', 'inputs': inp}, 'ogg'
     return {'class_type': 'SaveAudio', 'inputs': {'audio': audio_ref, 'filename_prefix': prefix}}, 'flac'
 
@@ -83,19 +89,19 @@ def wf_sfx(c, prompt, sec, seed):
     }, ext
 
 
-def wf_music(c, tags, sec, seed):
+def wf_music(c, tags, sec, seed, bpm=90):
     save, ext = save_node(c, ['7', 0], 'ashfog/music')
     req = c.info('TextEncodeAceStepAudio1.5')['input']
     names = {**req.get('required', {}), **req.get('optional', {})}
     enc = {'clip': ['1', 1]}
-    for k in names:
-        if k == 'tags': enc[k] = tags
-        elif k == 'lyrics': enc[k] = '[Instrumental]'
-        elif k == 'seed': enc[k] = seed
-        elif k == 'duration': enc[k] = sec
-        elif k in ('bpm',): enc[k] = names[k][1].get('default', 90) if len(names[k]) > 1 else 90
-        elif k not in enc and len(names[k]) > 1 and isinstance(names[k][1], dict) and 'default' in names[k][1]: enc[k] = names[k][1]['default']
-        elif k not in enc and isinstance(names[k][0], list): enc[k] = names[k][0][0]
+    want = {'tags': tags, 'lyrics': '[Instrumental]', 'seed': seed, 'duration': sec, 'bpm': bpm, 'timesignature': '4', 'language': 'en'}
+    for k, spec in names.items():
+        if k == 'clip': continue
+        opts = combo(spec) if (isinstance(spec[0], list) or spec[0] == 'COMBO') else None
+        cfg = spec[1] if len(spec) > 1 and isinstance(spec[1], dict) else {}
+        if k in want and (opts is None or want[k] in opts): enc[k] = want[k]
+        elif 'default' in cfg: enc[k] = cfg['default']
+        elif opts: enc[k] = opts[0]
     return {
         '1': {'class_type': 'CheckpointLoaderSimple', 'inputs': {'ckpt_name': 'ace_step_1.5_turbo_aio.safetensors'}},
         '2': {'class_type': 'TextEncodeAceStepAudio1.5', 'inputs': enc},
@@ -112,10 +118,10 @@ def wf_music(c, tags, sec, seed):
 def write_manifest(A):
     m = {'version': int(time.time()), 'sfx': {}, 'music': {}}
     for k, a in A['sfx'].items():
-        files = sorted(p.name for p in OUT.glob(f'sfx_{k}_*.*') if p.suffix in ('.ogg', '.flac'))
+        files = sorted(p.name for p in OUT.glob(f'sfx_{k}_*.*') if p.suffix in ('.ogg', '.opus', '.flac'))
         if files: m['sfx'][k] = {'files': files, 'gain': a.get('gain', 1)}
     for k, a in A['music'].items():
-        f = next((p.name for p in OUT.glob(f'music_{k}.*') if p.suffix in ('.ogg', '.flac')), None)
+        f = next((p.name for p in OUT.glob(f'music_{k}.*') if p.suffix in ('.ogg', '.opus', '.flac')), None)
         if f: m['music'][k] = {'file': f, 'gain': a.get('gain', 1)}
     (OUT / 'manifest.json').write_text(json.dumps(m, ensure_ascii=False, indent=1), 'utf-8')
     size = sum(p.stat().st_size for p in OUT.glob('*.*')) / 1e6
@@ -143,7 +149,7 @@ def main():
         stem = f'sfx_{k}_{v}' if kind == 'sfx' else f'music_{k}'
         if not a.force and any(OUT.glob(stem + '.*')): continue
         seed = a.seed if a.seed is not None else random.randint(1, 2**31)
-        wf, ext = (wf_sfx(c, s['p'], s['sec'], seed) if kind == 'sfx' else wf_music(c, s['tags'], s['sec'], seed))
+        wf, ext = (wf_sfx(c, s['p'], s['sec'], seed) if kind == 'sfx' else wf_music(c, s['tags'], s['sec'], seed, s.get('bpm', 90)))
         t0 = time.time()
         for attempt in range(3):
             try:

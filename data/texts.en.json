@@ -1,1 +1,886 @@
-{}
+{
+ "locations": {
+  "gas": [
+   "A half-destroyed roof sways in the wind, and from under the broken neon comes the smell of kerosene and damp bushes.",
+   "A burnt car lies on the asphalt, and in the shadow between pumps, something heavy breathes, waiting for prey.",
+   "The wind hums in the cracks of concrete pillars, and invisible cold pours from the darkness, making the hair on your body stand up."
+  ],
+  "mart": [
+   "Inside smells of damp flour and corpse rot, while empty eyes of shelves stare from behind broken display cases.",
+   "Quiet, except for creaking floors far away. The cold Fog sends shivers down your skin.",
+   "Dirty bottles lie in the undergrowth, and something rustles in the corner—probably a new mutant hunting for food."
+  ],
+  "wood": [
+   "Thick gray Fog spreads over the ground, letting almost no light through, while uneasy rustling comes from under the crown of a dead pine.",
+   "The air smells of damp earth and rot, and in the distance someone grinds bitterly and hoarsely, like stone on stone.",
+   "No birds, no insects—only faint movement in the shadows. These woods want you as food."
+  ],
+  "laundry": [
+   "The door slammed shut behind, revealing rows of rusty washing machines standing silently in the half-dark.",
+   "A stale smell of old soap and damp brick rises from the floor, while a broken neon sign nervously flickers above empty tables.",
+   "Silence here is thick and sticky, as if waiting for the first shadows to emerge from under every car."
+  ],
+  "bus": [
+   "Darkness reigns inside the broken bus, and dry grass crunches underfoot, having grown through holes in the floor.",
+   "Fresh rot and dampness smell like a swamp, and a creepy snorting of something huge drifts in from behind broken windows.",
+   "Silent as a tomb. Gloomy Fog slides over the torn roof, hiding something under the seats."
+  ],
+  "houses": [
+   "Sulfurous Fog spreads over cracks in old planks, and the undergrowth smells of rotten earth and oxidation.",
+   "Silence here is oppressive; only the swing sways in the wind, as if someone just jumped off.",
+   "Soft rustling of something alive, not human, is heard from under the fence maze."
+  ],
+  "school": [
+   "The corridor groaned with wind playing with glass shards, smelling of mold and ash.",
+   "Dim lamps flicker. Something rustles in the corners—mutants are already here.",
+   "Faded murals remain on the walls, and broken desks crunch underfoot, along with a history burned with the city."
+  ],
+  "res": [
+   "The old dam cracks underfoot, and occasionally rotting steam bursts from the ground, smelling of vinegar and copper.",
+   "Shadows hide in the dark pipes, and every drop falling from the ceiling sounds like a gunshot.",
+   "Deadly quiet—even mutants fear this place where water mixes with black magic."
+  ],
+  "depot": [
+   "Inside smells of old rust and dampness, while broken carriages sway in the dark like shadows of dead beasts.",
+   "No fire in sight, only the quiet clicking of broken wires and the distant, raspy grinding of mutants.",
+   "The Fog here is especially thick and sticky, so every shadow can quickly become lava for a hungry, toothy monster."
+  ],
+  "market": [
+   "Old wooden tents with torn tarps sway in the wind, and the thin air smells of rotten tobacco oil and old iron.",
+   "Glass crunches underfoot, and from dark corners comes the faint clicking of small mutants scavenging among the trash.",
+   "The air smells of rotting meat and slag, while hanging lanterns flicker as if warning of an invisible threat in the Fog."
+  ],
+  "fire": [
+   "Inside smells of old wood and fire, and a half-burnt red car stands frozen in the moment of the blaze.",
+   "Listen carefully—somewhere deep in the darkness, water splashes, and someone might suddenly peek out from behind the rack.",
+   "Quiet, yet uneasy. Shadows lurk in the corners, ready to turn into mutants any moment."
+  ],
+  "library": [
+   "Dust falls softly, sunlight cuts through the darkness via a hole in the ceiling.",
+   "The air is thick with the smell of old paper and decay, while shadows hide on the shelves.",
+   "It's completely deserted, but listen for the crunch of bones underfoot."
+  ],
+  "hosp": [
+   "Fluorescent lamps flicker, casting shadows on the walls that seem alive and ominous.",
+   "Air smells of rot and old meds; something lifeless hides in dark corners.",
+   "It's too quiet to be safe, but that breathing sound is too loud to be human."
+  ],
+  "tower": [
+   "Inside it's cold and smells of old metal, while thick Fog outside hums dully, as if trying to break through the walls.",
+   "Glass crunches underfoot, and in the darkness hide shadows whispering the names of those you lost in your past life.",
+   "Broken antennas flicker around, and any sudden move might trigger an attack by sound-hunting mutants."
+  ],
+  "rift": [
+   "Thick gray Fog instantly embraces the shoulders, and the air fills with the smell of ozonated metal and burnt meat.",
+   "The air trembles with a faint purple glow from the Rift, and strange stone fragments float weightlessly around.",
+   "Your ear itches from a low, almost inaudible hum, as if space itself groans in pain, and shadows that haven't become mutants sway in the fog."
+  ],
+  "metro": [
+   "Water up to the knees, lamps flickering in the dark, trying not to go out.",
+   "You hear the quiet dripping of water and the heavy breathing of mutants hiding in the tunnels.",
+   "It smells of mold, old rust, and something sharp, magical, tickling your nose."
+  ],
+  "army": [
+   "A heavy scent of old earth and gunpowder rises from under rusted tank hulls, and in the distance, the hum of mutants is heard.",
+   "Barbed wire creaks in the wind, and sandbags around the watchtower look freshly abandoned.",
+   "Empty, dead, and cold, but you know: somewhere in the ruins hide those who won't share resources with you."
+  ],
+  "bgarden": [
+   "Air thick with a sweet, poisonous scent. A shattered glass dome above crackles, letting rain of light through.",
+   "Giant flowers pulse with dim light; predators lurk in their shadows, waiting for your prey.",
+   "You hear only heavy breathing of plants and snapping branches, for anyone here could become a weapon against you."
+  ],
+  "pharmacy": [
+   "A glass equipment rack is shattered, and empty medicine wrappers scattered on the floor crunch underfoot.",
+   "The air smells of old medicine and dust; a faint rustling from a mutant echoes behind the broken display case.",
+   "The green cross on the sign still glows, but inside there's darkness and deadly silence—not to be disturbed."
+  ],
+  "kiosk": [
+   "Gray kiosk ruins smell of rotten water and old dust, while shattered glass crunches underfoot on the asphalt.",
+   "You hear only the wind whistling through broken signs, while something unknown but dangerous hides in the Fog.",
+   "Kiosk walls are covered with faded posters recalling the world before the catastrophe, while the road around is completely empty and dead."
+  ],
+  "garage": [
+   "The sulfurous smell of fuel and rotting grass hits your nose as you step between two rusty garage bays.",
+   "Restless shadows stretch from under metal doors, and far away, a grinding sound echoes, as if someone is searching for keys in an old engine.",
+   "The spotlight flickers, illuminating a pile of tires swaying like living things, and you realize: you could get lost here forever."
+  ],
+  "bakery": [
+   "Inside, thick white dust covers huge, cold furnaces; only a faint, dying screech comes from the conveyors.",
+   "The air is thick with flour dust choking your throat, while shadows that could be mutants hide in the dim corridors.",
+   "Stale flour mold and old metal smell. Fresh tracks on the conveyor belts show survivors were here recently."
+  ],
+  "parking": [
+   "A sharp smell of disinfectant and rotting mold spreads over the cold concrete.",
+   "Blinding flashlight beams cut through the darkness where rusted cars hide behind a pair of mutants.",
+   "Water drips motionless from the roof, creating a rhythmic drip, as if someone lurks in the half-dark."
+  ],
+  "church": [
+   "The bell tower is ruined, but old candles still burn on the altar, and the air is thick with the smell of fire, dampness, and smoldering mold.",
+   "Cold Fog seeps through cracks in the crypt, and from dark corners comes the quiet grinding of bones hiding among graves.",
+   "Broken tiles crunch underfoot, and the gloomy silence is broken only by the rhythmic whisper of invisible creatures waiting for a mistake."
+  ],
+  "power": [
+   "Oversized cooling towers are silent, but inside, the air smells of rotting water and oxidant.",
+   "Dim light breaks through torn pipes, and from below comes the rare rustle of mutants.",
+   "Each step on rusty pipes echoes like an explosion in this dead silence, where the Fog won't let you look back."
+  ],
+  "port": [
+   "Silent old cranes tower over the murky river, while abandoned barges reek of decay and rusty water.",
+   "Thick Fog wraps the pier like a handkerchief, where only the creak of metal and the whisper of hidden mutants can be heard.",
+   "The air is heavy with moisture and the smell of old ropes, while an inevitable threat hides among the ruins."
+  ],
+  "mall": [
+   "Ice cracks in the roof under the wind, while dust and rot from broken flowers float in the air.",
+   "The elevator and escalators froze in twisted positions, and something rustles in the dark corners, like a mutant hunting for food.",
+   "You hear only the echo of your own steps, but from the rubble, a dark slime begins to crawl slowly."
+  ],
+  "prison": [
+   "Barbed wire barely holding a lie wraps around towers, while cold Fog spreads like a creeping cloud over broken brick walls.",
+   "Only the wind's whisper among empty cells and a sharp rot smell from under the grates.",
+   "Grey prison outlines cling to the horizon like a dead beast's skeleton; here you'll meet only mutants or shadows of the past."
+  ],
+  "lab": [
+   "Seems someone just entered. Air is thick with faint purple Fog and ozone.",
+   "Glass vials are broken, their LED light fading in the darkness of the dungeon.",
+   "A survivor was just here, but you hear no footsteps—only the deep, dragging breath of the magical Rift."
+  ],
+  "airport": [
+   "The terminal entrance greets you with the smell of rotting fuel and damp rust, while thick gray Fog pours through the broken roof.",
+   "A shattered liner lies on the runway, as if swallowed by a black shadow, while a torn passenger bridge clings to its wings.",
+   "Silent for a moment. Mutants hide in the Fog, ready to emerge from any debris at any second."
+  ],
+  "bridge": [
+   "Before you lies a broken bridge, twisted steel hanging over a black river, with shattered cars barely clinging to the edge.",
+   "Through the thick Fog, only the creak of metal and distant creaking are heard, and the air smells of ozone and decay.",
+   "Don't panic here, as mutants hiding in the Fog hunt any movement."
+  ],
+  "stadium": [
+   "You smell of rotting earth and sweetish mold, while fog slowly circles above the ruined bleachers.",
+   "Low humming comes from dark niches, as if giant mutant insects hide in fungal roots.",
+   "It's easy to get lost among broken concrete blocks, as every shadow can become a trap for your life."
+  ],
+  "dam": [
+   "Open doors are flooded with the roar of water pushing against cracked concrete walls, and immediately your nose tastes rust and free dampness.",
+   "The Black Control Tower creaks in the wind, and the unknown stares from its dark windows, as if the Dam itself awaits a victim.",
+   "Water bursts out like an enraged beast; every step on the slippery surface could be your last in this cursed place."
+  ],
+  "crater": [
+   "A massive depression glows purple, the air thick with the smell of burnt glass.",
+   "Thick fog spreads from under black ash, where a quiet crackling, like breathing, comes from crystals.",
+   "Building debris lies at the crater's edge, and something from the depths stares out, making your heart beat faster."
+  ],
+  "tvcenter": [
+   "Inside the TV center smells of burnt plastic and old dust, and a huge antenna creaks in the wind everywhere.",
+   "The creak of old cables underfoot and the quiet hiss of shattered screens flickering with white noise heighten the tension.",
+   "It's too dark to spot shadows that might be mutants, and the Fog Rift hums faintly behind the walls."
+  ],
+  "core": [
+   "A purple vortex spins over the abyss, swallowing even light, with old building fragments hanging from it like giant bones.",
+   "The air is thick with the smell of ozonated metal and old blood, and an invisible pressure on your face breaks your mind.",
+   "No sound, just a loud buzzing in your head warning: one step into this shadow could be your last."
+  ]
+ },
+ "monsters": {
+  "rat": [
+   "This mutant looks like a torn sack of bones, covered in slimy dirty fur and red eyes glowing in the dark.",
+   "He hisses and bares his teeth, trying to leap at the hero as soon as he spots him in the Fog."
+  ],
+  "dog": [
+   "A feral dog looks like a torn sack of fur, covered in crusts and rotten foam on its teeth.",
+   "He howls in rage, creaking with rotten teeth, and charges at the hero like a mad dog."
+  ],
+  "slime": [
+   "His body is a hideous mass of rusty slime, with sharp metal shards embedded inside.",
+   "He instantly crawls out of the shadows, grumbling with metal, and tries to wrap around the hero to turn him into new rusty armor."
+  ],
+  "centi": [
+   "A giant centipede with a crimson shell oozing poisonous slime, like a living toxic cylinder.",
+   "She coils like a spring and attacks, not waiting for the enemy to gather strength."
+  ],
+  "ratqueen": [
+   "A giant rat with a skull crown surrounded by a cloud of evil rodents.",
+   "She freezes instantly, assessing your threat before swarming you."
+  ],
+  "goblin": [
+   "A tiny green-skinned creature with sharp ears, a wide wicked smile, and a bag on its shoulder gleaming with stolen loot.",
+   "He freezes in place to avoid detection, with a treacherous glint in his eyes, quietly surveying the victim, waiting for the moment to strike."
+  ],
+  "raider": [
+   "A black cloak with a mask hides the face, and only a pair of dim red eyes glow from under the hood, holding a dull knife.",
+   "He freezes in the shadows, slowly shifting sideways, as if preparing to leap with a knife ready for a backstab."
+  ],
+  "bwolf": [
+   "His bones dimly glow, and cold blue flames dance between his ribs.",
+   "The wolf tensed, slowly circling the hero, ready to pounce."
+  ],
+  "crawler": [
+   "He resembles a giant scorpion with scaly armor and a poisonous stinger on his tail hanging over the rubble.",
+   "Hearing your steps, he freezes, then sharply turns, trying to throw you with his heavy stinger."
+  ],
+  "beetle": [
+   "A massive armored bile with a shell shining like broken iron and sharp limbs ready to tear apart anything alive.",
+   "Spotting you, the beast freezes instantly, its shell cracking as it shifts to an aggressive red before charging."
+  ],
+  "toad": [
+   "A giant green frog-like monster with rough, bumpy skin and a monstrous mouth that overshadows its tiny eyes.",
+   "He freezes on the swamp, rolling on his thick limbs, then instantly opens his maw to swallow the unknown in the black cloak."
+  ],
+  "necro": [
+   "A teen in a worn hoodie with glowing green eyes stands surrounded by skeletons quietly grinding their teeth.",
+   "He immediately recognizes you as the primordial enemy and waves his hand, making skeletons rush into an attack with a manic giggle."
+  ],
+  "scav": [
+   "He stands in a dirty cloak made of bones, wearing an old gas mask, with a homemade bow marked with death signs on his back.",
+   "The Scavenger freezes, raises his weapon, and stares at you intently, as if weighing whether your meat is worth the risk."
+  ],
+  "wasp": [
+   "A giant bee with a body like a fragile, transparent crystal shimmering with cold light.",
+   "She abruptly stops buzzing, tilts her head, and scans you with barely visible, fragile eyes."
+  ],
+  "knight": [
+   "He stands like a living rusty frame, wrapped in thick gray Fog, with no face under the helmet.",
+   "Silently, he sharply turns his head toward the hero, as if sensing his presence, and takes a slow step forward."
+  ],
+  "drone": [
+   "Guardian drone: a black metal cube with three spinning gears and a red scanning beam instead of eyes.",
+   "He abruptly stops, scans the hero with a red beam, and instantly switches to attack mode without waiting for anything."
+  ],
+  "eyes": [
+   "His body is pierced by hundreds of living eyes gleaming in the dark, with slimy tentacles crawling out.",
+   "Locking eyes, the monster freezes for a moment, then suddenly lunges with all limbs toward you."
+  ],
+  "golem": [
+   "A huge humanoid figure forged from metal scraps and rebar, with a bright orange core burning in its chest.",
+   "He freezes in place, tensely turning his head to focus the core's light on you, as if assessing a new target for destruction."
+  ],
+  "hive": [
+   "She glows like a giant living hive with red eyes burning in the dark.",
+   "She rushes toward the hero, releasing a cloud of small mutant drones around her."
+  ],
+  "chem": [
+   "Green LED poison oozes from his torn chemical armor, hissing like it's alive.",
+   "The beast freezes, eyes glinting cunningly, silently approaching as if waiting for you to walk into the poisonous puddle."
+  ],
+  "spider": [
+   "He has five metallic legs with sharp spikes and a red light burning in the dark morgue.",
+   "Seeing you, he instantly shifts his gait, lunges on all fours, and draws sharp blades from his belly."
+  ],
+  "wraith": [
+   "A pale, glowing face sticks out from under a torn gray cloak, resembling a dying moon.",
+   "The monster instantly freezes, staring into your eyes, before trying to squeeze through the wall."
+  ],
+  "fox": [
+   "A silver creature with a tail of pure light, glowing like a star cluster, stands quietly on the ruins.",
+   "He instantly senses the threat, dashes into the Fog, and leaves only a shiny bone at the last moment."
+  ],
+  "mimic": [
+   "Old worn suitcases lie on the ground, but its open flap resembles a wide maw with a tongue-belt and sharp teeth.",
+   "The creature instantly recoiled from the hero, sealed its valve, and fled into the Fog, leaving only a silver coin."
+  ],
+  "deer": [
+   "A rare creature with a body that glows as if absorbing sunlight, and horns of pure magical light.",
+   "Instead of attacking, it instantly turns and dissolves into the fog, leaving only a light-silver trophy on the ground."
+  ],
+  "bard": [
+   "A thin skeleton in a tattered cloak plays a violin, emitting notes as pale as the Fog.",
+   "He freezes upon appearing, then sharply turns and flees, scattering his magical chords."
+  ],
+  "scarab": [
+   "His armor gleams like molten gold under the fog's dim light, and his wings whisper a enchanted flight.",
+   "He instantly dashes upward, hiding in the canopy of a ruined building as soon as he notices your gaze."
+  ],
+  "jelly": [
+   "It glows with a soft blue light, resembling a giant transparent jellyfish levitating above the ground.",
+   "Seeing you, she instantly fades and hides in the thick Fog, not waiting for you to approach."
+  ],
+  "paper": [
+   "A tiny paper dragon flutters its wings; its scales shine with folds made of expensive silver paper.",
+   "Seeing you, the creature instantly froze, then quickly flew into the Fog without trying to grab you."
+  ],
+  "clock": [
+   "A strange mechanism with a brass body where gears replace fur, and eyes burning like a living cat's.",
+   "He instantly flees, hiding in the shadows, and only when the hero gets closer does a trophy rain from his body."
+  ],
+  "hound": [
+   "A skeletal sand creature with cracked skin glowing purple, fog dripping from it.",
+   "He sees you and lunges forward with a hoarse howl, ignoring all obstacles."
+  ],
+  "giant": [
+   "A giant figure made of dense gray fog and stone fragments, with two burning eyes instead of a face.",
+   "He instantly senses the hero and approaches heavily, gloomily, as if ready to crush all life under his foggy feet."
+  ],
+  "hybrid": [
+   "A scared pile of bloody mold with teeth sticking out, and greenish slime flowing from torn limbs.",
+   "He silently creeps toward you, emitting a rotten wheeze, then suddenly lunges into an attack, tearing the air with sharp claws."
+  ],
+  "sniper": [
+   "A Snap deserter stands in a torn cloak and gas mask, gripping a long rifle.",
+   "He instantly raises his weapon and sizes up the hero, as if deciding he will be the first victim of his new order."
+  ],
+  "worm": [
+   "A giant pale gray worm bursts from the asphalt, scattering cobblestones, its mouth filled with sharp ringed teeth.",
+   "The monster instantly curls into an arc and lunges at the hero, dispersing the Fog like a merciless sharp blade."
+  ],
+  "puppet": [
+   "The Puppeteer wears a porcelain mask with no face and unnaturally long fingers stretching through the thick Fog like foreign strings.",
+   "He freezes when he notices you, then sharply tilts his head, as if trying to determine who you would become as his new doll."
+  ],
+  "sentinel": [
+   "He stands like a large black stone boulder, clad in patched armor, holding a shield with a pulsing red rune.",
+   "Seeing the hero, the monster freezes for a moment, then lunges forward, scattering debris and raising a shield for a strike."
+  ],
+  "angel": [
+   "The Gray Angel is a weary figure with ashen feathers and an empty golden crown above its head, resembling a dead angel from fairy tales.",
+   "This monster instantly freezes and slowly spreads its wings when it notices the hero, as if waiting to tear him apart."
+  ]
+ },
+ "npcs": {
+  "kai": {
+   "first": [
+    "Listen, boy, I can't see you, but I hear you're new to this town.",
+    "Hi, young man, want to buy something useful? I've got what you need."
+   ],
+   "again": [
+    "You again? Fine, let today be a quiet day.",
+    "Oh, it's you, boy. How's your survival going?"
+   ],
+   "friend": [
+    "Glad to see you alive, friend, come in, let's talk.",
+    "Hi, old friend; always happy to see you."
+   ],
+   "hostile": [
+    "You're back again, scum. What do you want from me?",
+    "Get out of here, I don't want to see your white eyes again."
+   ],
+   "trade": [
+    "Got a great knife instead of water, want to trade?",
+    "I'll trade a bag of salt for your old weapon, deal?",
+    "I have meds worth your old cloak."
+   ],
+   "threat": [
+    "Stop, or you'll have to pay {toll} to pass.",
+    "If you don't pay {toll}, I won't let you leave.",
+    "Pay {toll}, or find out how a fight with my staff ends."
+   ],
+   "bye": [
+    "Goodbye. May fate smile on you.",
+    "See you, kid. Stay safe in the Fog."
+   ],
+   "beaten": [
+    "You beat me, but this time I'll be more careful.",
+    "Alright, you're stronger, but I won't forget how you beat me."
+   ],
+   "lostTo": [
+    "Your backpack is mine now, and your luck—no, it's not yours.",
+    "Take only your body; the rest belongs to me."
+   ]
+  },
+  "mirra": {
+   "first": [
+    "Hi, kid, I haven't seen any new fish around, but your hair looks strangely clean.",
+    "You're a newbie? Don't keep your hands in your pockets, or I'll think you're carrying something stolen."
+   ],
+   "again": [
+    "Back again? If you have nothing to buy, better leave.",
+    "Greetings, old man. Just don't tell me you're lost in the Fog again."
+   ],
+   "friend": [
+    "Oh, it's you, pal! Come in, I just brewed hot watermelon tea, sit with us.",
+    "Glad to see you, friend! Your help with the engine was priceless, take this."
+   ],
+   "hostile": [
+    "I haven't forgotten how you let me down back then, and this time I won't forgive.",
+    "You're back on my territory? Ready for a good hit on the head if you don't leave."
+   ],
+   "trade": [
+    "I'll take your parts, and give you a couple of cans of meat. It's a fair trade.",
+    "Need a propeller? Fine, but I'll take only a bit of water for it.",
+    "I have a good tool, but it costs more than you can give now."
+   ],
+   "threat": [
+    "Get out of here, or I'll take what you have for {toll}.",
+    "If you don't pay {toll} right now, I'll take you apart for parts.",
+    "Don't go further until you pay {toll}, or it'll get rough."
+   ],
+   "bye": [
+    "Hey, don't get lost in the fog when you go.",
+    "See you around, I hope you don't get into a fight this time."
+   ],
+   "beaten": [
+    "Fine, I admit you're stronger than me in a fight, but that doesn't mean I trust you.",
+    "Sounds like a win for you, but I haven't forgotten how you beat me."
+   ],
+   "lostTo": [
+    "Ah, it's you! Now you see why I took your backpack, not yours mine.",
+    "My backpack is now where yours was, and I won't give it back, because I'm stronger."
+   ]
+  },
+  "dzvin": {
+   "first": [
+    "Who are you, blond clown, and why wander here where your parents don't belong?",
+    "Wow, newcomer! Don't forget to thank me for not eating you alive yet."
+   ],
+   "again": [
+    "You again? Hope you didn't come begging this time.",
+    "Hi, kid. You look like you lost your mind again in this Fog."
+   ],
+   "friend": [
+    "Oh, it's you! Let's drink to the fact that we're still alive, my little friend.",
+    "Alright, buddy, I can relax and even laugh with you, as weird as that sounds."
+   ],
+   "hostile": [
+    "I remember your face and everything you did to me, and this time I won't forgive!",
+    "You think you're winning? I've already seen your death, and it was as vile as you."
+   ],
+   "trade": [
+    "Want strong armor? Then give me everything you have, plus a bit more.",
+    "I know where resources are hidden, but at the cost of one of your backpacks, if you have one.",
+    "Want to survive today? Share your food, and I'll give you a map worth your honor."
+   ],
+   "threat": [
+    "Pay {toll}, or I'll take your skin as payment for your ignorance.",
+    "If you don't hand over {toll}, I'll turn you into a tasty snack for mutants, got it?",
+    "Take {toll} and get lost, or I'll show you how my bell hurts."
+   ],
+   "bye": [
+    "Go away before I change my mind and decide to kill you.",
+    "Not yet, kid. Hope the Fog doesn't eat you too fast."
+   ],
+   "beaten": [
+    "You thought you won? I'll be back, and next time I'll hold you by the throat.",
+    "Alright, you won for the first time, but I remember that hit and will do everything to get revenge."
+   ],
+   "lostTo": [
+    "Your backpack is mine now, and your head is a trophy I'll show everyone in the city.",
+    "You fought like a cat, but got beaten like a dog. Take your body and get out, before I change my mind."
+   ]
+  },
+  "tessa": {
+   "first": [
+    "Hi, kid with the cloak, I'm Tessa, and I've got more good stuff in my backpack than this whole city.",
+    "Oh, who's this young one here? Come in if you want to buy something useful, not just stare at the ruins."
+   ],
+   "again": [
+    "You again, boy? Ready to trade or just wander?",
+    "Hi, Tessa on the line; I have some interesting news for you."
+   ],
+   "friend": [
+    "You're here, and it's all clear now, my little white-haired hero.",
+    "How's it going, friend? Come in, I always have something tasty for you."
+   ],
+   "hostile": [
+    "You're back again, traitor. I remember how you abandoned me in my past life.",
+    "Don't approach me if you don't want me to banish you from this area forever."
+   ],
+   "trade": [
+    "Want to buy food? Here's everything I have, at the price you know.",
+    "I have what you were looking for, but the price is a bit higher today than usual.",
+    "Look at this item; it will save you from hunger if you're willing to pay."
+   ],
+   "threat": [
+    "Want to go further? Pay the toll {toll}, or I won't let you pass.",
+    "Listen closely, my little one, {toll} is the price for your life here.",
+    "If you don't pay {toll}, I'll take everything you have and beat you."
+   ],
+   "bye": [
+    "Goodbye. Remember, I'm always here if you need help.",
+    "Go in peace, but remember Tessa always sees."
+   ],
+   "beaten": [
+    "You beat me again, but I won't give up. We'll meet soon.",
+    "Alright, you're stronger, but this time I'll take what's mine when the time comes."
+   ],
+   "lostTo": [
+    "Ha-ha, I took your backpack again, kid, and lost nothing.",
+    "You're so weak I didn't even bother fighting—just took it and left."
+   ]
+  },
+  "rudyi": {
+   "first": [
+    "Oh, who's this newcomer? Don't look so familiar, kid.",
+    "Good morning to you too. Now, who are you?"
+   ],
+   "again": [
+    "Seeing you again, heh-heh, don't hide.",
+    "Hi, old friend, how are you doing?"
+   ],
+   "friend": [
+    "Well, you're quite the guy, buddy. Glad to see you!",
+    "Oh, it's my friend! How glad I am that you're alive."
+   ],
+   "hostile": [
+    "Keep your hands off me, or I'll crush you!",
+    "I remember what you did to me—now you'll pay for it all!"
+   ],
+   "trade": [
+    "Want to trade food for my fists? I have an option.",
+    "I'll give you some water if you hand over your supplies.",
+    "I have a few valuable items, but they come with a price."
+   ],
+   "threat": [
+    "Pay the toll to pass, or I'll hit you in the face—{toll}.",
+    "Don't go further until you pay {toll}!",
+    "Leave your backpack or take {toll} hits!"
+   ],
+   "bye": [
+    "Go in peace, don't forget me.",
+    "See you, if you don't kill yourself first."
+   ],
+   "beaten": [
+    "Don't look at me like that, or I'll be back!",
+    "Alright, you won, but next time I won't miss."
+   ],
+   "lostTo": [
+    "Look at yourself, now you don't have my backpack, haha!",
+    "I took your stuff, and you're still asking for forgiveness? Fool!"
+   ]
+  },
+  "aska": {
+   "first": [
+    "Newcomer? You don't look like someone who's lasted long here.",
+    "Oh, a child with white hair. Didn't think anyone else was still walking alive here."
+   ],
+   "again": [
+    "You're here again. Hope you won't be dead weight this time.",
+    "Met again? Hope your pockets are fuller than last time."
+   ],
+   "friend": [
+    "Hi, old man. Ready for another walk among the ruins?",
+    "Glad to see you alive. Sometimes it's too boring here without you."
+   ],
+   "hostile": [
+    "You're back again? If you don't want to end up like the rest, get out.",
+    "I remember how you tried to trick me last time. Now I know you."
+   ],
+   "trade": [
+    "Got some water and a knife, but I need your meat for stew.",
+    "I'll trade your old dagger for 1.5 liters of pure water.",
+    "I have bandages. Give me everything in your backpack, and I'll trade."
+   ],
+   "threat": [
+    "This passage costs {toll}, or I'll cut your cloak.",
+    "Pay the toll—{toll}, or I'll take your backpack right here.",
+    "Move or pay {toll}, I hate delays."
+   ],
+   "bye": [
+    "Don't vanish here, or I'd have to bury you.",
+    "Go away before I change my mind about being polite."
+   ],
+   "beaten": [
+    "Alright, I lost. Just don't think this is the last vision.",
+    "Your fists are stronger than I thought. Next time will be different."
+   ],
+   "lostTo": [
+    "Ouch, too bad. Your backpack is mine now, and you're empty.",
+    "I took your supplies because you played worse than expected. That's you, not me."
+   ]
+  },
+  "veresk": {
+   "first": [
+    "Time changes, but the Fog remains the same, child.",
+    "I haven't seen you on these lands, so watch your step."
+   ],
+   "again": [
+    "You're here again, like a crow circling the ruins.",
+    "Your shadow is long, as always, my young friend."
+   ],
+   "friend": [
+    "Glad to see you alive, old friend.",
+    "Your gaze is brighter now than on the first day, friend."
+   ],
+   "hostile": [
+    "Betrayal smells worse than rot, and I remember your eyes.",
+    "Your path would end here, if not for my mercy."
+   ],
+   "trade": [
+    "I have what you need, but the price demands honor.",
+    "We'll trade your knowledge for my herbs, if you dare.",
+    "A priceless resource for a moment of time, right?"
+   ],
+   "threat": [
+    "To go further, pay {toll} and don't touch my roots.",
+    "If you don't hand over {toll}, the Fog will come for you sooner.",
+    "Leave {toll} on the ground; my staff doesn't forgive bulging pockets."
+   ],
+   "bye": [
+    "May the Fog not tangle your feet. Go with God.",
+    "The world is too cruel for people like us, but you survived."
+   ],
+   "beaten": [
+    "You taught me that strength is not just magic.",
+    "My staff cracked from your blows, and I remember it."
+   ],
+   "lostTo": [
+    "Your backpack is mine now, and you're just a shadow in my memory.",
+    "You thought you'd defeat the elder, but the Fog decided otherwise."
+   ]
+  },
+  "liia": {
+   "first": [
+    "This isn't a place for newcomers, but your eyes aren't like others.",
+    "Shut up, I'm Liia. Don't touch me or get in my way."
+   ],
+   "again": [
+    "You're back. Hope you brought something useful.",
+    "No time for talk. Get lost if you're not here to help."
+   ],
+   "friend": [
+    "Hi, I'm glad you're alive and whole.",
+    "You know, I'm always glad for your company in this Fog."
+   ],
+   "hostile": [
+    "I remember how you tried to trick me.",
+    "You again? Get lost before I decide what to do with you."
+   ],
+   "trade": [
+    "I have water for your metal. Want to trade?",
+    "Give me food, and I'll give you the key to the stash.",
+    "If you hand this over, I'll give you a discount at the next checkpoint."
+   ],
+   "threat": [
+    "Whoever doesn't pay {toll} becomes mutant food.",
+    "The toll here is {toll}, or I'll take everything you have.",
+    "Either pay {toll}, or I'll show you what real Fog looks like."
+   ],
+   "bye": [
+    "Go in peace, hope the Fog doesn't eat you today.",
+    "See you. Hope we meet healthy."
+   ],
+   "beaten": [
+    "You beat me, but that doesn't mean you're better.",
+    "Good fight, but remember: next time I won't forgive you."
+   ],
+   "lostTo": [
+    "Your backpack is mine now, and you're just a shadow in the fog.",
+    "I took your supplies because you're too weak to hold them."
+   ]
+  },
+  "borys": {
+   "first": [
+    "Hey, kid, did you crawl out of that fog?",
+    "Where are you running, boy? Can't you see who's in charge here?"
+   ],
+   "again": [
+    "Oh, you again. What's new on your path?",
+    "Hi, old man, didn't forget how to live here?"
+   ],
+   "friend": [
+    "I see you're breathing, kid. Stick with us.",
+    "Hey, brother. Come in if you need rest."
+   ],
+   "hostile": [
+    "One more reminder: you're in my zone. You'll die quietly.",
+    "You remember how you put me to sleep? Now cry."
+   ],
+   "trade": [
+    "I take your trash, give you food. Deal?",
+    "Got something to give for my goods, or just watching?",
+    "Clear and fast, or I take everything you have."
+   ],
+   "threat": [
+    "Give me {toll}, or you won't walk this road again.",
+    "Take {toll}, or I'll make you my lunch.",
+    "{toll} — this is your price for life, pay or go to the Fog."
+   ],
+   "bye": [
+    "Go already, don't stall, time's running.",
+    "Bye, kid. Don't die before we meet again."
+   ],
+   "beaten": [
+    "You thought you won? I'll be back.",
+    "Seems I overloaded a bit, but you're still weak."
+   ],
+   "lostTo": [
+    "I took your backpack. Now you're nobody's, kid.",
+    "You're funny when you run, while I take everything you have."
+   ]
+  },
+  "noks": {
+   "first": [
+    "You just woke up in this hell, kid? Watch your step, not the Fog's.",
+    "I don't dream of the past. You seem to still not realize it's already dead. Watch your back."
+   ],
+   "again": [
+    "You're back again. Hope this time you're not walking to death without reason.",
+    "I see your eyes again. Hope you learned at least a little not to make mistakes."
+   ],
+   "friend": [
+    "Alright, old man, you survived. That's worth something. Drink tea before the fog thickens.",
+    "Glad to see you alive. Your wisdom grows, and I notice it."
+   ],
+   "hostile": [
+    "I remember your betrayal, and now you'll pay for every mistake with blood.",
+    "Your dirty nature hasn't vanished, even if the world burned. Prepare for the end."
+   ],
+   "trade": [
+    "I have what you need, but your soul costs more than meat.",
+    "We'll trade items if you're ready to give up everything you have, without regret.",
+    "I give nothing without benefit. What will you offer in exchange for your life?"
+   ],
+   "threat": [
+    "Come in if you can pay: {toll} or stay here to rest.",
+    "Pay {toll}, or I can't guarantee you'll leave here alive.",
+    "Toll for people like you: {toll}, or your backpack becomes mine."
+   ],
+   "bye": [
+    "Go quietly, don't wake the dead.",
+    "Remember: the Fog always returns. See you soon."
+   ],
+   "beaten": [
+    "You won this time, but the Fog hates winners. You won't forget that.",
+    "My pain will remember your strike. We'll meet again."
+   ],
+   "lostTo": [
+    "Your backpack is mine now, and your status is my laugh. Don't stop me.",
+    "I took everything you had. Now you're poor and hopeless. Isn't that fun?"
+   ]
+  }
+ },
+ "rivals": {
+  "Ліра": {
+   "trade": [
+    "Trading your medkits for hardtack, but only fairly.",
+    "I have a map of safe zones. Want to trade your meat for it?",
+    "Give me three bullets, and I won't stand in your way to the Rift."
+   ],
+   "threat": [
+    "Here's {toll} for passing through my sector, or you'll get your teeth broken.",
+    "If you don't pay {toll}, I'll take all your gear and leave.",
+    "Listen, {toll} is the price for your life. Pay up, because I'm not joking."
+   ],
+   "bye": [
+    "Hit it, don't die on my watch.",
+    "See you, stay safe, the Fog's especially thick today."
+   ]
+  },
+  "Грім": {
+   "trade": [
+    "Got some water and ammo, want to trade for old city maps?",
+    "Seems you have what I need. Let's trade without words.",
+    "I see you're packing. I'll give you a better price for what you couldn't take."
+   ],
+   "threat": [
+    "Paying {toll} is the only way I won't tear you apart for parts.",
+    "Either pay {toll}, or leave your blood and gear here.",
+    "Don't dare ignore {toll}, or next time I won't say goodbye so gently."
+   ],
+   "bye": [
+    "Don't delay before I change my mind about your life.",
+    "Remember, every step in this city costs dearly."
+   ]
+  },
+  "Сова": {
+   "trade": [
+    "I'll trade your ammo for my medkit if you don't want to die from infection.",
+    "I have a cool weapon I found in a Rift. Want to trade it for food?",
+    "Haggle, kid, because the Fog won't wait for your thoughts."
+   ],
+   "threat": [
+    "Either pay {toll} to pass, or stay here for the mutants' lunch.",
+    "If you don't hand over {toll}, I'll just take your things by force.",
+    "Stop and pay {toll}, or I won't play mercy."
+   ],
+   "bye": [
+    "Bye, and remember, next time the Fog might be crueler.",
+    "Go, before I change my mind."
+   ]
+  }
+ },
+ "strangers": {
+  "trade": [
+   "Want this fighting knife? I'll take half a ration.",
+   "I have water, but the price is your old coat.",
+   "I have a stash map, but it's only worth it if you can give me something valuable."
+  ],
+  "threat": [
+   "Pay the toll {toll}, or my knife will be your last acquaintance.",
+   "If you don't pay {toll}, I won't let you pass through this Fog.",
+   "Hand over {toll} now, or I'll summon mutants on your head."
+  ],
+  "bye": [
+   "Get out, before I change my mind.",
+   "Don't cross paths if you don't want to lose everything."
+  ]
+ },
+ "events": {
+  "storm": [
+   "The wind howls so hard that clouds seem alive, wanting to wash the city off the map.",
+   "The Fog thickens, and water pours on the streets like a river from the sky.",
+   "Through the storm, I hear only the rustle of a cloak and the desperate thud of barrels filled to the brim."
+  ],
+  "fog": [
+   "The Fog squeezed the city in a tight white hand, leaving no room for light.",
+   "Morning air grew thick, as if the ruins themselves exhaled old pain.",
+   "Thick white gloom promises more dangers and less luck today."
+  ],
+  "caravan": [
+   "Through the gray fog came the rumble of wheels, and at dawn a caravan is already humming at the base's edge.",
+   "Fresh air mixed with the smell of coal as the first carts approached the gates.",
+   "Strange to hear traders' haggling and horse hooves instead of ruin silence."
+  ],
+  "heat": [
+   "Morning air is already thick like hot cloth; every breath feels like a trial.",
+   "Sunlight pierces the thick Fog, turning it into a sticky, burning shroud.",
+   "The world around seems melted, and the dry air trap quickly drains the last of your strength."
+  ],
+  "frost": [
+   "Cold swallowed my bones before I could even open my eyes.",
+   "The Fog around the house grew denser and colder, as if Death herself wanted to hug me.",
+   "My breath left as a cloud, instantly freezing in the air."
+  ],
+  "looters": [
+   "The Fog over the warehouse is thicker than usual, as if someone invisible walked here last night.",
+   "In the morning, the air smells of old metal and something rotting, as if shadows from the Fog haven't left this area.",
+   "It's quiet around, but the feeling that someone watches from behind won't let you rest since morning."
+  ],
+  "bounty": [
+   "The Fog parted, as if the city itself decided to gift me a second chance.",
+   "The air felt strangely light, as if the ruins suddenly grew richer.",
+   "Morning made everything seem strangely generous, as if the old world was paying its debts."
+  ]
+ },
+ "seasons": {
+  "spring": [
+   "Rain doesn't wash dirt off cobblestones; it turns it into black sludge smelling of rot.",
+   "Gray Fog spreads over the ruins, hiding from sight what hasn't yet turned to bones."
+  ],
+  "summer": [
+   "Heat pours over scorched ruins, turning every breath into a suffocating trial.",
+   "The Fog has thickened around, but it doesn't get easier; breathing only gets harder."
+  ],
+  "autumn": [
+   "The autumn wind carries the smell of rotting earth from the Fog, reminding you that even the harvest must now be stolen from your own shadows.",
+   "Yellow leaves swirl over ruins, falling heavily like the city's last tears, too late to cry."
+  ],
+  "winter": [
+   "Cold seeps through broken windows, stealing the last warmth from the stone ruins.",
+   "The Fog settles on the rooftops thicker than black snow, silent, as if afraid to break the quiet."
+  ]
+ },
+ "intro": [
+  "I woke up in my room and instantly realized this wasn't a dream, but the first morning of my second life.",
+  "The memory of a friend's betrayal still burned in my heart, but now I have a chance to set things right.",
+  "Suddenly, a pale blue window with unknown text floated in the air, visible only to me.",
+  "The System gave me instructions, and I felt I now control my new world."
+ ],
+ "system": {
+  "levelUp": [
+   "[System] Health restored and increased",
+   "[System] Defense increased, injury risk reduced",
+   "[System] Stamina increased, energy costs reduced",
+   "[System] Pain resistance improved"
+  ],
+  "danger": [
+   "[System] Critical health state, return immediately",
+   "[System] Resources at zero, cannot risk more",
+   "[System] Body exhausted, need rest and food"
+  ],
+  "memory": [
+   "[System] Hunger and cold kill slowly, but surely",
+   "[System] Nearby areas are quickly depleted, search further",
+   "[System] Hostile survivors come at night, don't sleep without guard",
+   "[System] Fog brings rare creatures, but they are dangerous"
+  ]
+ }
+}
