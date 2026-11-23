@@ -3,7 +3,7 @@ import { EVENTS, ZONE, WPN, ARM } from './data.js';
 import { pick, chance } from './util.js';
 import { ui } from './hooks.js';
 import { S, log, canPay, pay, resStr } from './state.js';
-import { mkWeapon, mkArmor, itemName, itemEmoji } from './items.js';
+import { mkWeapon, mkArmor, itemName, itemEmoji, pickType } from './items.js';
 import { itemHTML } from './ui/format.js';
 import { line } from './texts.js';
 import { t } from './i18n.js';
@@ -57,7 +57,7 @@ export function caravanTrade(i) {
   if (!canPay(o.give)) return ui.toast(t('Не вистачає ресурсів'));
   pay(o.give); o.done = true;
   if (o.item) {
-    const it = o.item === 'w' ? mkWeapon(pick(Object.keys(WPN)), o.rar) : mkArmor(pick(Object.keys(ARM)), o.rar);
+    const z = Math.min(3, Math.floor(S.day / 25)), it = o.item === 'w' ? mkWeapon(pickType(WPN, z), o.rar) : mkArmor(pickType(ARM, z), o.rar);
     S.inv.push(it); log(t('🐪 Караван: ') + itemName(it));
     ui.showEvent({ e: itemEmoji(it), t: t('Обмін із караваном'), txt: itemHTML(it), b: [[t('Ок'), null]] });
   } else {

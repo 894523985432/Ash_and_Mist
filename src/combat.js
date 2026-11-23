@@ -7,6 +7,8 @@ import { S, item, maxHP, pDef, baseAP, log, locById, gainXP, resStr } from './st
 import { randomItem, itemName } from './items.js';
 import { addBag, rollLoot, lose } from './trip.js';
 import { npcBeaten, npcWon } from './npcs.js';
+import { raidSteal } from './day.js';
+import { markBoss } from './story.js';
 import { itemHTML } from './ui/format.js';
 import { petAttackDmg, petTakeShare, companion, petName } from './economy.js';
 import { PETS } from './data.js';
@@ -120,7 +122,7 @@ export function superAct() {
 
 export function flee() {
   if (S.fight.en.rare) { S.fight.flog.unshift(t('Від рідкісного нема куди тікати — він сам тікає 🙂')); return ui.render(); }
-  if (chance(C.fleeChance)) { S.fight = null; log(t('Втік із бою')); ui.go('loc'); ui.toast(t('Втік!')); }
+  if (chance(C.fleeChance)) { S.fight = null; log(t('Втік із бою')); if (S.trip?.base) { const lost = raidSteal(0.5); S.trip = null; ui.go('base'); return ui.toast(t('Втік! Мародери встигли винести: ') + (lost || '—')); } ui.go('loc'); ui.toast(t('Втік!')); }
   else { S.fight.flog.unshift(t('🏃 Втекти не вдалося!')); S.fight.ap = 0; endTurn(); }
 }
 
@@ -151,7 +153,7 @@ export function endTurn() {
   if (en.stun) { en.stun = false; F.flog.unshift(t`💫 ${en.n} оглушений і пропускає хід`); }
   else if (en.intent.t === 'flee') {
     S.fight = null; const xp = Math.ceil(en.xp * C.rareFleeXpMult); gainXP(xp);
-    ui.go('loc');
+    leaveFight();
     const what = en.trophy ? t('Трофей втрачено') : t('Здобич утекла разом із ним');
     return ui.showEvent({ e: en.e, t: t('Втік!'), txt: t`${en.n} розчинився в тумані. ${what}, але +${xp} XP за досвід.`, b: [[t('Ех'), null]] });
   } else {
@@ -173,9 +175,16 @@ export function endTurn() {
   newTurn(); ui.render();
 }
 
+/** Після бою: з вилазки — назад на локацію; біля бази — здобич одразу на склад. */
+function leaveFight() {
+  if (!S.trip?.base) return ui.go('loc');
+  const tp = S.trip; for (const k in tp.bag) S.res[k] += tp.bag[k];
+  tp.items.forEach(i => S.inv.push(i)); S.trip = null; ui.go('base');
+}
+
 function win() {
   ui.sfx('win');
-  const en = S.fight.en, L = locById(S.trip.loc), Lt = BAL.loot; S.fight = null; S.kills++;
+  const en = S.fight.en, L = locById(S.trip.loc) || { z: S.trip.z || 0 }, Lt = BAL.loot; S.fight = null; S.kills++;
   gainXP(en.xp);
   let txt = `+${en.xp} XP`;
   const got = addBag(rollLoot(en.loot)); if (Object.keys(got).length) txt += t('<br>Лут: ') + resStr(got);
@@ -185,7 +194,8 @@ function win() {
     if (chance(Lt.trophyStimChance)) { S.trip.bag.stim = (S.trip.bag.stim || 0) + 1; txt += t('<br>☕ +1 стимулятор'); }
   }
   if (en.npc) txt += '<br>' + npcBeaten(en.npc);
+  if (en.boss) { markBoss(en.boss); txt += t('<br>📜 Сюжетного ворога переможено!'); }
   if (chance(en.rare ? Lt.winItemChanceRare : Lt.winItemChance)) { const it = randomItem(L.z); S.trip.items.push(it); txt += '<br><br>' + itemHTML(it); }
-  log(t`Переміг: ${en.n}`); ui.go('loc');
+  log(t`Переміг: ${en.n}`); leaveFight();
   ui.showEvent({ e: '🏆', t: t('Перемога над «') + tr(en.n) + '»', txt, b: [[t('Далі'), null]] });
 }

@@ -13,8 +13,9 @@ import EVENTS from '../data/events.json' with { type: 'json' };
 import TUTORIAL from '../data/tutorial.json' with { type: 'json' };
 import PETS from '../data/pets.json' with { type: 'json' };
 import CODEX from '../data/codex.json' with { type: 'json' };
+import STORY from '../data/story.json' with { type: 'json' };
 
-export { RES, WPN, ARM, MON, RARE, BLD, NPCS, ART_DATA, BAL, EVENTS, TUTORIAL, PETS, CODEX };
+export { RES, WPN, ARM, MON, RARE, BLD, NPCS, ART_DATA, BAL, EVENTS, TUTORIAL, PETS, CODEX, STORY };
 export const ZONE = LOCATIONS.zones;
 export const LOCS = LOCATIONS.locations;
 export const RAR = BAL.rarity;

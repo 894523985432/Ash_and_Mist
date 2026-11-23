@@ -10,6 +10,8 @@ import { regenStock } from './trip.js';
 import { initNpcs, npcsDaily, npcNightRaid } from './npcs.js';
 import { rollEvent, dayModifiers, evNum } from './events.js';
 import { TEXTS, line } from './texts.js';
+import { startFight } from './combat.js';
+import { mkHuman } from './survivors.js';
 import { recordGame } from './settings.js';
 import { t } from './i18n.js';
 
@@ -38,7 +40,9 @@ export function newGame() {
 
 /** Добова витрата (з урахуванням сезону й події, якщо передати mods). */
 export function dailyConsume(mods) {
-  const c = { ...BAL.day.consume }; c.heat += BAL.day.nightHeat;
+  const D = BAL.day, c = { ...D.consume };
+  for (const r in D.perLvl || {}) c[r] = (c[r] || 0) + D.perLvl[r] * (S.lvl - 1); // дорослішаєш — їси й пʼєш більше
+  c.heat += D.nightHeat + (D.baseHeatPerLvl || 0) * Object.values(S.bld).reduce((a, b) => a + b, 0); // більша база — більше гріти
   for (const r in mods?.consume || {}) c[r] = (c[r] || 0) + mods.consume[r];
   c.heat = Math.ceil(c.heat * heatMult());
   const pc = petConsume(); for (const r in pc) c[r] = (c[r] || 0) + pc[r];
@@ -49,6 +53,33 @@ export function dailyConsumeText(mods) {
   return Object.entries(c).filter(([, v]) => v > 0).map(([r, v]) => `−${v}${RES[r][0]}`).join(' ');
 }
 
+/** Шанс нічного нальоту: росте з днями, стіни й ворона зменшують. */
+export function raidChance() {
+  const RD = BAL.raid;
+  const base = Math.min(RD.maxChance, RD.chance + RD.perDay * S.day) + evNum('raidAdd', 0);
+  return Math.max(0, base - bl('wall') * BLD.wall.raidReduce - petPerk('raidReduce').reduce((a, b) => a + b, 0));
+}
+
+/** Мародери забирають зі складу; повертає рядок втрат. */
+export function raidSteal(mult = 1) {
+  const RD = BAL.raid, keys = RD.targets.filter(k => S.res[k] > 0), lost = [];
+  const grow = 1 + RD.amountPerDay * S.day / 10;
+  for (let i = 0; i < RD.rolls && keys.length; i++) {
+    const k = pick(keys), n = Math.min(S.res[k], Math.round(rnd(...RD.amount) * grow * mult)); S.res[k] -= n; lost.push(RES[k][0] + n);
+  }
+  return lost.join(' ');
+}
+
+/** Зранку після тривоги: бій з мародерами біля бази. */
+export function raidMorning() {
+  if (!S.raidAlarm) return;
+  S.raidAlarm = false;
+  const RD = BAL.raid, z = Math.min(2, Math.floor(S.day / RD.zoneEvery));
+  ui.showEvent({ e: '🚨', t: t('Тривога!'), txt: t`Сигналізація на стінах здійняла шум: мародери лізуть на базу. Відіб'єш — забереш їхнє, не відіб'єш — обчистять склад.`,
+    b: [[t('Битися'), () => { S.trip = { loc: null, base: true, z, bag: {}, items: [], trophies: [] }; startFight(mkHuman(t(RD.name), z)); }],
+      [t('Сховатися'), () => { const lost = raidSteal(); if (lost) { log(t('🏴 Мародери винесли: ') + lost); ui.toast(t('Мародери винесли: ') + lost); } }]] });
+}
+
 export function sleep() {
   ui.sfx('sleep');
   const D = BAL.day, RD = BAL.raid, msgs = [];
@@ -56,10 +87,10 @@ export function sleep() {
   const consume = dailyConsume(mods); // рахуємо до зміни дня: сезон і тварини цього вечора
   const npcRaid = npcNightRaid();
   if (npcRaid) msgs.push(npcRaid);
-  else if (S.day >= RD.fromDay && chance(RD.chance + evNum('raidAdd', 0) - bl('wall') * BLD.wall.raidReduce - petPerk('raidReduce').reduce((a, b) => a + b, 0))) {
-    const keys = RD.targets.filter(k => S.res[k] > 0), lost = [];
-    for (let i = 0; i < RD.rolls && keys.length; i++) { const k = pick(keys), n = Math.min(S.res[k], rnd(...RD.amount)); S.res[k] -= n; lost.push(RES[k][0] + n); }
-    if (lost.length) msgs.push(t('🌙 Вночі хтось обчистив склад: ') + lost.join(' '));
+  else if (S.day >= RD.fromDay && chance(raidChance())) {
+    // Зі стінами спрацьовує тривога — зранку бій біля бази; без стін просто обчищають склад
+    if (bl('wall') >= RD.alarmWall) S.raidAlarm = true;
+    else { const lost = raidSteal(); if (lost) msgs.push(t('🌙 Вночі хтось обчистив склад: ') + lost); }
   }
   S.day++;
   npcsDaily();
@@ -95,7 +126,7 @@ export function sleep() {
   if (chance(BAL.flavor.systemMemoryChance)) { const m = line('system.memory'); if (m) evLines.push(`<div class="sys">${m}</div>`); }
   msgs.forEach(m => log(m)); log(t('☀️ Новий день.'));
   if (S.hp <= 0) { S.over = true; recordGame(S, true); }
-  ui.showEvent({ e: '🌅', t: t('День ') + S.day, txt: (evLines.length ? evLines.join('<br>') + '<br><br>' : '') + (msgs.length ? msgs.join('<br>') : t('Ніч минула спокійно.')) + t`<br><br><span class="mut">Витрата за добу: ${Object.entries(consume).filter(([, v]) => v > 0).map(([r, v]) => `−${v}${RES[r][0]}`).join(' ')}. Виробництво бази вже враховано.</span>`, b: [[t('Далі'), null]] });
+  ui.showEvent({ e: '🌅', t: t('День ') + S.day, txt: (evLines.length ? evLines.join('<br>') + '<br><br>' : '') + (msgs.length ? msgs.join('<br>') : t('Ніч минула спокійно.')) + t`<br><br><span class="mut">Витрата за добу: ${Object.entries(consume).filter(([, v]) => v > 0).map(([r, v]) => `−${v}${RES[r][0]}`).join(' ')}. Виробництво бази вже враховано.</span>`, b: [[t('Далі'), S.raidAlarm ? raidMorning : null]] });
   ui.go(S.over ? 'over' : 'base');
 }
 

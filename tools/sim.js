@@ -11,7 +11,7 @@
 //
 // Код завершується з кодом 1, якщо якась ціль балансу не виконана.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { S } from '../src/state.js';
+import { S, bagCap } from '../src/state.js';
 import { setUI } from '../src/hooks.js';
 import { BLD, LOCS, ZONE, WPN, MON, RARE, ARM, BAL, bldCost } from '../src/data.js';
 import { newGame, sleep, eat, heal, stim } from '../src/day.js';
@@ -163,7 +163,7 @@ function makeBot(st, stats) {
     let n = 0;
     while (S.trip && S.sily >= BAL.actions.searchSily && n++ < 40) {
       if (S.hp < maxHP() * st.retreatHp) { if (S.res.med && S.hp < maxHP() * 0.4) heal(); else break; }
-      if (bagCount() >= BAL.trip.bagCap) break;
+      if (bagCount() >= bagCap()) break;
       stats.searches++;
       search(); resolve();
       if (S.fight) fight();

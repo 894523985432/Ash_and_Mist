@@ -16,6 +16,8 @@ export const maxHP = () => P.hpBase + (S.lvl - 1) * P.hpPerLvl + (armor()?.hp ||
 export const pDef = () => Math.floor(S.lvl / P.defLvlDivisor) + (armor()?.def || 0);
 export const baseAP = () => P.apBase + P.apBonusLevels.filter(l => S.lvl >= l).length;
 export const maxSily = () => Math.max(P.silyMin, P.silyBase + bl('bed') * BLD.bed.sily - S.tired);
+/** Місткість рюкзака: базова + будівля «Рюкзак». */
+export const bagCap = () => BAL.trip.bagCap + bl('bag') * (BLD.bag?.cap || 0);
 export const xpNeed = () => P.xpBase + S.lvl * P.xpPerLvl;
 export const locById = id => LOCS.find(l => l.id === id);
 

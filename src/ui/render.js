@@ -2,6 +2,7 @@
 import { S } from '../state.js';
 import { setUI } from '../hooks.js';
 import { save } from '../save.js';
+import { storyCheck } from '../story.js';
 import { loadArt } from '../art.js';
 import { topBar, tabs, artBox } from './common.js';
 import { artKey } from '../art.js';
@@ -20,6 +21,7 @@ import { t } from '../i18n.js';
 const $ = s => document.querySelector(s);
 const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, menu: vMenu, art: vMenu, over: vOver };
 let EV = null;
+const EVQ = []; // черга вікон: нове не перекриває вже відкрите
 
 export function render() {
   const v = VIEWS[S.screen] || vBase;
@@ -35,13 +37,13 @@ export function go(s) {
   if (changed && ANIM[settings.anim]) { const a = $('#app'); a.classList.remove('enter'); void a.offsetWidth; a.classList.add('enter'); setTimeout(() => a.classList.remove('enter'), 400); }
 }
 
-export function showEvent(ev) { EV = ev; renderModal(); }
+export function showEvent(ev) { if (EV) EVQ.push(ev); else { EV = ev; renderModal(); } }
 
 function renderModal() {
   const m = $('#modal'); if (!EV) { m.innerHTML = ''; return; }
   m.innerHTML = t`<div class="modal"><div class="card">${EV.art && artKey(EV.art) ? artBox(EV.art, EV.e, 'sq evart') : `<div style="font-size:42px;text-align:center">${EV.e}</div>`}<h2 style="text-align:center">${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row" style="flex-direction:column;align-items:stretch">${EV.b.map((b, i) => t`<button class="${i === 0 ? 'pri' : ''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
   m.querySelectorAll('[data-evb]').forEach(btn => btn.onclick = () => {
-    const f = EV.b[+btn.dataset.evb][1]; EV = null; renderModal(); if (f) f(); render();
+    const f = EV.b[+btn.dataset.evb][1]; EV = null; if (f) f(); if (!EV && EVQ.length) EV = EVQ.shift(); renderModal(); storyCheck(); render();
   });
 }
 
@@ -79,7 +81,7 @@ export function mountUI(actions) {
     const b = e.target.closest('[data-act]');
     if (!b || b.disabled) return;
     const f = actions[b.dataset.act];
-    if (f) { sfx('click'); f(b.dataset.arg); }
+    if (f) { sfx('click'); f(b.dataset.arg); storyCheck(); }
     else console.warn(t('Невідома дія:'), b.dataset.act);
   });
 }

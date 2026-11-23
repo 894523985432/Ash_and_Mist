@@ -13,6 +13,7 @@ import { loadSettings, setSetting, settings, SETTINGS_KEY, RECORDS_KEY } from '.
 import { repair, petFollow, petRelease } from './economy.js';
 import { resInfo } from './ui/info.js';
 import { initAudio } from './audio.js';
+import { storyCheck, giveGoal } from './story.js';
 import { initStorage } from './storage.js';
 import { initPlatform } from './platform.js';
 import { newGame, sleep, eat, heal, stim } from './day.js';
@@ -41,7 +42,7 @@ const ACTIONS = {
   info: k => { const x = k === 'event' ? event() : season(); if (x) ui.toast(`${x.e} ${x.n}: ${x.d}`); },
   tutOk: id => { tutOk(id); render(); },
   tutOff: () => { tutOff(); render(); },
-  resInfo,
+  resInfo, giveGoal,
   baseTab: tab => { S.baseTab = tab; ui.go('base'); },
   repair, petFollow,
   petRelease: id => {
@@ -83,3 +84,4 @@ render();
 loadArtFiles().then(restoreArt);
 initAudio();
 initPlatform();
+storyCheck();

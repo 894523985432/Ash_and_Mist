@@ -2,13 +2,14 @@
 import { BAL, LOCS } from './data.js';
 import { rnd } from './util.js';
 import { ui } from './hooks.js';
-import { S, maxHP, log } from './state.js';
+import { S, maxHP, log, bagCap } from './state.js';
 import { t } from './i18n.js';
+import { raidSteal } from './day.js';
 
 export const bagCount = () => Object.values(S.trip.bag).reduce((a, b) => a + b, 0);
 
 export function addBag(o) {
-  const got = {}, cap = BAL.trip.bagCap;
+  const got = {}, cap = bagCap();
   for (const [k, v] of Object.entries(o)) { const room = cap - bagCount(), n = Math.min(v, room); if (n > 0) { S.trip.bag[k] = (S.trip.bag[k] || 0) + n; got[k] = n; } }
   return got;
 }
@@ -45,6 +46,12 @@ export function stockLabel(id) {
 
 export function lose(why) {
   ui.sfx('lose');
+  if (S.trip?.base) { // програв мародерам біля бази: обчищають склад
+    const lost = raidSteal();
+    S.trip = null; S.fight = null; S.hp = Math.max(1, Math.round(maxHP() * BAL.trip.loseHpPct));
+    log('💀 ' + why); ui.go('base');
+    return ui.showEvent({ e: '💀', t: t('Базу пограбовано'), txt: why + t('<br>Мародери забрали своє: ') + (lost || '—'), b: [['…', null]] });
+  }
   S.trip = null; S.fight = null; S.hp = Math.max(1, Math.round(maxHP() * BAL.trip.loseHpPct)); S.sily = 0;
   log('💀 ' + why + t(' Тебе дотягли додому, рюкзак втрачено.'));
   ui.go('base');

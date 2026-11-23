@@ -4,7 +4,7 @@ import { pick, chance } from './util.js';
 import { ui } from './hooks.js';
 import { S, item, maxHP, log, canPay, pay, useSily, bl } from './state.js';
 import { bldCostNow, missingNeeds, bldName, startCraft } from './economy.js';
-import { mkWeapon, mkArmor, itemName, itemEmoji } from './items.js';
+import { mkWeapon, mkArmor, itemName, itemEmoji, pickType } from './items.js';
 import { itemHTML } from './ui/format.js';
 import { t } from './i18n.js';
 
@@ -30,7 +30,7 @@ export function craft(kind) {
   const lv = Math.min(S.bld.shop, Math.max(...Object.keys(C.rarityByShopLvl).map(Number)));
   const RR = C.rarityByShopLvl[lv];
   const rar = chance(RR.mainChance) ? RR.main : RR.alt;
-  startCraft(kind, rar, pick(Object.keys(kind === 'w' ? WPN : ARM)));
+  startCraft(kind, rar, pickType(kind === 'w' ? WPN : ARM, Math.min(3, S.bld.shop)));
 }
 
 export function dismantle(id) {

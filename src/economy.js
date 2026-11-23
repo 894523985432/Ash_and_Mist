@@ -58,6 +58,7 @@ export function morningPower(msgs) {
       const up = {}; for (const r in U.perLvl) up[r] = U.perLvl[r] * (gl - U.fromLvl + 1);
       if (canPay(up)) pay(up); else { lv = U.fromLvl - 1; msgs.push(t`🥬 Теплиці бракує ${resStr(up)} — родить лише як грядки.`); }
     }
+    for (const r in G.irrigate || {}) S.res[r] -= G.irrigate[r] * gl; // поливання
     for (const r in G.prod) S.res[r] += G.prod[r] * lv;
   }
   return out;
@@ -225,6 +226,7 @@ export function forecast(consume, mods) {
   const gl = bl('garden');
   if (gl) {
     const U = BLD.garden.upkeep; add(inc, 'food', BLD.garden.prod.food * gl);
+    for (const r in BLD.garden.irrigate || {}) add(out, r, BLD.garden.irrigate[r] * gl);
     if (gl >= U.fromLvl) for (const r in U.perLvl) add(out, r, U.perLvl[r] * (gl - U.fromLvl + 1));
   }
   for (const p of (S.pets || []).filter(isAdult)) for (const [r, v] of Object.entries(PETS[p.type].perk?.prod || {})) add(inc, r, v);

@@ -17,8 +17,15 @@ export function rollRar(z) {
   for (const k in w) { if ((r -= w[k]) < 0) return k; }
   return 'c';
 }
+/** Випадковий тип речі рівня зони: переважно свого рівня, іноді на рівень нижче. */
+export function pickType(tbl, z) {
+  const keys = Object.keys(tbl), tier = k => tbl[k].tier ?? 0;
+  const own = keys.filter(k => tier(k) === Math.min(z, 3)), low = keys.filter(k => tier(k) < z && tier(k) >= z - (BAL.loot.itemTierSpread ?? 1));
+  const pool = own.length && (!low.length || chance(0.7)) ? own : low.length ? low : keys;
+  return pick(pool);
+}
 export function randomItem(z) {
-  return chance(BAL.loot.itemWeaponChance) ? mkWeapon(pick(Object.keys(WPN)), rollRar(z)) : mkArmor(pick(Object.keys(ARM)), rollRar(z));
+  return chance(BAL.loot.itemWeaponChance) ? mkWeapon(pickType(WPN, z), rollRar(z)) : mkArmor(pickType(ARM, z), rollRar(z));
 }
 export const itemName = it => (it.k === 'w' ? WPN[it.type].n : ARM[it.type].n);
 export const itemEmoji = it => (it.k === 'w' ? WPN[it.type].e : ARM[it.type].e);

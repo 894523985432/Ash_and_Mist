@@ -1,5 +1,5 @@
 import { ZONE, BAL } from '../data.js';
-import { S, locById, resStr } from '../state.js';
+import { S, locById, resStr, bagCap } from '../state.js';
 import { bagCount } from '../trip.js';
 import { stockHTML } from './common.js';
 import { itemEmoji } from '../items.js';
@@ -15,7 +15,7 @@ export function vLoc() {
     ${lineStable(t`locations.${L.id}`, S.day + L.id) ? t`<p style="margin:4px 0 8px"><i>${lineStable(t`locations.${L.id}`, S.day + L.id)}</i></p>` : ''}
     ${S.hp < maxHP() * BAL.flavor.dangerHpPct ? t`<div class="sys">${lineStable('system.danger', S.day, {}, t('[Система] Мало HP — час додому.'))}</div>` : ''}
     <div class="mut">${ZONE[L.z].n} зона</div>${stockHTML(L.id)}
-    <h3>Рюкзак ${bagCount()}/${BAL.trip.bagCap}</h3><div>${resStr(tp.bag)} ${tp.items.map(i => itemEmoji(i)).join(' ')} ${tp.trophies.map(() => '✨').join('')}</div>
+    <h3>Рюкзак ${bagCount()}/${bagCap()}</h3><div>${resStr(tp.bag)} ${tp.items.map(i => itemEmoji(i)).join(' ')} ${tp.trophies.map(() => '✨').join('')}</div>
     <div class="row" style="margin-top:10px">
       <button class="pri" ${act('search')} ${dis(S.sily >= A.searchSily)}>🔍 Обшукати (${A.searchSily}⚡)</button>
       <button ${act('heal')} ${dis(S.res.med)}>💊</button><button ${act('stim')} ${dis(S.res.stim)}>☕</button>
