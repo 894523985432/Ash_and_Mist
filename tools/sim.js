@@ -22,6 +22,8 @@ import { item, maxHP, pDef, baseAP, canPay } from '../src/state.js';
 import { bagCount, lootMult } from '../src/trip.js';
 import { travelCost } from '../src/events.js';
 import { bldCostNow, missingNeeds, repair, repairCost } from '../src/economy.js';
+import { storyCheck, chapter, goalDone, giveGoal, chapterNo, storyStarted } from '../src/story.js';
+import { zoneOpen } from '../src/map.js';
 
 /* ---------- параметри ---------- */
 const CFG = JSON.parse(readFileSync(new URL('./sim.config.json', import.meta.url), 'utf-8'));
@@ -65,7 +67,7 @@ function newStats() {
     lvlAt: {},                   // день → сума рівнів
     fights: [],                  // {z, lvl, res: 'win'|'lose'|'flee', rare}
     trips: [],                   // {day, z, life, all, sily, lost}
-    rareSeen: 0, searches: 0, builds: {},
+    rareSeen: 0, searches: 0, builds: {}, chapters: [],
     deathCause: { water: 0, food: 0, heat: 0 }, deathBld: [],  // чого бракувало в день смерті; скільки рівнів будівель мав
   };
 }
@@ -78,7 +80,7 @@ function makeBot(st, stats) {
     const L = ev.b.map(b => b[0]);
     const find = p => L.findIndex(l => l.startsWith(p));
     // (за підписами кнопок, а не емодзі: 🔪 — це ще й ніж у схованці)
-    if (find('Забрати') >= 0 && find('Лишити') >= 0) return (S.pets.length < (st.pets || 0) && S.res.food >= 5 && S.res.water >= 5) ? find('Забрати') : find('Лишити');
+    if (find('Забрати') >= 0 && find('Лишити') >= 0) return (S.pets.length < (st.pets || 0) && S.res.food >= 50 && S.res.water >= 50) ? find('Забрати') : find('Лишити');
     if (find('Піти') >= 0) { const i = find('Продати'); if (i >= 0) return i; const j = find('Обміняти'); return j >= 0 ? j : 0; }
     if (find('Битися') >= 0) {
       const pay = find('Віддати'), fight = find('Битися');
@@ -140,12 +142,28 @@ function makeBot(st, stats) {
 
   // Що зараз найпотрібніше (для вибору локації)
   function need(r) {
-    const target = { water: 8, food: 8, heat: 8, wood: 10 + Math.max(0, 8 - S.res.heat), metal: 8, parts: 8, fuel: S.bld.gen ? 8 : 2, med: 3 }[r] ?? 2;
+    const target = { water: 80, food: 80, heat: 60, wood: 100 + Math.max(0, 60 - S.res.heat), metal: 80, parts: 80, fuel: S.bld.gen ? 60 : 20, med: 3 }[r] ?? 20; // ×10 після етапу 8
     return Math.max(0.2, (target - S.res[r]) / target + 0.3);
   }
 
+  // Сюжетна ціль: локація з visit/boss, якщо вона відкрита і бот уже дорос до її зони
+  function storyLoc() {
+    if (!st.story) return null;
+    const c = chapter(); if (!c || !storyStarted()) return null;
+    for (const g of c.goals) {
+      if (goalDone(g)) continue;
+      if (g.type !== 'visit' && g.type !== 'boss') return null; // спершу інші цілі (рівень, будівлі)
+      const L = LOCS.find(l => l.id === g.loc);
+      if (!L || !S.open.includes(L.id) || !zoneOpen(L.z)) return null;
+      if (zoneOfLevel(S.lvl) < L.z || S.hp < maxHP() * 0.9 || S.sily < travelCost(L.z) + 2) return null;
+      return L;
+    }
+    return null;
+  }
+
   function pickLocation() {
-    const open = LOCS.filter(l => S.open.includes(l.id));
+    const sl = storyLoc(); if (sl) return sl;
+    const open = LOCS.filter(l => S.open.includes(l.id) && zoneOpen(l.z));
     let z = st.zone === 'near' ? 0 : st.zone === 'far' ? Math.max(...open.map(l => l.z)) : zoneOfLevel(S.lvl);
     // обережний не лізе в небезпечнішу зону пораненим
     if (st.zone === 'level' && z > 0 && S.hp < maxHP() * (st.riskyHp ?? 0)) z--;
@@ -184,41 +202,48 @@ function makeBot(st, stats) {
     const B = BLD[k]; if (S.bld[k] >= B.max || S.broken?.[k] || missingNeeds(k).length) return false;
     const c = bldCostNow(k, S.bld[k]);
     if (!canPay(c)) return false;
-    if (c.heat && S.res.heat - c.heat < 4) return false;
+    if (c.heat && S.res.heat - c.heat < 40) return false;
     // не проїдати їжу/воду на будівництво, якщо їх мало
-    if ((c.water && S.res.water - c.water < 4) || (c.food && S.res.food - c.food < 4)) return false;
+    if ((c.water && S.res.water - c.water < 40) || (c.food && S.res.food - c.food < 40)) return false;
     // дрова — це тепло на ніч: не будуємо з них, якщо в пічці порожньо
-    if (c.wood && S.res.wood - c.wood + S.res.heat < 6) return false;
+    if (c.wood && S.res.wood - c.wood + S.res.heat < 50) return false;
     return true;
   };
   function buildStep(homeDay = false) {
     if (!st.build) return;
     const reserve = homeDay ? 0 : travelCost(0) + 3;
     for (const k of Object.keys(S.broken || {})) if (canPay(repairCost(k)) && S.sily > reserve) { repair(k); stats.repairs = (stats.repairs || 0) + 1; }
-    for (const k of ORDER) {
+    // сюжетна будівля — першою в черзі
+    const sc = st.story && storyStarted() ? chapter()?.goals.find(g => g.type === 'build' && !goalDone(g)) : null;
+    const saving = sc && !canBuild(sc.bld) && !missingNeeds(sc.bld).length; // відкладаємо на сюжетну будівлю
+    for (const k of sc ? [sc.bld, ...ORDER] : ORDER) {
+      if (saving && k !== sc.bld && !['rain', 'garden', 'heater'].includes(k)) continue;
       if (!canBuild(k)) continue;
       if (S.sily - BAL.actions.buildSily < reserve && S.day > 1) break;
       const before = S.bld[k]; build(k);
       if (S.bld[k] > before) stats.builds[k] = (stats.builds[k] || 0) + 1;
     }
     if (S.bld.shop && !S.job && S.sily > reserve + 2) {
-      if (canPay(BAL.craft.weapon) && S.res.metal > 6) craft('w');
-      else if (canPay(BAL.craft.armor) && S.res.metal > 6) craft('a');
+      if (canPay(BAL.craft.weapon) && S.res.metal > 60) craft('w');
+      else if (canPay(BAL.craft.armor) && S.res.metal > 60) craft('a');
       resolve();
     }
   }
 
   function day() {
+    storyCheck(); resolve();
+    const c = chapter();
+    if (st.story && c && storyStarted()) c.goals.forEach((g, i) => { if (g.type === 'give' && !goalDone(g) && S.res[g.res] >= g.amount + 30) giveGoal(i); });
     resolve();
     manageGear();
     // Багато чого можна збудувати — день удома на будівництві
     buildStep(st.build && new Set(ORDER.filter(canBuild)).size >= 2);
-    if (S.res.food >= st.eatSurplus && S.res.water >= st.eatSurplus) eat();
+    if (S.res.food >= st.eatSurplus * 10 + 20 && S.res.water >= st.eatSurplus * 10 + 20) eat();
     if (S.hp < maxHP() * 0.6 && S.res.med) heal();
     if (S.res.stim && S.sily < 6) stim();
     const hidden = LOCS.some(l => !S.open.includes(l.id));
     if (hidden && S.sily >= BAL.actions.scoutSily + travelCost(0) + 2 && (S.day % 3 === 0 || S.lvl >= 4)) { scout(); resolve(); }
-    trip();
+    if (!(st.homeAfter && S.day > st.homeAfter)) trip();
     manageGear();
     buildStep();
   }
@@ -238,7 +263,7 @@ function runStrategy(name, st) {
       bot.day();
       if (TRACE && g === 0) console.log(`  [${name}] д${S.day} рів${S.lvl} ❤️${S.hp}/${maxHP()} ⚡${S.sily} ` + Object.entries(S.res).map(([k, v]) => k[0] + k[1] + v).join(' ') + ' | ' + Object.entries(S.bld).filter(([, v]) => v).map(([k, v]) => k + v).join(' '));
       const dayNo = S.day;
-      sleep();
+      sleep(); bot.resolve(); storyCheck();
       for (const r of ['water', 'food', 'heat']) if (S.starve[r]) inc(stats.shortage[r], dayNo);
       bot.resolve();
       if (S.over) {
@@ -249,6 +274,8 @@ function runStrategy(name, st) {
       }
     }
     stats.deathDays.push(died ? S.day : DAYS + 1);
+    stats.chapters.push(chapterNo() - 1);
+    { const c = chapter(), g = c && storyStarted() && c.goals.find(x => !goalDone(x)); if (g) (stats.stuck ||= {})[g.n] = ((stats.stuck ||= {})[g.n] || 0) + 1; }
   }
   return stats;
 }
@@ -296,11 +323,11 @@ for (const [name, st] of STRATS) results[name] = runStrategy(name, st);
 
 // 1. Виживання
 console.log('■ Виживання');
-console.log(table(['Стратегія', 'Медіана дня смерті', 'Середній', `Дожили до ${DAYS}`, 'Рів. д5', 'Рів. д10', 'Рів. д20', 'Рів. д30'],
+console.log(table(['Стратегія', 'Медіана дня смерті', 'Середній', `Дожили до ${DAYS}`, 'Рів. д10', 'Рів. д30', 'Рів. д60', 'Рів. д90', 'Глав'],
   STRATS.map(([n]) => {
-    const R = results[n], lv = d => f1(R.lvlAt[d] / R.alive[d]);
+    const R = results[n], lv = d => (R.alive[d] ? f1(R.lvlAt[d] / R.alive[d]) : '—');
     const med = median(R.deathDays);
-    return [n, med > DAYS ? `>${DAYS}` : med, f1(avg(R.deathDays)), pct(R.deathDays.filter(d => d > DAYS).length / GAMES), lv(5), lv(10), lv(20), lv(30)];
+    return [n, med > DAYS ? `>${DAYS}` : med, f1(avg(R.deathDays)), pct(R.deathDays.filter(d => d > DAYS).length / GAMES), lv(10), lv(30), lv(60), lv(90), f1(avg(R.chapters))];
   })));
 
 // 1б. Причини смерті
@@ -312,7 +339,7 @@ console.log(table(['Стратегія', 'Смертей', '💧', '🍖', '🔥
 
 // 2. Дефіцит ресурсів
 console.log('\n■ Частка живих ігор з нестачею ресурсу (вода / їжа / тепло)');
-const dayCols = [3, 5, 7, 10, 15, 20, 30, 40].filter(d => d <= DAYS);
+const dayCols = [3, 5, 10, 20, 30, 45, 60, 80, 100, 120].filter(d => d <= DAYS);
 console.log(table(['Стратегія', ...dayCols.map(d => 'д' + d)], STRATS.map(([n]) => {
   const R = results[n];
   return [n, ...dayCols.map(d => R.alive[d] ? ['water', 'food', 'heat'].map(k => Math.round((R.shortage[k][d] || 0) / R.alive[d] * 100)).join('/') : '—')];
@@ -335,7 +362,7 @@ console.log(`\n■ Рідкісні монстри: ${pct(totalRare / totalSearc
 
 // 5. Окупність зон
 const allTrips = Object.values(results).flatMap(r => r.trips);
-const buckets = [[1, 3], [4, 6], [7, 9], [10, 12], [13, 15], [16, 20], [21, 30], [31, 40]].filter(([a]) => a <= DAYS);
+const buckets = [[1, 5], [6, 10], [11, 20], [21, 40], [41, 60], [61, 90], [91, 120]].filter(([a]) => a <= DAYS);
 const yieldTable = key => table(['Зона', ...buckets.map(([a, b]) => `д${a}-${b}`)], ZONE.map((Z, z) => [Z.n, ...buckets.map(([a, b]) => {
   const t = allTrips.filter(x => x.z === z && x.day >= a && x.day <= b);
   return t.length >= 5 ? f1(avg(t.map(x => x.lost ? 0 : x[key]))) : '—';
@@ -344,14 +371,14 @@ console.log('\n■ Середній лут за вилазку, усі ресу�
 console.log(yieldTable('all'));
 console.log(`\n■ З нього на виживання (💧🍖🔥🪵); добова витрата — ${CONSUME}`);
 console.log(yieldTable('life'));
-const pay = payoffEnd(allTrips);
 
 // 6. Цілі
 const G = CFG.goals, checks = [];
 const inRange = (x, [a, b]) => x >= a && x <= b;
 if (results.nobuild) { const m = median(results.nobuild.deathDays); checks.push([`Без будівель гине на день ${G.noBuildDeathDay.join('–')}`, m > DAYS ? `>${DAYS}` : m, inRange(m, G.noBuildDeathDay)]); }
 if (results[G.smartStrategy]) { const m = median(results[G.smartStrategy].deathDays); checks.push([`«${G.smartStrategy}» живе ${G.smartMedianDay}+ днів (медіана)`, m > DAYS ? `>${DAYS}` : m, m >= G.smartMedianDay]); }
-checks.push([`Близька зона стає гіршою за середню на день ${G.nearPayoffEndDay.join('–')}`, isNaN(pay.day) ? 'ніколи' : pay.day, inRange(pay.day, G.nearPayoffEndDay)]);
+if (results.turtle) { const m = median(results.turtle.deathDays); checks.push([`Хто сидить удома після ${STRATS.find(s => s[0] === 'turtle')[1].homeAfter} дня — гине до ${G.turtleMaxDay} дня`, m > DAYS ? `>${DAYS}` : m, m <= G.turtleMaxDay]); }
+if (results[G.smartStrategy] && G.smartChapters) { const c = avg(results[G.smartStrategy].chapters); checks.push([`«${G.smartStrategy}» проходить у середньому ${G.smartChapters}+ глав`, f1(c), c >= G.smartChapters]); }
 ZONE.forEach((Z, z) => {
   const wr = winrate(allFights.filter(f => f.z === z && !f.rare && atLevel(f)));
   checks.push([`Вінрейт ${Z.n.toLowerCase()} зони на своєму рівні ${G.winrate[z].map(pct).join('–')}`, pct(wr), inRange(wr, G.winrate[z])]);

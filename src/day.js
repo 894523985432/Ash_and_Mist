@@ -101,6 +101,7 @@ export function sleep() {
   petsMorning(msgs);
   // споживання (тепло з урахуванням сезону, плюс тварини)
   for (const r in consume) S.res[r] -= consume[r];
+  if (BAL.day.heatCap && S.res.heat > BAL.day.heatCap) S.res.heat = BAL.day.heatCap; // тепло не накопичиш без меж: надлишок вистигає
   if (S.res.heat < 0 && S.res.wood > 0) { const b = Math.min(S.res.wood, -S.res.heat); S.res.wood -= b; S.res.heat += b; msgs.push(t`🪵 Спалив ${b} дерева в пічці, щоб не замерзнути.`); }
   // Нестача: шкода росте з кожним днем поспіль без ресурсу
   let pen = 0, dmg = 0;

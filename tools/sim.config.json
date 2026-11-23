@@ -1,36 +1,106 @@
 {
-  "games": 300,
-  "days": 40,
+  "games": 150,
+  "days": 120,
   "seed": 12345,
-
   "strategies": {
     "cautious": {
       "d": "Обережна: будує, ходить у зону під свій рівень, тікає при малому HP, платить мито",
-      "build": true, "zone": "level", "riskyHp": 0.75, "retreatHp": 0.45, "fleeHp": 0.3, "payToll": true, "eatSurplus": 4, "pets": 1
+      "build": true,
+      "zone": "level",
+      "riskyHp": 0.75,
+      "retreatHp": 0.45,
+      "fleeHp": 0.3,
+      "payToll": true,
+      "eatSurplus": 4,
+      "pets": 1,
+      "story": true
     },
     "greedy": {
       "d": "Жадібна: будує, ходить у найдальшу відкриту зону, обшукує до останнього",
-      "build": true, "zone": "far", "retreatHp": 0.2, "fleeHp": 0, "payToll": false, "eatSurplus": 2, "pets": 1
+      "build": true,
+      "zone": "far",
+      "retreatHp": 0.2,
+      "fleeHp": 0,
+      "payToll": false,
+      "eatSurplus": 2,
+      "pets": 1,
+      "story": true
     },
     "near": {
       "d": "Тільки близька зона",
-      "build": true, "zone": "near", "retreatHp": 0.35, "fleeHp": 0.25, "payToll": true, "eatSurplus": 4, "pets": 1
+      "build": true,
+      "zone": "near",
+      "retreatHp": 0.35,
+      "fleeHp": 0.25,
+      "payToll": true,
+      "eatSurplus": 4,
+      "pets": 1,
+      "story": true
     },
     "nobuild": {
       "d": "Розумна гра, але без жодної будівлі",
-      "build": false, "zone": "level", "riskyHp": 0.75, "retreatHp": 0.45, "fleeHp": 0.3, "payToll": true, "eatSurplus": 4
+      "build": false,
+      "zone": "level",
+      "riskyHp": 0.75,
+      "retreatHp": 0.45,
+      "fleeHp": 0.3,
+      "payToll": true,
+      "eatSurplus": 4
+    },
+    "turtle": {
+      "d": "Черепаха: відбудовується, а з 20 дня сидить удома й нікуди не ходить",
+      "build": true,
+      "zone": "level",
+      "riskyHp": 0.75,
+      "retreatHp": 0.45,
+      "fleeHp": 0.3,
+      "payToll": true,
+      "eatSurplus": 4,
+      "homeAfter": 20
     }
   },
-
-  "zoneForLevel": [1, 4, 7],
-
-  "buildOrder": ["rain", "garden", "gen", "heater", "bed", "rain", "wall", "gen", "heater", "shop", "garden", "solar", "bed", "wall", "solar", "heater", "gen", "garden", "rain", "solar", "wall", "shop"],
-
+  "zoneForLevel": [1, 4, 7, 11],
+  "buildOrder": [
+    "rain",
+    "garden",
+    "heater",
+    "bag",
+    "bed",
+    "rain",
+    "wall",
+    "garden",
+    "gen",
+    "heater",
+    "shop",
+    "rain",
+    "bag",
+    "solar",
+    "garden",
+    "wall",
+    "bed",
+    "heater",
+    "shop",
+    "solar",
+    "gen",
+    "rain",
+    "garden",
+    "bag",
+    "wall",
+    "solar",
+    "heater",
+    "shop",
+    "garden",
+    "rain",
+    "bed",
+    "bag",
+    "solar"
+  ],
   "goals": {
-    "noBuildDeathDay": [6, 9],
+    "noBuildDeathDay": [8, 15],
     "smartStrategy": "cautious",
-    "smartMedianDay": 30,
-    "nearPayoffEndDay": [8, 12],
-    "winrate": [[0.85, 0.95], [0.6, 0.8], [0.4, 0.6]]
+    "smartMedianDay": 100,
+    "smartChapters": 2,
+    "turtleMaxDay": 70,
+    "winrate": [[0.85, 0.95], [0.65, 0.85], [0.5, 0.7], [0.4, 0.65]]
   }
 }
