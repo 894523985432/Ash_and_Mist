@@ -51,7 +51,7 @@ export function mkBoss(id) {
 export function markVisit(locId) { st().visited[locId] = true; }
 export function markBoss(id) { st().bosses[id] = true; log(t`📜 Переможено: ${tr(STORY.bosses[id].n)}`); }
 
-const pTxt = lines => lines.map(l => (l.startsWith('[Система]') ? `<div class="sys">${tr(l)}</div>` : `<p style="margin:0 0 8px">${tr(l)}</p>`)).join('');
+const pTxt = lines => lines.map(l => (l.startsWith(t('[Система]')) ? `<div class="sys">${tr(l)}</div>` : `<p style="margin:0 0 8px">${tr(l)}</p>`)).join('');
 
 function reward(R) {
   const out = [];

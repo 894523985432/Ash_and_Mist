@@ -17,6 +17,7 @@ import { sfx, playMusic, musicFor } from '../audio.js';
 import { vOver } from './over.js';
 import { tutorialCard } from './tutorial.js';
 import { t } from '../i18n.js';
+import { isWide, onWideChange, sideLeft, sideRight, onKey, initTooltips } from './desktop.js';
 
 const $ = s => document.querySelector(s);
 const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, menu: vMenu, art: vMenu, over: vOver };
@@ -25,7 +26,11 @@ const EVQ = []; // черга вікон: нове не перекриває в�
 
 export function render() {
   const v = VIEWS[S.screen] || vBase;
-  $('#app').innerHTML = topBar() + tutorialCard(S.screen) + v() + tabs();
+  const wide = isWide(), app = $('#app');
+  app.classList.toggle('wide', wide); document.documentElement.classList.toggle('wide', wide);
+  app.innerHTML = wide
+    ? sideLeft() + t`<main class="dmain" data-screen="${S.screen}">${v()}</main>` + sideRight()
+    : topBar() + tutorialCard(S.screen) + v() + tabs();
   playMusic(musicFor(S.screen, S));
   const ai = $('#artin'); if (ai) ai.onchange = e => loadArt(e.target.files);
   save();
@@ -41,7 +46,7 @@ export function showEvent(ev) { if (EV) EVQ.push(ev); else { EV = ev; renderModa
 
 function renderModal() {
   const m = $('#modal'); if (!EV) { m.innerHTML = ''; return; }
-  m.innerHTML = t`<div class="modal"><div class="card">${EV.art && artKey(EV.art) ? artBox(EV.art, EV.e, 'sq evart') : `<div style="font-size:42px;text-align:center">${EV.e}</div>`}<h2 style="text-align:center">${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row" style="flex-direction:column;align-items:stretch">${EV.b.map((b, i) => t`<button class="${i === 0 ? 'pri' : ''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
+  m.innerHTML = t`<div class="modal"><div class="card">${EV.art && artKey(EV.art) ? artBox(EV.art, EV.e, 'sq evart') : t`<div style="font-size:42px;text-align:center">${EV.e}</div>`}<h2 style="text-align:center">${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row" style="flex-direction:column;align-items:stretch">${EV.b.map((b, i) => t`<button class="${i === 0 ? 'pri' : ''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
   m.querySelectorAll('[data-evb]').forEach(btn => btn.onclick = () => {
     const f = EV.b[+btn.dataset.evb][1]; EV = null; if (f) f(); if (!EV && EVQ.length) EV = EVQ.shift(); renderModal(); storyCheck(); render();
   });
@@ -71,6 +76,10 @@ function applySettings(s) {
 export function mountUI(actions) {
   setUI({ render, go, showEvent, toast, shake, sfx });
   onSettings(applySettings); applySettings(settings);
+  // ПК: гарячі клавіші, підказки при наведенні, перебудова при зміні ширини вікна
+  document.addEventListener('keydown', e => { onKey(e, actions); });
+  initTooltips(); onWideChange(() => render());
+  if (window.desktop) document.documentElement.classList.add('desktop-app');
   // Повзунки налаштувань (гучність): data-set="ключ"
   $('#app').addEventListener('input', e => {
     const k = e.target.dataset?.set; if (!k) return;

@@ -5,6 +5,7 @@ import { dayModifiers, offerText, season } from '../events.js';
 import { bldCostNow, missingNeeds, bldName, repairCost, heatMult, isAdult, petName, petMaxHp, companion } from '../economy.js';
 import { act, dis, artBox, costHTML } from './common.js';
 import { artKey } from '../art.js';
+import { isWide } from './desktop.js';
 import { chapter, chapterNo, goalDone, goalsHTML, storyStarted, storyFinished } from '../story.js';
 
 const petArt = p => (isAdult(p) ? ['pet_' + p.type] : ['pet_' + p.type + '_baby', 'pet_' + p.type]);
@@ -28,13 +29,13 @@ export function vBase() {
   return seg + ({ home: vHome, build: vBuild, shop: vShop, pets: vPets }[tab])();
 }
 
-function storyCard() {
+export function storyCard() {
   const c = chapter();
   if (storyFinished()) return t`<div class="card story"><h2>📜 Сюжет пройдено</h2><div class="mut">Місто живе далі. Грай скільки завгодно.</div></div>`;
   if (!c) return '';
   if (!storyStarted()) return t`<div class="card story"><h2>📜 Глава ${chapterNo()}: ${tr(c.n)}</h2><div class="mut">Почнеться з ${c.fromDay} дня.</div></div>`;
   const give = c.goals.map((g, i) => (g.type === 'give' && !goalDone(g) ? t`<button class="sm" ${act('giveGoal', i)} ${dis((S.res[g.res] || 0) >= g.amount)}>📦 Здати ${RES[g.res][0]}${g.amount}</button>` : '')).join('');
-  return t`<div class="card story"><h2>📜 Глава ${chapterNo()}: ${tr(c.n)}</h2>${goalsHTML(c)}${give ? `<div class="row">${give}</div>` : ''}</div>`;
+  return t`<div class="card story"><h2>📜 Глава ${chapterNo()}: ${tr(c.n)}</h2>${goalsHTML(c)}${give ? t`<div class="row">${give}</div>` : ''}</div>`;
 }
 
 function vHome() {
@@ -45,7 +46,7 @@ function vHome() {
   return t`${artBox(BAL.baseLooks.filter(l => l.min <= look.min).map(l => l.key).reverse(), look.e, '', t`${look.n} · покращень: ${look.sum}${fullSet ? t(' · 🏆 трофейна стіна') : ''}`)}
   ${fullSet ? t`<div class="card" style="margin-top:10px"><h2>🏆 Трофейна стіна</h2>${artBox('base_trophy', '🏆', 'sq', t('Уся колекція зібрана'))}<div class="mut" style="margin-top:6px">Ти зібрав усі ${trophyTotal()} трофеїв рідкісних істот. Вижилі про це пліткують.</div></div>` : ''}
   ${caravan}
-  ${storyCard()}
+  ${isWide() ? '' : storyCard()}
   <div class="card" style="margin-top:10px"><h2>Дім</h2>
     <div class="row">
       <button ${act('eat')} ${dis(S.eaten < E.max && canPay(E.cost))}>🍖 Поїсти досхочу (+${E.sily}⚡) ${costHTML(E.cost)} <span class="mut">${E.max - S.eaten}/${E.max}</span></button>
@@ -55,7 +56,7 @@ function vHome() {
     </div>
     <div class="mut" style="margin-top:6px">Щодоби зараз: ${dailyConsumeText(dayModifiers())}${hm > 1 ? t` (${season().n.toLowerCase()}: тепла ×${String(hm).replace('.', ',')})` : ''}. Нестача → −${D.shortageHp} HP (і ще −${D.shortageHpGrowth} за кожен наступний день поспіль)${D.noHealOnShortage ? t(', сон не лікує') : ''}. Брак тепла добирається деревом із пічки.</div>
   </div>
-  <div class="card"><h2>Журнал</h2><div class="log">${S.log.map(l => t`<div>${l}</div>`).join('')}</div></div>`;
+  ${isWide() ? '' : t`<div class="card"><h2>Журнал</h2><div class="log">${S.log.map(l => t`<div>${l}</div>`).join('')}</div></div>`}`;
 }
 
 /** Що будівля дає на поточному/наступному рівні — коротко. */

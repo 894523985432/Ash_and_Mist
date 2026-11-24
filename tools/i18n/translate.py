@@ -43,7 +43,7 @@ def ask(url, prompt, schema, temp=0.2, timeout=600):
         return json.loads(json.loads(r.read())['choices'][0]['message']['content'])
 
 
-KEEP = {'Українська'}  # назви мов лишаються рідною мовою
+KEEP = {'Українська', '[Система]'}  # назви мов лишаються рідною мовою
 
 
 def problems(src, en):

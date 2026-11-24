@@ -2,3 +2,4 @@ node_modules/
 dist/
 tools/art/_variants/
 dist-apk/
+dist-desktop/

@@ -24,11 +24,12 @@ export function vMenu() {
     ${toggle('vibro', t('📳 Вібрація'))}
     ${choice('lang', t('🌐 Мова'), LANGS)}
     ${choice('font', t('🔠 Шрифт'), Object.keys(FONT_SIZES).map(k => [k, { s: t('Малий'), m: t('Звичайний'), l: t('Великий'), xl: t('Дуже великий') }[k]]))}
+    <div class="set"><span>${t('🖥️ Повний екран')}</span><button class="sm" ${act('fullscreen')}>${t('Перемкнути')} <kbd>F11</kbd></button></div>
     ${choice('anim', t('✨ Анімації'), [['normal', t('Звичайні')], ['fast', t('Швидкі')], ['off', t('Вимк.')]])}
   </div>
   <div class="card"><h2>💾 Збереження</h2><div class="mut">Гра зберігається сама після кожної дії. ${SLOTS} слоти — окремі ігри.</div>
     <div style="margin:8px 0">${slots}</div>
-    <div class="row"><button ${act('exportSave')}>📤 Скопіювати резервну копію</button><button ${act('importOpen')}>📥 Відновити з копії</button><button ${act('newGameConfirm')}>🔄 Нова гра в цьому слоті</button></div>
+    <div class="row"><button ${act('exportSave')}>${window.desktop ? t('💾 Зберегти копію у файл') : t('📤 Скопіювати резервну копію')}</button><button ${act('importOpen')}>${window.desktop ? t('📂 Відкрити копію з файлу') : t('📥 Відновити з копії')}</button><button ${act('newGameConfirm')}>🔄 Нова гра в цьому слоті</button></div>
     <div class="mut" style="margin-top:6px">Резервна копія — це текст: збережи його в нотатках чи надішли собі, а потім встав у «Відновити».</div>
   </div>
   <div class="card"><h2>📊 Статистика</h2>
@@ -43,5 +44,6 @@ export function vMenu() {
     </div>
   </div>
   <details class="card"><summary><b>🎨 Арт (для розробника)</b></summary>${vArt().replace(/^<div class="card">|<\/div>$/g, '')}</details>
+  ${window.desktop ? t`<div class="row" style="justify-content:center"><button ${act('quitGame')}>🚪 Вийти з гри</button></div>` : ''}
   <div class="mut" style="text-align:center;margin:8px 0">Попіл і Туман · v${__APP_VERSION__}</div>`;
 }

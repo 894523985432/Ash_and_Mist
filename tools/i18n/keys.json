@@ -520,6 +520,10 @@
   "from": "src/main.js"
  },
  {
+  "k": "Збережено: ",
+  "from": "src/main.js"
+ },
+ {
   "k": "Копію скопійовано — встав її в нотатки",
   "from": "src/main.js"
  },
@@ -536,6 +540,14 @@
   "from": "src/main.js"
  },
  {
+  "k": "Гру відновлено",
+  "from": "src/main.js"
+ },
+ {
+  "k": "Не вдалося: ",
+  "from": "src/main.js"
+ },
+ {
   "k": "Відновити з копії",
   "from": "src/main.js"
  },
@@ -545,14 +557,6 @@
  },
  {
   "k": "Відновити",
-  "from": "src/main.js"
- },
- {
-  "k": "Гру відновлено",
-  "from": "src/main.js"
- },
- {
-  "k": "Не вдалося: ",
   "from": "src/main.js"
  },
  {
@@ -697,6 +701,10 @@
  },
  {
   "k": "📜 Переможено: {0}",
+  "from": "src/story.js"
+ },
+ {
+  "k": "[Система]",
   "from": "src/story.js"
  },
  {
@@ -900,7 +908,11 @@
   "from": "src/ui/base.js"
  },
  {
-  "k": "{0}\n  {1}\n  {2}\n  {3}\n  <div class=\"card\" style=\"margin-top:10px\"><h2>Дім</h2>\n    <div class=\"row\">\n      <button {4} {5}>🍖 Поїсти досхочу (+{6}⚡) {7} <span class=\"mut\">{8}/{9}</span></button>\n      <button {10} {11}>💊 Аптечка</button>\n      <button {12} {13}>☕ Стимулятор (+{14}⚡)</button>\n      <button class=\"pri\" {15}>🌙 Спати (кінець дня)</button>\n    </div>\n    <div class=\"mut\" style=\"margin-top:6px\">Щодоби зараз: {16}{17}. Нестача → −{18} HP (і ще −{19} за кожен наступний день поспіль){20}. Брак тепла добирається деревом із пічки.</div>\n  </div>\n  <div class=\"card\"><h2>Журнал</h2><div class=\"log\">{21}</div></div>",
+  "k": "<div class=\"card\"><h2>Журнал</h2><div class=\"log\">{0}</div></div>",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "{0}\n  {1}\n  {2}\n  {3}\n  <div class=\"card\" style=\"margin-top:10px\"><h2>Дім</h2>\n    <div class=\"row\">\n      <button {4} {5}>🍖 Поїсти досхочу (+{6}⚡) {7} <span class=\"mut\">{8}/{9}</span></button>\n      <button {10} {11}>💊 Аптечка</button>\n      <button {12} {13}>☕ Стимулятор (+{14}⚡)</button>\n      <button class=\"pri\" {15}>🌙 Спати (кінець дня)</button>\n    </div>\n    <div class=\"mut\" style=\"margin-top:6px\">Щодоби зараз: {16}{17}. Нестача → −{18} HP (і ще −{19} за кожен наступний день поспіль){20}. Брак тепла добирається деревом із пічки.</div>\n  </div>\n  {21}",
   "from": "src/ui/base.js"
  },
  {
@@ -1046,6 +1058,106 @@
  {
   "k": "Меню",
   "from": "src/ui/common.js"
+ },
+ {
+  "k": "за добу",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "День {0}",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "Рівень {0}",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "⚡ Сили",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "⭐ Досвід",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "Захист",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "Рюкзак",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "Хід бою",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "Журнал",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "спати",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "поїсти",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "розділи бази",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "розвідка",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "вирушити на локацію",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "обшукати",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "додому",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "аптечка",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "зіграти карту",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "блок",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "супер",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "втекти",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "кінець ходу",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "Клавіші",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "кнопка у вікні",
+  "from": "src/ui/desktop.js"
+ },
+ {
+  "k": "повний екран",
+  "from": "src/ui/desktop.js"
  },
  {
   "k": "🗡️ Атакує на {0}",
@@ -1276,6 +1388,14 @@
   "from": "src/ui/menu.js"
  },
  {
+  "k": "🖥️ Повний екран",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Перемкнути",
+  "from": "src/ui/menu.js"
+ },
+ {
   "k": "✨ Анімації",
   "from": "src/ui/menu.js"
  },
@@ -1288,7 +1408,27 @@
   "from": "src/ui/menu.js"
  },
  {
-  "k": "<div class=\"card\"><h2>⚙️ Налаштування</h2>\n    {0}{1}\n    {2}\n    {3}\n    {4}\n    {5}\n  </div>\n  <div class=\"card\"><h2>💾 Збереження</h2><div class=\"mut\">Гра зберігається сама після кожної дії. {6} слоти — окремі ігри.</div>\n    <div style=\"margin:8px 0\">{7}</div>\n    <div class=\"row\"><button {8}>📤 Скопіювати резервну копію</button><button {9}>📥 Відновити з копії</button><button {10}>🔄 Нова гра в цьому слоті</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Резервна копія — це текст: збережи його в нотатках чи надішли собі, а потім встав у «Відновити».</div>\n  </div>\n  <div class=\"card\"><h2>📊 Статистика</h2>\n    <div class=\"stats\">\n      <div><b>{11}</b><span>день</span></div><div><b>{12}</b><span>перемог</span></div><div><b>{13}</b><span>збудовано</span></div>\n      <div><b>{14}</b><span>скрафчено</span></div><div><b>{15}</b><span>тварин знайдено</span></div><div><b>{16}</b><span>трофеїв</span></div>\n    </div>\n    <h3>🏆 Рекорди</h3>\n    <div class=\"stats\">\n      <div><b>{17}</b><span>найдовше днів</span></div><div><b>{18}</b><span>найвищий рівень</span></div>\n      <div><b>{19}</b><span>ігор завершено</span></div><div><b>{20}</b><span>перемог усього</span></div>\n    </div>\n  </div>\n  <details class=\"card\"><summary><b>🎨 Арт (для розробника)</b></summary>{21}</details>\n  <div class=\"mut\" style=\"text-align:center;margin:8px 0\">Попіл і Туман · v{22}</div>",
+  "k": "💾 Зберегти копію у файл",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "📤 Скопіювати резервну копію",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "📂 Відкрити копію з файлу",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "📥 Відновити з копії",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<div class=\"row\" style=\"justify-content:center\"><button {0}>🚪 Вийти з гри</button></div>",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>⚙️ Налаштування</h2>\n    {0}{1}\n    {2}\n    {3}\n    {4}\n    <div class=\"set\"><span>{5}</span><button class=\"sm\" {6}>{7} <kbd>F11</kbd></button></div>\n    {8}\n  </div>\n  <div class=\"card\"><h2>💾 Збереження</h2><div class=\"mut\">Гра зберігається сама після кожної дії. {9} слоти — окремі ігри.</div>\n    <div style=\"margin:8px 0\">{10}</div>\n    <div class=\"row\"><button {11}>{12}</button><button {13}>{14}</button><button {15}>🔄 Нова гра в цьому слоті</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Резервна копія — це текст: збережи його в нотатках чи надішли собі, а потім встав у «Відновити».</div>\n  </div>\n  <div class=\"card\"><h2>📊 Статистика</h2>\n    <div class=\"stats\">\n      <div><b>{16}</b><span>день</span></div><div><b>{17}</b><span>перемог</span></div><div><b>{18}</b><span>збудовано</span></div>\n      <div><b>{19}</b><span>скрафчено</span></div><div><b>{20}</b><span>тварин знайдено</span></div><div><b>{21}</b><span>трофеїв</span></div>\n    </div>\n    <h3>🏆 Рекорди</h3>\n    <div class=\"stats\">\n      <div><b>{22}</b><span>найдовше днів</span></div><div><b>{23}</b><span>найвищий рівень</span></div>\n      <div><b>{24}</b><span>ігор завершено</span></div><div><b>{25}</b><span>перемог усього</span></div>\n    </div>\n  </div>\n  <details class=\"card\"><summary><b>🎨 Арт (для розробника)</b></summary>{26}</details>\n  {27}\n  <div class=\"mut\" style=\"text-align:center;margin:8px 0\">Попіл і Туман · v{28}</div>",
   "from": "src/ui/menu.js"
  },
  {
@@ -1481,10 +1621,6 @@
  },
  {
   "k": "Крафт зброї та броні (вищий рівень — краща). Складні речі робляться кілька днів і їдять енергію",
-  "from": "data/buildings.json"
- },
- {
-  "k": "Рюкзак",
   "from": "data/buildings.json"
  },
  {

@@ -22,7 +22,7 @@ export async function initPlatform() {
   } catch (e) { /* не APK */ }
 
   // Service worker (dist/sw.js генерує vite.config.js) — тільки у зібраній веб-версії.
-  if (!native && import.meta.env.PROD && 'serviceWorker' in navigator) {
+  if (!native && !window.desktop && import.meta.env.PROD && 'serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(e => console.warn(t('SW не зареєструвався:'), e));
   }
 }

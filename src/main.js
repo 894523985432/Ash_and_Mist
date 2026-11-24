@@ -58,10 +58,25 @@ const ACTIONS = {
   },
   exportSave: async () => {
     const txt = exportSave();
+    if (window.desktop) { // ПК-версія: справжній файл через діалог Windows
+      const p = await window.desktop.saveFile(`ashfog-day${S.day}.ashfog`, txt);
+      if (p) ui.toast(t('Збережено: ') + p);
+      return;
+    }
     if (await copyText(txt)) return ui.toast(t('Копію скопійовано — встав її в нотатки'));
     ui.showEvent({ e: '📤', t: t('Резервна копія'), txt: t`<div class="mut">Скопіюй цей текст вручну:</div><textarea rows="6" readonly onclick="this.select()">${txt.replace(/</g, '&lt;')}</textarea>`, b: [[t('Готово'), null]] });
   },
-  importOpen: () => ui.showEvent({
+  importOpen: async () => {
+    if (window.desktop) {
+      const txt = await window.desktop.openFile(); if (!txt) return;
+      try { importSave(txt.trim()); ui.toast(t('Гру відновлено')); ui.go('base'); } catch (e) { ui.toast(t('Не вдалося: ') + e.message); }
+      return;
+    }
+    ACTIONS.importPaste();
+  },
+  fullscreen: async () => { if (window.desktop) { await window.desktop.fullscreen(!(await window.desktop.fullscreen())); render(); } else if (document.fullscreenElement) document.exitFullscreen?.(); else document.documentElement.requestFullscreen?.().catch(() => {}); },
+  quitGame: () => { save(); window.desktop?.quit(); },
+  importPaste: () => ui.showEvent({
     e: '📥', t: t('Відновити з копії'), txt: t('<div class="mut">Встав текст резервної копії. Поточна гра в цьому слоті буде замінена.</div><textarea id="imptxt" rows="6"></textarea>'),
     b: [[t('Відновити'), () => {
       try { importSave(document.querySelector('#imptxt').value.trim()); ui.toast(t('Гру відновлено')); S.screen = 'base'; }

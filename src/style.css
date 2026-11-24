@@ -130,3 +130,66 @@ details.card summary{cursor:pointer;min-height:32px;display:flex;align-items:cen
 /* Сюжет */
 .card.story{border-color:#5a4a8a;background:linear-gradient(160deg,#211a33,#161a22)}
 .goals{list-style:none;margin:6px 0;padding:0}.goals li{padding:3px 0}.goals li.ok{color:var(--mut);text-decoration:line-through}
+
+/* ===== Широкий екран (ПК): три колонки ===== */
+kbd{font:600 11px/1 ui-monospace,monospace;padding:3px 5px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;background:#0b0d12;color:var(--mut)}
+#app.wide{max-width:1720px;display:grid;grid-template-columns:clamp(250px,19vw,310px) minmax(0,1fr) clamp(280px,22vw,360px);gap:18px;padding:14px 18px;align-items:start}
+.side{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}
+.side-l{background:var(--pan);border:1px solid var(--line);border-radius:16px;padding:14px}
+.side .hero{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center}
+.side .hero .art{border-radius:12px;font-size:32px}
+.dchips{gap:6px}
+.dbar .dbar-l{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px}
+.dbar .bar{height:9px;min-width:0}
+.dbar.sily .bar>i{background:linear-gradient(90deg,#ffb23f,#ffd36a)}
+.dbar.xp .bar>i{background:linear-gradient(90deg,#4ea3ff,var(--acc))}
+.dstat{display:flex;justify-content:space-between;gap:8px}
+.dres-all{display:flex;flex-direction:column;gap:10px}
+.dres-h{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin-bottom:3px}
+.dres{display:grid;grid-template-columns:24px 1fr auto 44px;gap:6px;align-items:center;width:100%;min-height:30px;padding:3px 8px;border:0;border-radius:8px;background:transparent;text-align:left;font-size:14px}
+.dres:hover{background:var(--pan2)}
+.dres .n{color:var(--mut);font-size:13px}
+.dres b{font-variant-numeric:tabular-nums}
+.dres i{font-style:normal;font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.dres.low{background:#2a1520}
+.dnavs{display:flex;flex-direction:column;gap:6px;margin-top:auto}
+.dnav{display:flex;justify-content:space-between;align-items:center;min-height:42px}
+.dnav.on{border-color:var(--acc);color:var(--acc)}
+.side-r .card{margin:0}
+.side-r .log{max-height:none}
+.dlog .log{max-height:46vh}
+.dkeys div{display:flex;gap:8px;align-items:center;font-size:13px;padding:2px 0}
+.dmain{min-width:0;display:flex;flex-direction:column;gap:12px}
+.dmain>.card,.dmain>.art,.dmain>.seg{margin:0}
+.dmain .art{max-height:42vh}
+.dmain .grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.dmain .grid.one{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.dmain .hand{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.dmain .wcard{position:relative}
+/* Бій: ліворуч ворог, праворуч рука; хід бою — у правій колонці */
+.dmain[data-screen=fight]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-rows:auto 1fr;gap:12px}
+.dmain[data-screen=fight]>:nth-child(1){grid-column:1;grid-row:1}
+.dmain[data-screen=fight]>:nth-child(2){grid-column:1;grid-row:2}
+.dmain[data-screen=fight]>:nth-child(3){grid-column:2;grid-row:1/span 2}
+.dmain[data-screen=fight]>:nth-child(4){display:none}
+.dmain[data-screen=fight] .art{max-height:none}
+/* Вилазка: картинка ліворуч, дії праворуч */
+.dmain[data-screen=loc]{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;align-items:start}
+.dmain[data-screen=loc] .art{max-height:none}
+/* Номер карти в бою для клавіш 1–5 */
+html.wide .hand .wcard::after{counter-increment:card;content:counter(card);position:absolute;right:8px;bottom:6px;font:600 11px ui-monospace,monospace;color:var(--mut)}
+html.wide .hand{counter-reset:card}
+html.wide .modal .card{max-width:520px}
+html.wide body{font-size:15px}
+/* Підказка при наведенні */
+.dtip{position:fixed;z-index:40;background:#11141b;border:1px solid var(--acc);color:var(--tx);font-size:13px;line-height:1.35;padding:7px 10px;border-radius:8px;pointer-events:none;box-shadow:0 6px 24px rgba(0,0,0,.5)}
+@media (hover:none){kbd{display:none}}
+/* Ліва колонка без прокрутки на звичайних моніторах (від ~820 px висоти) */
+.side-l{gap:8px;padding:12px}
+.side .hero{grid-template-columns:52px 1fr}
+.dres{min-height:25px;padding:2px 8px;font-size:13.5px}
+.dres-all{gap:6px}
+.dres-h{margin-bottom:1px}
+.dnavs{gap:5px}
+.dnav{min-height:36px;padding:6px 12px}
+.dbar .dbar-l{font-size:12.5px;margin-bottom:2px}
