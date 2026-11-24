@@ -29,7 +29,10 @@ h3{margin:12px 0 6px;font-size:14px;color:var(--mut);text-transform:uppercase;le
 .art .cap{position:absolute;left:8px;bottom:6px;font-size:12px;background:rgba(0,0,0,.55);padding:2px 7px;border-radius:6px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
 .item{background:var(--pan2);border:1px solid var(--line);border-radius:12px;padding:9px;font-size:13px}
-.item b{font-size:14px}
+.item b{font-size:14px;overflow-wrap:anywhere;hyphens:auto}
+.item{min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips .chip{white-space:normal}
 .mut{color:var(--mut);font-size:13px}
 .tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(13,15,20,.96);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:6px calc(6px + var(--sar)) calc(6px + var(--sab)) calc(6px + var(--sal));z-index:6}
 .tabs button{flex:1;max-width:150px;font-size:12px;padding:5px 2px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;line-height:1.15}

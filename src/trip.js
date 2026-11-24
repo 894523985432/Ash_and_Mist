@@ -51,7 +51,7 @@ export function lose(why) {
   if (en?.pvp) pvpDone(en, false, S.fight.turn);
   if (S.trip?.duel) { // програв дуель із другом: це спаринг, без втрат
     S.trip = null; S.fight = null; ui.go('base');
-    return ui.showEvent({ e: '🤝', t: t('Дуель програно'), txt: t`${en?.n || ''} цього разу сильніший. Здоровʼя й речі на місці — це був спаринг.`, b: [['Ок', null]] });
+    return ui.showEvent({ e: '🤝', t: t('Дуель програно'), txt: t`${en?.n || ''} цього разу сильніший. Здоровʼя й речі на місці — це був спаринг.`, b: [[t('Ок'), null]] });
   }
   if (S.trip?.base) { // програв мародерам біля бази: обчищають склад
     const lost = raidSteal();

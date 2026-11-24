@@ -28,7 +28,7 @@ export function vGear() {
   return t`<div class="card"><h2>🎒 Спорядження</h2><div class="mut">До ${P.maxWeapons} зброй у бою: кожна дає ${C.copiesPerWeapon} картки в колоду, щоходу тягнеш ${C.handSize} випадкові. ОД за хід: ${baseAP()} (більше на рів. ${P.apBonusLevels.join(t(' і '))}).</div>
   <h3>Зброя (${S.eq.length}/${P.maxWeapons})</h3><div class="grid">${ws.map(cell).join('')}</div>
   <h3>Броня</h3><div class="grid">${as.map(cell).join('') || t('<span class="mut">Немає</span>')}</div>
-  <h3>✨ Трофеї на складі</h3>${tr.length ? tr.map(([k, v]) => t`<span class="chip">${k} ×${v}</span>`).join(' ') : t('<span class="mut">Поки нічого. Шукай рідкісних монстрів (найчастіше — у Туманному розломі).</span>')}
+  <h3>✨ Трофеї на складі</h3>${tr.length ? t`<div class="chips">${tr.map(([k, v]) => t`<span class="chip">${k} ×${v}</span>`).join('')}</div>` : t('<span class="mut">Поки нічого. Шукай рідкісних монстрів (найчастіше — у Туманному розломі).</span>')}
   <h3>🏆 Колекція ${trophyCount()}/${trophyTotal()}</h3><div class="mut" style="margin-bottom:6px">Зібраний трофей лишається в колекції, навіть якщо його продати. Повна колекція — трофейна стіна на базі.</div>
   <div class="coll">${Object.values(RARE).map(r => t`<div class="item ${S.collection?.[r.trophy] ? '' : 'no'}">${S.collection?.[r.trophy] ? r.e : '❔'} <b>${r.trophy}</b><div class="mut">${S.collection?.[r.trophy] ? r.n : '???'}</div></div>`).join('')}</div>
   <h3>👥 Знайомі вижилі</h3>${npcList()}

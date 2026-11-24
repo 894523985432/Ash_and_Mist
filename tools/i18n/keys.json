@@ -116,6 +116,10 @@
   "from": "src/combat.js"
  },
  {
+  "k": "Дуель здано",
+  "from": "src/combat.js"
+ },
+ {
   "k": "Втік! Мародери встигли винести: ",
   "from": "src/combat.js"
  },
@@ -656,8 +660,104 @@
   "from": "src/npcs.js"
  },
  {
+  "k": "☁️ Гру, зіграну без мережі, відправлено в хмару",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "хмарна копія пошкоджена",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "☁️ Взято збереження з хмари (день {0})",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "☁️ Завантажено гру з хмари (день {0})",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "☁️ Збережено в хмарі",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Хмара недоступна: ",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Нік: 3–20 літер, цифр, пробілів, _ . -",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Такий нік уже зайнятий",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Перевір пошту",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Ми надіслали лист для підтвердження. Відкрий посилання з нього, а тоді увійди в грі.",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Не вдалося увійти: ",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Вітаю, {0}!",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "☁️ На звʼязку",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Гравця з таким ніком нема",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Це ти 🙂",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Запит надіслано: {0}",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Цей гравець ще не зберігав героя в хмарі",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Серед руїн ти помічаєш іншого вижилого — це <b>{0}</b> (рів. {1}, день {2}). Не схоже, що він збирається ділитися знахідками.",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Обійти стороною",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Гравця заблоковано: його повідомлень ти більше не побачиш",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Скаргу вже надіслано",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Скаргу надіслано. Після трьох скарг повідомлення ховається",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Гру оновлено — перезапуск…",
+  "from": "src/platform.js"
+ },
+ {
   "k": "SW не зареєструвався:",
   "from": "src/platform.js"
+ },
+ {
+  "k": "Спершу повернись на базу",
+  "from": "src/pvp.js"
  },
  {
   "k": "Збереження з новішої версії гри ({0} > {1})",
@@ -822,6 +922,14 @@
  {
   "k": "Мовчки дав тобі {0}.",
   "from": "src/survivors.js"
+ },
+ {
+  "k": "Дуель програно",
+  "from": "src/trip.js"
+ },
+ {
+  "k": "{0} цього разу сильніший. Здоровʼя й речі на місці — це був спаринг.",
+  "from": "src/trip.js"
  },
  {
   "k": "Базу пограбовано",
@@ -1053,6 +1161,10 @@
  },
  {
   "k": "Спорядження",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "Онлайн",
   "from": "src/ui/common.js"
  },
  {
@@ -1430,6 +1542,118 @@
  {
   "k": "<div class=\"card\"><h2>⚙️ Налаштування</h2>\n    {0}{1}\n    {2}\n    {3}\n    {4}\n    <div class=\"set\"><span>{5}</span><button class=\"sm\" {6}>{7} <kbd>F11</kbd></button></div>\n    {8}\n  </div>\n  <div class=\"card\"><h2>💾 Збереження</h2><div class=\"mut\">Гра зберігається сама після кожної дії. {9} слоти — окремі ігри.</div>\n    <div style=\"margin:8px 0\">{10}</div>\n    <div class=\"row\"><button {11}>{12}</button><button {13}>{14}</button><button {15}>🔄 Нова гра в цьому слоті</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Резервна копія — це текст: збережи його в нотатках чи надішли собі, а потім встав у «Відновити».</div>\n  </div>\n  <div class=\"card\"><h2>📊 Статистика</h2>\n    <div class=\"stats\">\n      <div><b>{16}</b><span>день</span></div><div><b>{17}</b><span>перемог</span></div><div><b>{18}</b><span>збудовано</span></div>\n      <div><b>{19}</b><span>скрафчено</span></div><div><b>{20}</b><span>тварин знайдено</span></div><div><b>{21}</b><span>трофеїв</span></div>\n    </div>\n    <h3>🏆 Рекорди</h3>\n    <div class=\"stats\">\n      <div><b>{22}</b><span>найдовше днів</span></div><div><b>{23}</b><span>найвищий рівень</span></div>\n      <div><b>{24}</b><span>ігор завершено</span></div><div><b>{25}</b><span>перемог усього</span></div>\n    </div>\n  </div>\n  <details class=\"card\"><summary><b>🎨 Арт (для розробника)</b></summary>{26}</details>\n  {27}\n  <div class=\"mut\" style=\"text-align:center;margin:8px 0\">Попіл і Туман · v{28}</div>",
   "from": "src/ui/menu.js"
+ },
+ {
+  "k": "Профіль",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Друзі",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Чат",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"sys\">Сервер недоступний: {0}</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<label>Нік (бачать інші)<input id=\"on-nick\" maxlength=\"20\" autocomplete=\"nickname\"></label>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<button class=\"pri\" {0}>Зареєструватися</button><button {1}>У мене вже є акаунт</button>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<button class=\"pri\" {0}>Увійти</button><button {1}>Створити акаунт</button>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🌐 Онлайн</h2>\n    <div class=\"mut\">Акаунт потрібен лише для гри з друзями: хмарні збереження (одна гра на телефоні, ПК і в браузері), дуелі, випадкові зустрічі з іншими гравцями у вилазках і чат. Без входу гра працює як і раніше.</div>\n    {0}\n    <div class=\"form\">\n      {1}\n      <label>Пошта<input id=\"on-email\" type=\"email\" autocomplete=\"email\"></label>\n      <label>Пароль<input id=\"on-pass\" type=\"password\" autocomplete=\"{2}\" minlength=\"6\"></label>\n      <div class=\"row\">{3}</div>\n    </div></div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "☁️ на звʼязку",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "⚠️ без мережі",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": " · востаннє {0}",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"sys\">Помилка: {0}</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<button class=\"pri\" {0}>🔄 Підʼєднатися знову</button>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>👤 {0}</h2>\n    <div class=\"stats\"><div><b>{1}</b><span>перемог у дуелях</span></div><div><b>{2}</b><span>поразок</span></div><div><b>{3}</b><span>друзів</span></div></div>\n    <div class=\"sys\" style=\"margin-top:8px\">Хмара: {4}{5}</div>\n    <div class=\"mut\">Гра зберігається в хмару сама — щоразу, як закінчується день, і через кілька хвилин після дій. Перед запуском хмарна копія звіряється з цією: якщо на іншому пристрої ти пройшов далі, підтягнеться та.</div>\n    {6}\n    <div class=\"row\" style=\"margin-top:8px\">{7}<button {8}>☁️ Зберегти зараз</button><button {9}>Вийти з акаунта</button></div></div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<button class=\"sm pri\" {0}>Прийняти</button>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<span class=\"pill\">очікує</span>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<button class=\"sm pri\" {0} {1}>⚔️ Дуель</button><button class=\"sm\" {2}>💬</button>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"slot\"><b>{0}</b> <span class=\"mut\">рів. {1} · день {2}</span>\n    <div class=\"row\" style=\"margin-left:auto\">{3}\n      <button class=\"sm\" {4}>✕</button></div></div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Нік друга",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"mut\">Поки нікого. Додай друга за ніком — він побачить запит у себе.</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🤝 Друзі</h2>\n    <div class=\"row\"><input id=\"on-friend\" placeholder=\"{0}\" maxlength=\"20\" style=\"flex:1\"><button class=\"pri\" {1}>Додати</button></div>\n    <div style=\"margin-top:10px\">{2}</div>\n    <div class=\"mut\" style=\"margin-top:6px\">Дуель — спаринг із копією героя друга, якою керує гра: без ризику для здоровʼя й речей, з тим самим суперником — раз на 10 хвилин. А у вилазках інколи трапляються герої інших гравців — з ними бій справжній.</div></div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Поскаржитися",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Заблокувати",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Загальний чат",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<button class=\"sm\" {0} style=\"margin-left:auto\">До загального</button>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"mut\">Тут поки тихо. Напиши першим.</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Повідомлення…",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"card chat\"><div class=\"row\"><h2 style=\"margin:0\">💬 {0}</h2>{1}</div>\n    <div class=\"msgs\" id=\"msgs\">{2}</div>\n    <div class=\"row\"><input id=\"on-msg\" maxlength=\"500\" placeholder=\"{3}\" style=\"flex:1\" enterkeyhint=\"send\"><button class=\"pri\" {4}>➤</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Будь людиною. Лайка маскується, ⚑ — поскаржитися (після трьох скарг повідомлення ховається), 🚫 — більше не бачити гравця.</div></div>",
+  "from": "src/ui/online.js"
  },
  {
   "k": "<div class=\"card\" style=\"text-align:center\"><div style=\"font-size:60px\">🪦</div><h2>Ти не пережив пустку</h2>\n  <p>Протримався днів: <b>{0}</b> · Рівень {1} · Перемог {2}</p><button class=\"pri\" {3}>Почати заново</button></div>",

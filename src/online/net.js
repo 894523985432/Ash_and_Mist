@@ -117,7 +117,7 @@ export async function signUp(email, password, nick) {
   if (taken.data) return ui.toast(t('Такий нік уже зайнятий'));
   const { data, error } = await client().auth.signUp({ email, password, options: { data: { nick } } });
   if (error) return ui.toast(t('Не вдалося: ') + error.message);
-  if (!data.session) { ui.showEvent({ e: '📧', t: t('Перевір пошту'), txt: t('Ми надіслали лист для підтвердження. Відкрий посилання з нього, а тоді увійди в грі.'), b: [['Ок', null]] }); return; }
+  if (!data.session) { ui.showEvent({ e: '📧', t: t('Перевір пошту'), txt: t('Ми надіслали лист для підтвердження. Відкрий посилання з нього, а тоді увійди в грі.'), b: [[t('Ок'), null]] }); return; }
   await afterLogin(data.session.user);
 }
 export async function signIn(email, password) {

@@ -5,13 +5,13 @@ import { net, blocked } from '../online/net.js';
 import { t } from '../i18n.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const TABS = [['me', '👤', 'Профіль'], ['friends', '🤝', 'Друзі'], ['chat', '💬', 'Чат']];
+const TABS = [['me', '👤', t('Профіль')], ['friends', '🤝', t('Друзі')], ['chat', '💬', t('Чат')]];
 
 export function vOnline() {
   const tab = S.onlineTab || 'me';
   if (!net.user) return vLogin();
   const inc = net.friends.filter(f => f.incoming).length;
-  const seg = `<div class="seg">${TABS.map(([k, e, n]) => `<button class="${tab === k ? 'on' : ''}" ${act('onlineTab', k)}>${e} ${t(n)}${k === 'friends' && inc ? `<i class="badge">${inc}</i>` : ''}</button>`).join('')}</div>`;
+  const seg = t`<div class="seg">${TABS.map(([k, e, n]) => t`<button class="${tab === k ? 'on' : ''}" ${act('onlineTab', k)}>${e} ${t(n)}${k === 'friends' && inc ? t`<i class="badge">${inc}</i>` : ''}</button>`).join('')}</div>`;
   return seg + ({ me: vMe, friends: vFriends, chat: vChat }[tab] || vMe)();
 }
 

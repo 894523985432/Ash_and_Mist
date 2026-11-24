@@ -60,7 +60,7 @@ function renderModal() {
 }
 
 // Червоним — лише невдачі й нестачі; решта повідомлень нейтральні
-const ERR = /^(Не вдалося|Не вистачає|Хмара недоступна|Помилка|Зарано|Спершу|Такий нік|Гравця з таким|Failed|Not enough|Cloud unavailable|Error|Too early|First)/i;
+const ERR = /^(Не вдалося|Не вистачає|Хмара недоступна|Помилка|Зарано|Спершу|Такий нік|Гравця з таким|Failed|Not enough|Cloud unavailable|Error|Too early|First|That nickname|No player)/i;
 export function toast(msg, kind) {
   const d = document.createElement('div'); d.className = 'toast' + (kind === 'err' || (!kind && ERR.test(msg)) ? ' err' : ''); d.textContent = msg;
   document.body.appendChild(d); setTimeout(() => d.remove(), Math.max(1800, msg.length * 55));
