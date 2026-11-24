@@ -3,3 +3,7 @@ dist/
 tools/art/_variants/
 dist-apk/
 dist-desktop/
+
+# Локальні файли помічника — не для репозиторію
+CLAUDE.md
+.claude/
