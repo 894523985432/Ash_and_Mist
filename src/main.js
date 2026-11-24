@@ -55,6 +55,7 @@ const ACTIONS = {
   onlineSignUp: () => on.signUp(val('on-email'), val('on-pass'), val('on-nick')),
   onlineSignOut: () => on.signOut(),
   onlineSync: () => on.syncNow(),
+  onlineRetry: () => on.retry(),
   onlineAddFriend: () => { on.addFriend(val('on-friend')); const el = document.getElementById('on-friend'); if (el) el.value = ''; },
   onlineAccept: id => on.acceptFriend(id),
   onlineUnfriend: id => on.removeFriend(id),

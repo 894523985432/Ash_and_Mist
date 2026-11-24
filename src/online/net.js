@@ -135,6 +135,13 @@ async function afterLogin(user) {
   } catch (e) { net.status = 'offline'; net.error = e.message; }
   ui.toast(t`Вітаю, ${net.profile?.nick || ''}!`); changed();
 }
+/** Повторна спроба після помилки: профіль, звірка, друзі. */
+export async function retry() {
+  if (!net.user) return;
+  try { await loadProfile(); const msg = await reconcile(settings.slot); net.status = 'ok'; net.error = ''; if (msg) { ui.toast(msg); location.reload(); return; } refreshFriends(); refreshHeroes(); ui.toast(t('☁️ На звʼязку')); }
+  catch (e) { net.status = 'offline'; net.error = e.message; ui.toast(t('Не вдалося: ') + e.message); }
+  changed();
+}
 export async function signOut() {
   await client().auth.signOut(); net.user = null; net.profile = null; net.status = 'off'; net.friends = []; leaveChat(); changed();
 }

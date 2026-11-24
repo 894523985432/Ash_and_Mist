@@ -172,5 +172,18 @@ do $$ begin
   begin alter publication supabase_realtime add table public.friends; exception when duplicate_object then null; end;
 end $$;
 
+-- ---------- права доступу ----------
+-- Нові проєкти Supabase не відкривають таблиці для Data API самі: даємо ролі authenticated лише потрібне,
+-- а що саме можна з рядками — вирішують політики RLS вище.
+grant usage on schema public to authenticated;
+grant select on public.profiles, public.friends, public.duels, public.messages, public.reports to authenticated;
+grant select, insert, update, delete on public.saves to authenticated;
+grant insert (user_id, friend_id) on public.friends to authenticated;
+grant update (status) on public.friends to authenticated;
+grant delete on public.friends to authenticated;
+grant insert (attacker, defender, attacker_won, turns) on public.duels to authenticated;
+grant insert (room, user_id, body) on public.messages to authenticated;
+grant insert (message_id, reporter, reason) on public.reports to authenticated;
+
 -- Зробити себе модератором (виконати окремо, підставивши свій нік):
 -- update public.profiles set is_admin = true where nick = 'Darke';

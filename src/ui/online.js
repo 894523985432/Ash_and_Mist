@@ -36,7 +36,8 @@ function vMe() {
     <div class="stats"><div><b>${p.wins ?? 0}</b><span>перемог у дуелях</span></div><div><b>${p.losses ?? 0}</b><span>поразок</span></div><div><b>${net.friends.filter(f => f.status === 'accepted').length}</b><span>друзів</span></div></div>
     <div class="sys" style="margin-top:8px">Хмара: ${st}${net.lastSync ? t` · востаннє ${net.lastSync.toLocaleTimeString()}` : ''}</div>
     <div class="mut">Гра зберігається в хмару сама — щоразу, як закінчується день, і через кілька хвилин після дій. Перед запуском хмарна копія звіряється з цією: якщо на іншому пристрої ти пройшов далі, підтягнеться та.</div>
-    <div class="row" style="margin-top:8px"><button ${act('onlineSync')}>☁️ Зберегти зараз</button><button ${act('onlineSignOut')}>Вийти з акаунта</button></div></div>`;
+    ${net.status === 'offline' ? t`<div class="sys">Помилка: ${esc(net.error)}</div>` : ''}
+    <div class="row" style="margin-top:8px">${net.status === 'offline' || !net.profile ? t`<button class="pri" ${act('onlineRetry')}>🔄 Підʼєднатися знову</button>` : ''}<button ${act('onlineSync')}>☁️ Зберегти зараз</button><button ${act('onlineSignOut')}>Вийти з акаунта</button></div></div>`;
 }
 
 function vFriends() {
