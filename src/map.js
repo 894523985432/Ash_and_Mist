@@ -42,6 +42,7 @@ export function search() {
   const boss = bossAt(L.id); if (boss) return startFight(mkBoss(boss));
   if (chance(rareP)) return startFight(mkEnemy(pick(Object.keys(RARE)), true, L.z));
   if (S.day >= BAL.pets.fromDay && chance(BAL.pets.findChance)) return petFound();
+  if (ui.encounter?.(L)) return; // онлайн: герой іншого гравця (вирішує онлайн-модуль)
   const r = Math.random(), rivalHere = S.rivalAt[L.id] !== undefined;
   const fightP = SR.fight + evNum('fightAdd', 0);
   if (r < fightP) return startFight(mkEnemy(pick(L.mon), false, L.z));

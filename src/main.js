@@ -14,6 +14,8 @@ import { repair, petFollow, petRelease } from './economy.js';
 import { resInfo } from './ui/info.js';
 import { initAudio } from './audio.js';
 import { storyCheck, giveGoal } from './story.js';
+import { setUI } from './hooks.js';
+import * as on from './online/net.js';
 import { initStorage } from './storage.js';
 import { initPlatform } from './platform.js';
 import { newGame, sleep, eat, heal, stim } from './day.js';
@@ -26,6 +28,7 @@ import { caravanTrade, season, event } from './events.js';
 import { tutOk, tutOff } from './ui/tutorial.js';
 import { t } from './i18n.js';
 
+const val = id => document.getElementById(id)?.value || '';
 let confirmNew = false, confirmRelease = null;
 
 async function copyText(txt) {
@@ -33,7 +36,11 @@ async function copyText(txt) {
 }
 
 const ACTIONS = {
-  go: s => ui.go(s),
+  go: s => {
+    if (s === 'online' && on.net.user) { on.refreshFriends(); if (S.onlineTab === 'chat') on.openChat(on.net.chat.room); }
+    if (s !== 'online') on.leaveChat();
+    ui.go(s);
+  },
   sleep, eat, heal, stim,
   build, craft, dismantle, toggleEq,
   scout, goTo, search, goHome,
@@ -43,6 +50,20 @@ const ACTIONS = {
   tutOk: id => { tutOk(id); render(); },
   tutOff: () => { tutOff(); render(); },
   resInfo, giveGoal,
+  onlineTab: tab => { S.onlineTab = tab; if (tab === 'chat') on.openChat(on.net.chat.room); if (tab === 'friends') on.refreshFriends(); ui.go('online'); },
+  onlineSignIn: () => on.signIn(val('on-email'), val('on-pass')),
+  onlineSignUp: () => on.signUp(val('on-email'), val('on-pass'), val('on-nick')),
+  onlineSignOut: () => on.signOut(),
+  onlineSync: () => on.syncNow(),
+  onlineAddFriend: () => { on.addFriend(val('on-friend')); const el = document.getElementById('on-friend'); if (el) el.value = ''; },
+  onlineAccept: id => on.acceptFriend(id),
+  onlineUnfriend: id => on.removeFriend(id),
+  onlineDuel: id => on.duel(id),
+  onlineDm: id => { S.onlineTab = 'chat'; on.openChat(on.dmRoom(id)); ui.go('online'); },
+  onlineChat: room => on.openChat(room),
+  onlineSend: () => { const el = document.getElementById('on-msg'); if (!el?.value.trim()) return; on.send(el.value); el.value = ''; },
+  onlineReport: id => on.report(id),
+  onlineBlock: id => on.block(id),
   baseTab: tab => { S.baseTab = tab; ui.go('base'); },
   repair, petFollow,
   petRelease: id => {
@@ -91,8 +112,11 @@ const ACTIONS = {
 };
 
 mountUI(ACTIONS);
-await initStorage([...ALL_SAVE_KEYS, ...LEGACY_KEYS, SETTINGS_KEY, RECORDS_KEY]);
+await initStorage([...ALL_SAVE_KEYS, ...LEGACY_KEYS, SETTINGS_KEY, RECORDS_KEY, ...on.SYNC_KEYS, 'ashfog_blocked']);
 loadSettings();
+// Онлайн: якщо є вхід — звіряємо збереження з хмарою до завантаження (без мережі — просто офлайн)
+const cloudMsg = await on.bootOnline();
+setUI({ encounter: () => on.encounter(), pvpResult: on.pvpResult, saved: on.onSaved });
 if (!load()) newGame();
 if (S.screen === 'fight' && !S.fight) S.screen = S.trip ? 'loc' : 'base';
 render();
@@ -100,3 +124,7 @@ loadArtFiles().then(restoreArt);
 initAudio();
 initPlatform();
 storyCheck();
+if (cloudMsg) ui.toast(cloudMsg);
+if (on.net.user) { on.refreshFriends(); on.refreshHeroes(); }
+// Enter у полі чату — надіслати
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'on-msg') { e.preventDefault(); ACTIONS.onlineSend(); } });

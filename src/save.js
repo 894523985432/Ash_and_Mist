@@ -4,6 +4,7 @@ import { BLD } from './data.js';
 import { S, setState } from './state.js';
 import { initNpcs } from './npcs.js';
 import { getItem, setItem } from './storage.js';
+import { ui } from './hooks.js';
 import { settings, setSetting } from './settings.js';
 import { t } from './i18n.js';
 
@@ -55,7 +56,9 @@ export const ALL_SAVE_KEYS = [...Array(SLOTS)].map((_, i) => slotKey(i + 1));
 
 export function save() {
   if (!S) return;
-  setItem(slotKey(settings.slot), JSON.stringify({ ...S, saveVersion: SAVE_VERSION }));
+  const json = JSON.stringify({ ...S, saveVersion: SAVE_VERSION });
+  setItem(slotKey(settings.slot), json);
+  ui.saved?.(settings.slot, json);
 }
 
 /** Короткий опис кожного слоту для меню. */

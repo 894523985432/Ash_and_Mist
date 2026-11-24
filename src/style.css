@@ -193,3 +193,15 @@ html.wide body{font-size:15px}
 .dnavs{gap:5px}
 .dnav{min-height:36px;padding:6px 12px}
 .dbar .dbar-l{font-size:12.5px;margin-bottom:2px}
+
+/* Онлайн */
+.form{display:flex;flex-direction:column;gap:10px;margin-top:10px;max-width:420px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut)}
+input[type=email],input[type=password],input:not([type]),input[type=text]{font:inherit;color:var(--tx);background:#0b0d12;border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px}
+input:focus{outline:none;border-color:var(--acc)}
+.chat .msgs{display:flex;flex-direction:column;gap:6px;max-height:55vh;min-height:200px;overflow:auto;margin:10px 0;padding-right:4px}
+.msg{background:var(--pan2);border-radius:10px;padding:6px 10px;max-width:88%;position:relative;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:#2b1d40}
+.msg .msg-a{float:right;display:flex;gap:4px;opacity:.5}
+.msg:hover .msg-a{opacity:1}
+.msg .msg-a button{min-height:26px;padding:2px 6px;font-size:12px}

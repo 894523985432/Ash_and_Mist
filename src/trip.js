@@ -5,6 +5,7 @@ import { ui } from './hooks.js';
 import { S, maxHP, log, bagCap } from './state.js';
 import { t } from './i18n.js';
 import { raidSteal } from './day.js';
+import { pvpDone } from './pvp.js';
 
 export const bagCount = () => Object.values(S.trip.bag).reduce((a, b) => a + b, 0);
 
@@ -46,6 +47,12 @@ export function stockLabel(id) {
 
 export function lose(why) {
   ui.sfx('lose');
+  const en = S.fight?.en;
+  if (en?.pvp) pvpDone(en, false, S.fight.turn);
+  if (S.trip?.duel) { // програв дуель із другом: це спаринг, без втрат
+    S.trip = null; S.fight = null; ui.go('base');
+    return ui.showEvent({ e: '🤝', t: t('Дуель програно'), txt: t`${en?.n || ''} цього разу сильніший. Здоровʼя й речі на місці — це був спаринг.`, b: [['Ок', null]] });
+  }
   if (S.trip?.base) { // програв мародерам біля бази: обчищають склад
     const lost = raidSteal();
     S.trip = null; S.fight = null; S.hp = Math.max(1, Math.round(maxHP() * BAL.trip.loseHpPct));

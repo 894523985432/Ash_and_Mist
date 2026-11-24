@@ -15,7 +15,7 @@ const MQ = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1100px
 export const isWide = () => !!MQ?.matches;
 export const onWideChange = f => MQ?.addEventListener('change', f);
 
-const NAV = [['base', '🏠', t('База'), 'B'], ['map', '🗺️', t('Карта'), 'M'], ['gear', '🎒', t('Спорядження'), 'G'], ['menu', '☰', t('Меню'), 'Esc']];
+const NAV = [['base', '🏠', t('База'), 'B'], ['map', '🗺️', t('Карта'), 'M'], ['gear', '🎒', t('Спорядження'), 'G'], ['online', '🌐', t('Онлайн'), 'O'], ['menu', '☰', t('Меню'), 'Esc']];
 const kbd = k => t`<kbd>${k}</kbd>`;
 
 function bar(cls, v, max, label) {
@@ -99,6 +99,7 @@ export function onKey(e, actions) {
     if (code === 'KeyB') { actions.go('base'); done = true; }
     else if (code === 'KeyM') { actions.go('map'); done = true; }
     else if (code === 'KeyG') { actions.go('gear'); done = true; }
+    else if (code === 'KeyO') { actions.go('online'); done = true; }
     else if (k === 'Escape') { actions.go(scr === 'menu' ? 'base' : 'menu'); done = true; }
     else if (scr === 'base' && code === 'KeyZ') done = click('[data-act=sleep]');
     else if (scr === 'base' && code === 'KeyE') done = click('[data-act=eat]');

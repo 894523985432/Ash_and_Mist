@@ -9,6 +9,7 @@ import { addBag, rollLoot, lose } from './trip.js';
 import { npcBeaten, npcWon } from './npcs.js';
 import { raidSteal } from './day.js';
 import { markBoss } from './story.js';
+import { pvpDone } from './pvp.js';
 import { itemHTML } from './ui/format.js';
 import { petAttackDmg, petTakeShare, companion, petName } from './economy.js';
 import { PETS } from './data.js';
@@ -122,7 +123,11 @@ export function superAct() {
 
 export function flee() {
   if (S.fight.en.rare) { S.fight.flog.unshift(t('Від рідкісного нема куди тікати — він сам тікає 🙂')); return ui.render(); }
-  if (chance(C.fleeChance)) { S.fight = null; log(t('Втік із бою')); if (S.trip?.base) { const lost = raidSteal(0.5); S.trip = null; ui.go('base'); return ui.toast(t('Втік! Мародери встигли винести: ') + (lost || '—')); } ui.go('loc'); ui.toast(t('Втік!')); }
+  if (chance(C.fleeChance)) {
+    const en = S.fight.en; S.fight = null; log(t('Втік із бою'));
+    if (en.pvp) pvpDone(en, false, 0);
+    if (S.trip?.duel) { S.trip = null; ui.go('base'); return ui.toast(t('Дуель здано')); }
+    if (S.trip?.base) { const lost = raidSteal(0.5); S.trip = null; ui.go('base'); return ui.toast(t('Втік! Мародери встигли винести: ') + (lost || '—')); } ui.go('loc'); ui.toast(t('Втік!')); }
   else { S.fight.flog.unshift(t('🏃 Втекти не вдалося!')); S.fight.ap = 0; endTurn(); }
 }
 
@@ -184,7 +189,8 @@ function leaveFight() {
 
 function win() {
   ui.sfx('win');
-  const en = S.fight.en, L = locById(S.trip.loc) || { z: S.trip.z || 0 }, Lt = BAL.loot; S.fight = null; S.kills++;
+  const en = S.fight.en, turns = S.fight.turn, L = locById(S.trip.loc) || { z: S.trip.z || 0 }, Lt = BAL.loot; S.fight = null; S.kills++;
+  if (en.pvp) pvpDone(en, true, turns);
   gainXP(en.xp);
   let txt = `+${en.xp} XP`;
   const got = addBag(rollLoot(en.loot)); if (Object.keys(got).length) txt += t('<br>Лут: ') + resStr(got);

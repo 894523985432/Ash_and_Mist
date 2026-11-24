@@ -42,6 +42,6 @@ export function topBar() {
 
 export function tabs() {
   if (S.trip || S.screen === 'over') return '';
-  const list = [['base', '🏠', t('База')], ['map', '🗺️', t('Карта')], ['gear', '🎒', t('Спорядження')], ['menu', '☰', t('Меню')]];
+  const list = [['base', '🏠', t('База')], ['map', '🗺️', t('Карта')], ['gear', '🎒', t('Спорядження')], ['online', '🌐', t('Онлайн')], ['menu', '☰', t('Меню')]];
   return t`<nav class="tabs">${list.map(([k, e, n]) => t`<button class="${(S.screen === k || (k === 'menu' && S.screen === 'art')) ? 'on' : ''}" ${act('go', k)}><span class="ti">${e}</span>${n}</button>`).join('')}</nav>`;
 }

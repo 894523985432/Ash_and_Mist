@@ -7,5 +7,9 @@ export const ui = {
   toast(text) {},
   shake() {},
   sfx(name) {},
+  // Онлайн (заповнює src/online, у Node — порожні)
+  encounter(loc) { return false; },
+  pvpResult(pvp, won, turns) {},
+  saved(slot, json) {},
 };
 export function setUI(impl) { Object.assign(ui, impl); }

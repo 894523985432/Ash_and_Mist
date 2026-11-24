@@ -12,6 +12,7 @@ import { vLoc } from './loc.js';
 import { vFight } from './fight.js';
 import { vGear } from './gear.js';
 import { vMenu } from './menu.js';
+import { vOnline } from './online.js';
 import { settings, onSettings, FONT_SIZES, ANIM } from '../settings.js';
 import { sfx, playMusic, musicFor } from '../audio.js';
 import { vOver } from './over.js';
@@ -20,17 +21,23 @@ import { t } from '../i18n.js';
 import { isWide, onWideChange, sideLeft, sideRight, onKey, initTooltips } from './desktop.js';
 
 const $ = s => document.querySelector(s);
-const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, menu: vMenu, art: vMenu, over: vOver };
+const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, menu: vMenu, art: vMenu, over: vOver, online: vOnline };
 let EV = null;
 const EVQ = []; // черга вікон: нове не перекриває вже відкрите
 
 export function render() {
   const v = VIEWS[S.screen] || vBase;
+  // Поля вводу з id переживають перемальовування (живий чат не стирає недописане)
+  const keep = {}, focus = document.activeElement?.id, sel = document.activeElement?.selectionStart;
+  document.querySelectorAll('#app input[id], #app textarea[id]').forEach(el => { if (el.type !== 'file') keep[el.id] = el.value; });
   const wide = isWide(), app = $('#app');
   app.classList.toggle('wide', wide); document.documentElement.classList.toggle('wide', wide);
   app.innerHTML = wide
     ? sideLeft() + t`<main class="dmain" data-screen="${S.screen}">${v()}</main>` + sideRight()
     : topBar() + tutorialCard(S.screen) + v() + tabs();
+  for (const id in keep) { const el = document.getElementById(id); if (el && el.type !== 'password') el.value = keep[id]; else if (el && el.type === 'password' && keep[id]) el.value = keep[id]; }
+  if (focus) { const el = document.getElementById(focus); if (el) { el.focus(); try { el.setSelectionRange(sel, sel); } catch (e) {} } }
+  const msgs = $('#msgs'); if (msgs) msgs.scrollTop = msgs.scrollHeight;
   playMusic(musicFor(S.screen, S));
   const ai = $('#artin'); if (ai) ai.onchange = e => loadArt(e.target.files);
   save();
