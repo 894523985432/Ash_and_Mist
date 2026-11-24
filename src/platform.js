@@ -23,6 +23,14 @@ export async function initPlatform() {
 
   // Service worker (dist/sw.js генерує vite.config.js) — тільки у зібраній веб-версії.
   if (!native && !window.desktop && import.meta.env.PROD && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(e => console.warn(t('SW не зареєструвався:'), e));
+    // Була вже стара версія під керуванням SW, і прийшла нова — перезавантажуємося один раз на свіжу
+    const hadController = !!navigator.serviceWorker.controller;
+    let reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || reloaded) return;
+      reloaded = true; ui.toast(t('Гру оновлено — перезапуск…'));
+      setTimeout(() => location.reload(), 600);
+    });
+    navigator.serviceWorker.register('./sw.js').then(reg => reg.update()).catch(e => console.warn(t('SW не зареєструвався:'), e));
   }
 }
