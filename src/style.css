@@ -45,7 +45,8 @@ h3{margin:12px 0 6px;font-size:14px;color:var(--mut);text-transform:uppercase;le
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:20;padding:calc(14px + var(--sat)) 14px calc(14px + var(--sab))}
 .modal .card{max-height:100%;overflow:auto}
 .modal .card{max-width:440px;width:100%;margin:0;border-color:var(--acc)}
-.toast{position:fixed;top:calc(12px + var(--sat));max-width:calc(100% - 24px);text-align:center;left:50%;transform:translateX(-50%);background:#2a1520;border:1px solid var(--bad);padding:8px 14px;border-radius:10px;z-index:30;font-size:14px}
+.toast{position:fixed;top:calc(12px + var(--sat));max-width:calc(100% - 24px);text-align:center;left:50%;transform:translateX(-50%);background:#1b2130;border:1px solid var(--acc);padding:8px 14px;border-radius:10px;z-index:30;font-size:14px;box-shadow:0 6px 24px rgba(0,0,0,.45)}
+.toast.err{background:#2a1520;border-color:var(--bad)}
 .dmg{animation:shake calc(.3s * var(--anim,1))}
 .noanim *{animation:none!important;transition:none!important}
 @keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
