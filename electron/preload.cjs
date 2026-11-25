@@ -6,4 +6,10 @@ contextBridge.exposeInMainWorld('desktop', {
   saveFile: (name, text) => ipcRenderer.invoke('save-file', name, text),
   openFile: () => ipcRenderer.invoke('open-file'),
   quit: () => ipcRenderer.invoke('quit'),
+  update: {
+    canAuto: () => ipcRenderer.invoke('update-can'),
+    download: () => ipcRenderer.invoke('update-download'),
+    install: () => ipcRenderer.invoke('update-install'),
+    onEvent: cb => ipcRenderer.on('update', (e, ev) => cb(ev)),
+  },
 });

@@ -1536,11 +1536,15 @@
   "from": "src/ui/menu.js"
  },
  {
-  "k": "<div class=\"row\" style=\"justify-content:center\"><button {0}>🚪 Вийти з гри</button></div>",
+  "k": "<button {0}>🆕 Перевірити оновлення</button>",
   "from": "src/ui/menu.js"
  },
  {
-  "k": "<div class=\"card\"><h2>⚙️ Налаштування</h2>\n    {0}{1}\n    {2}\n    {3}\n    {4}\n    <div class=\"set\"><span>{5}</span><button class=\"sm\" {6}>{7} <kbd>F11</kbd></button></div>\n    {8}\n  </div>\n  <div class=\"card\"><h2>💾 Збереження</h2><div class=\"mut\">Гра зберігається сама після кожної дії. {9} слоти — окремі ігри.</div>\n    <div style=\"margin:8px 0\">{10}</div>\n    <div class=\"row\"><button {11}>{12}</button><button {13}>{14}</button><button {15}>🔄 Нова гра в цьому слоті</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Резервна копія — це текст: збережи його в нотатках чи надішли собі, а потім встав у «Відновити».</div>\n  </div>\n  <div class=\"card\"><h2>📊 Статистика</h2>\n    <div class=\"stats\">\n      <div><b>{16}</b><span>день</span></div><div><b>{17}</b><span>перемог</span></div><div><b>{18}</b><span>збудовано</span></div>\n      <div><b>{19}</b><span>скрафчено</span></div><div><b>{20}</b><span>тварин знайдено</span></div><div><b>{21}</b><span>трофеїв</span></div>\n    </div>\n    <h3>🏆 Рекорди</h3>\n    <div class=\"stats\">\n      <div><b>{22}</b><span>найдовше днів</span></div><div><b>{23}</b><span>найвищий рівень</span></div>\n      <div><b>{24}</b><span>ігор завершено</span></div><div><b>{25}</b><span>перемог усього</span></div>\n    </div>\n  </div>\n  <details class=\"card\"><summary><b>🎨 Арт (для розробника)</b></summary>{26}</details>\n  {27}\n  <div class=\"mut\" style=\"text-align:center;margin:8px 0\">Попіл і Туман · v{28}</div>",
+  "k": "<button {0}>🚪 Вийти з гри</button>",
+  "from": "src/ui/menu.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>⚙️ Налаштування</h2>\n    {0}{1}\n    {2}\n    {3}\n    {4}\n    <div class=\"set\"><span>{5}</span><button class=\"sm\" {6}>{7} <kbd>F11</kbd></button></div>\n    {8}\n  </div>\n  <div class=\"card\"><h2>💾 Збереження</h2><div class=\"mut\">Гра зберігається сама після кожної дії. {9} слоти — окремі ігри.</div>\n    <div style=\"margin:8px 0\">{10}</div>\n    <div class=\"row\"><button {11}>{12}</button><button {13}>{14}</button><button {15}>🔄 Нова гра в цьому слоті</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Резервна копія — це текст: збережи його в нотатках чи надішли собі, а потім встав у «Відновити».</div>\n  </div>\n  <div class=\"card\"><h2>📊 Статистика</h2>\n    <div class=\"stats\">\n      <div><b>{16}</b><span>день</span></div><div><b>{17}</b><span>перемог</span></div><div><b>{18}</b><span>збудовано</span></div>\n      <div><b>{19}</b><span>скрафчено</span></div><div><b>{20}</b><span>тварин знайдено</span></div><div><b>{21}</b><span>трофеїв</span></div>\n    </div>\n    <h3>🏆 Рекорди</h3>\n    <div class=\"stats\">\n      <div><b>{22}</b><span>найдовше днів</span></div><div><b>{23}</b><span>найвищий рівень</span></div>\n      <div><b>{24}</b><span>ігор завершено</span></div><div><b>{25}</b><span>перемог усього</span></div>\n    </div>\n  </div>\n  <details class=\"card\"><summary><b>🎨 Арт (для розробника)</b></summary>{26}</details>\n  <div class=\"row\" style=\"justify-content:center\">{27}{28}</div>\n  <div class=\"mut\" style=\"text-align:center;margin:8px 0\">Попіл і Туман · v{29}</div>",
   "from": "src/ui/menu.js"
  },
  {
@@ -1666,6 +1670,90 @@
  {
   "k": "<div class=\"card tip\"><b>💡 {0}</b><div style=\"margin:6px 0\">{1}</div>\n    <div class=\"row\"><button class=\"sm pri\" {2}>Зрозуміло</button><button class=\"sm\" {3}>Вимкнути навчання</button></div></div>",
   "from": "src/ui/tutorial.js"
+ },
+ {
+  "k": "Оновлення вже завантажується…",
+  "from": "src/update.js"
+ },
+ {
+  "k": "У тебе остання версія ({0})",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Не вдалося перевірити оновлення: ",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Твоя версія — {0}.",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Що нового",
+  "from": "src/update.js"
+ },
+ {
+  "k": "<br><span class=\"mut\">Гра завантажить оновлення сама, а встановить після перезапуску. Збереження лишаться.</span>",
+  "from": "src/update.js"
+ },
+ {
+  "k": "⬇️ Оновити",
+  "from": "src/update.js"
+ },
+ {
+  "k": "<br><span class=\"mut\">Завантаж новий APK і встанови поверх — збереження лишаться. Android може попросити дозвіл на встановлення з браузера.</span>",
+  "from": "src/update.js"
+ },
+ {
+  "k": "<br><span class=\"mut\">Завантаж новий файл і запускай його замість старого — збереження лишаться.</span>",
+  "from": "src/update.js"
+ },
+ {
+  "k": "⬇️ Завантажити",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Вийшла версія {0}",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Пізніше",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Завантажую оновлення…",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Оновлення не вдалося",
+  "from": "src/update.js"
+ },
+ {
+  "k": "{0}<br><span class=\"mut\">Можна завантажити новий інсталятор зі сторінки релізів і запустити його — збереження лишаться.</span>",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Відкрити сторінку",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Закрити",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Оновлення: {0}%",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Версія {0} готова",
+  "from": "src/update.js"
+ },
+ {
+  "k": "Перезапустити гру зараз? Якщо ні — оновлення встановиться, коли вийдеш із гри.",
+  "from": "src/update.js"
+ },
+ {
+  "k": "🔄 Перезапустити",
+  "from": "src/update.js"
  },
  {
   "k": "Куртка",

@@ -13,7 +13,7 @@
     "apk": "tools\\apk.cmd",
     "i18n": "node tools/i18n/check-shadow.mjs && node tools/i18n/extract.mjs && python tools/i18n/translate.py",
     "desktop": "vite build && electron .",
-    "exe": "vite build && electron-builder --win"
+    "exe": "vite build && electron-builder --win --publish never"
   },
   "devDependencies": {
     "@capacitor/android": "^8.6.2",
@@ -30,7 +30,8 @@
     "@capacitor/core": "^8.6.2",
     "@capacitor/preferences": "^8.0.1",
     "@fontsource/rubik": "^5.3.0",
-    "@supabase/supabase-js": "^2.119.2"
+    "@supabase/supabase-js": "^2.119.2",
+    "electron-updater": "^6.8.11"
   },
   "allowScripts": {
     "electron-winstaller": false
@@ -67,6 +68,11 @@
     "portable": {
       "artifactName": "AshAndFog-Portable-${version}.${ext}"
     },
-    "asar": true
+    "asar": true,
+    "publish": {
+      "provider": "github",
+      "owner": "894523985432",
+      "repo": "Ash_and_Mist"
+    }
   }
 }

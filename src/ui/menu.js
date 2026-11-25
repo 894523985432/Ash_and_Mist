@@ -5,6 +5,7 @@ import { slotInfo, SLOTS } from '../save.js';
 import { act } from './common.js';
 import { vArt } from './art.js';
 import { t } from '../i18n.js';
+import { updatesSupported } from '../update.js';
 
 const LANGS = [['uk', t('Українська')], ['en', 'English']];
 
@@ -44,6 +45,6 @@ export function vMenu() {
     </div>
   </div>
   <details class="card"><summary><b>🎨 Арт (для розробника)</b></summary>${vArt().replace(/^<div class="card">|<\/div>$/g, '')}</details>
-  ${window.desktop ? t`<div class="row" style="justify-content:center"><button ${act('quitGame')}>🚪 Вийти з гри</button></div>` : ''}
+  <div class="row" style="justify-content:center">${updatesSupported() ? t`<button ${act('checkUpdates')}>🆕 Перевірити оновлення</button>` : ''}${window.desktop ? t`<button ${act('quitGame')}>🚪 Вийти з гри</button>` : ''}</div>
   <div class="mut" style="text-align:center;margin:8px 0">Попіл і Туман · v${__APP_VERSION__}</div>`;
 }

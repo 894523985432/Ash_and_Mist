@@ -85,6 +85,31 @@ ipcMain.handle('open-file', async e => {
 });
 ipcMain.handle('quit', () => app.quit());
 
+// Оновлення: інсталятор (NSIS) качає новий реліз з GitHub і ставить його при перезапуску.
+// Портативна версія й запуск із папки проєкту так не вміють — гра лише покаже посилання.
+const canAuto = () => app.isPackaged && !process.env.PORTABLE_EXECUTABLE_DIR;
+let updater = null;
+function getUpdater(sender) {
+  if (updater) return updater;
+  updater = require('electron-updater').autoUpdater;
+  updater.autoDownload = false;          // качаємо лише після згоди гравця
+  updater.autoInstallOnAppQuit = true;   // «Пізніше» — встановиться, коли гравець вийде з гри
+  const send = ev => { if (!sender.isDestroyed()) sender.send('update', ev); };
+  updater.on('download-progress', p => send({ type: 'progress', percent: p.percent }));
+  updater.on('update-downloaded', i => send({ type: 'ready', version: i.version }));
+  updater.on('error', e => send({ type: 'error', message: String(e?.message || e).split('\n')[0] }));
+  return updater;
+}
+ipcMain.handle('update-can', () => canAuto());
+ipcMain.handle('update-download', async e => {
+  if (!canAuto()) throw new Error('auto update unavailable');
+  const u = getUpdater(e.sender);
+  const r = await u.checkForUpdates();
+  if (!r?.isUpdateAvailable) throw new Error('no update');
+  await u.downloadUpdate();
+});
+ipcMain.handle('update-install', () => { if (updater) updater.quitAndInstall(false, true); });
+
 app.whenReady().then(() => {
   protocol.handle('app', req => {
     const rel = decodeURIComponent(new URL(req.url).pathname).replace(/^\/+/, '') || 'index.html';

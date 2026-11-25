@@ -18,6 +18,7 @@ import { setUI } from './hooks.js';
 import * as on from './online/net.js';
 import { initStorage } from './storage.js';
 import { initPlatform } from './platform.js';
+import { checkUpdates, UPDATE_KEY } from './update.js';
 import { newGame, sleep, eat, heal, stim } from './day.js';
 import { build, craft, dismantle, toggleEq } from './base.js';
 import { scout, goTo, search, goHome } from './map.js';
@@ -98,6 +99,7 @@ const ACTIONS = {
   },
   fullscreen: async () => { if (window.desktop) { await window.desktop.fullscreen(!(await window.desktop.fullscreen())); render(); } else if (document.fullscreenElement) document.exitFullscreen?.(); else document.documentElement.requestFullscreen?.().catch(() => {}); },
   quitGame: () => { save(); window.desktop?.quit(); },
+  checkUpdates: () => checkUpdates(true),
   importPaste: () => ui.showEvent({
     e: '📥', t: t('Відновити з копії'), txt: t('<div class="mut">Встав текст резервної копії. Поточна гра в цьому слоті буде замінена.</div><textarea id="imptxt" rows="6"></textarea>'),
     b: [[t('Відновити'), () => {
@@ -113,7 +115,7 @@ const ACTIONS = {
 };
 
 mountUI(ACTIONS);
-await initStorage([...ALL_SAVE_KEYS, ...LEGACY_KEYS, SETTINGS_KEY, RECORDS_KEY, ...on.SYNC_KEYS, 'ashfog_blocked']);
+await initStorage([...ALL_SAVE_KEYS, ...LEGACY_KEYS, SETTINGS_KEY, RECORDS_KEY, ...on.SYNC_KEYS, 'ashfog_blocked', UPDATE_KEY]);
 loadSettings();
 // Онлайн: якщо є вхід — звіряємо збереження з хмарою до завантаження (без мережі — просто офлайн)
 const cloudMsg = await on.bootOnline();

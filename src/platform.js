@@ -2,6 +2,7 @@
 import { S } from './state.js';
 import { ui } from './hooks.js';
 import { t } from './i18n.js';
+import { initUpdates, checkUpdates } from './update.js';
 
 // З цих екранів «Назад» веде на базу; з бази, бою й вилазки — згортає застосунок.
 const BACK_TO_BASE = ['map', 'gear', 'art'];
@@ -20,6 +21,10 @@ export async function initPlatform() {
       });
     }
   } catch (e) { /* не APK */ }
+
+  // Нова версія на GitHub (APK і ПК) — перевіряємо трохи згодом, щоб не заважати запуску
+  await initUpdates(native);
+  setTimeout(() => checkUpdates(false), 5000);
 
   // Service worker (dist/sw.js генерує vite.config.js) — тільки у зібраній веб-версії.
   if (!native && !window.desktop && import.meta.env.PROD && 'serviceWorker' in navigator) {
