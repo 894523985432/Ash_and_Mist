@@ -136,7 +136,9 @@ export function eat() {
   if (S.eaten >= E.max) return ui.toast(t('Більше не лізе'));
   if (!canPay(E.cost)) return ui.toast(t('Треба ') + resStr(E.cost));
   pay(E.cost);
-  S.eaten++; S.sily = Math.min(maxSily() + E.capBonus, S.sily + E.sily); log(t`Поїв досхочу: +${E.sily}⚡`); ui.render();
+  // Понад максимум — не більше capBonus (обидва прийоми їжі за день мають влазити повністю); у журнал — скільки реально додалось
+  const was = S.sily; S.eaten++; S.sily = Math.max(S.sily, Math.min(maxSily() + E.capBonus, S.sily + E.sily));
+  log(t`Поїв досхочу: +${S.sily - was}⚡`); ui.render();
 }
 export function heal() {
   if (S.res.med < 1) return;

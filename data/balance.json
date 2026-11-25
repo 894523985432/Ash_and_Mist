@@ -71,7 +71,7 @@
     "name": "🏴 Мародери"
   },
   "actions": {
-    "eat": { "max": 2, "cost": {"food": 10, "water": 10}, "sily": 2, "capBonus": 2 },
+    "eat": { "max": 2, "cost": {"food": 10, "water": 10}, "sily": 2, "capBonus": 4 },
     "med": { "healPct": 0.4 },
     "stim": { "sily": 3 },
     "buildSily": 2,
@@ -163,7 +163,7 @@
     "super": { "max": 100, "perTurn": 20, "perDmgTaken": 3, "perDmgDealt": 0, "mult": 3.5 },
     "fleeChance": 0.5,
     "rareAtkPerZone": 1,
-    "zoneScale": [{"hp": 1.8, "atk": 1.9}, {"hp": 1.9, "atk": 2}, {"hp": 3.2, "atk": 3.5}, {"hp": 3.9, "atk": 4.4}],
+    "zoneScale": [{"hp": 1.8, "atk": 1.9}, {"hp": 1.8, "atk": 1.9}, {"hp": 3.2, "atk": 3.5}, {"hp": 3.9, "atk": 4.4}],
     "rareFleeXpMult": 0.5,
     "traits": {
       "bleed": { "dmg": 2, "turns": 2 },
