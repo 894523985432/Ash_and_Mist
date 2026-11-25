@@ -8,7 +8,7 @@ import { ui } from './hooks.js';
 import { settings, setSetting } from './settings.js';
 import { t } from './i18n.js';
 
-export const SAVE_VERSION = 6;
+export const SAVE_VERSION = 7;
 export const KEY = 'ashfog_save';
 export const LEGACY_KEYS = ['ashfog_v1']; // прототип index.html (версія 1, без поля saveVersion)
 
@@ -33,6 +33,8 @@ const MIGRATIONS = {
   }),
   // v5 → v6: запас на локаціях замість виснаження й «вичищено суперником».
   5: s => { const { exhaust, depleted, ...rest } = s; return { ...rest, stock: {} }; },
+  // v6 → v7: хід у бою планується — вибрані карти, блоки й супер позначаються до натискання «Хід».
+  6: s => ({ ...s, fight: s.fight ? { sel: [], blk: 0, sup: false, last: null, ...s.fight } : s.fight }),
 };
 
 export function migrate(data) {

@@ -21,7 +21,7 @@ export function vGear() {
   const cell = it => {
     const on = S.eq.includes(it.id) || S.armor === it.id;
     return t`<div class="item" style="${on ? 'border-color:var(--acc)' : ''}">${itemHTML(it)}<div class="row" style="margin-top:6px">
-    <button class="sm ${on ? 'pri' : ''}" ${act('toggleEq', it.id)}>${on ? t('✔ Екіпіровано') : t('Екіпірувати')}</button>
+    <button class="sm ${on ? 'out' : ''}" ${act('toggleEq', it.id)}>${on ? t('✔ Екіпіровано') : t('Екіпірувати')}</button>
     ${on ? '' : t`<button class="sm" ${act('dismantle', it.id)}>Розібрати</button>`}</div></div>`;
   };
   const tr = Object.entries(S.trophies).filter(([k, v]) => v > 0);

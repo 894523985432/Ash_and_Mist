@@ -5,6 +5,13 @@ import '@fontsource/rubik/latin-600.css';
 import '@fontsource/rubik/cyrillic-600.css';
 import '@fontsource/rubik/latin-800.css';
 import '@fontsource/rubik/cyrillic-800.css';
+// Заголовки, числа й підписи — Tektur (кутастий, під зрізані кути стилю «Попіл»)
+import '@fontsource/tektur/latin-500.css';
+import '@fontsource/tektur/cyrillic-500.css';
+import '@fontsource/tektur/latin-600.css';
+import '@fontsource/tektur/cyrillic-600.css';
+import '@fontsource/tektur/latin-700.css';
+import '@fontsource/tektur/cyrillic-700.css';
 import './style.css';
 import { S } from './state.js';
 import { ui } from './hooks.js';
@@ -22,7 +29,7 @@ import { checkUpdates, UPDATE_KEY } from './update.js';
 import { newGame, sleep, eat, heal, stim } from './day.js';
 import { build, craft, dismantle, toggleEq } from './base.js';
 import { scout, goTo, search, goHome } from './map.js';
-import { playCard, blockAct, superAct, flee, endTurn } from './combat.js';
+import { toggleCard, blockMore, blockLess, superAct, flee, endTurn } from './combat.js';
 import { restoreArt, clearArt, loadArtFiles } from './art.js';
 import { mountUI, render } from './ui/render.js';
 import { caravanTrade, season, event } from './events.js';
@@ -45,7 +52,7 @@ const ACTIONS = {
   sleep, eat, heal, stim,
   build, craft, dismantle, toggleEq,
   scout, goTo, search, goHome,
-  playCard, blockAct, superAct, flee, endTurn,
+  toggleCard, blockMore, blockLess, superAct, flee, endTurn,
   clearArt, caravanTrade,
   info: k => { const x = k === 'event' ? event() : season(); if (x) ui.toast(`${x.e} ${x.n}: ${x.d}`); },
   tutOk: id => { tutOk(id); render(); },

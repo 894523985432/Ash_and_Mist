@@ -19,6 +19,7 @@ import { vOver } from './over.js';
 import { tutorialCard } from './tutorial.js';
 import { t } from '../i18n.js';
 import { isWide, onWideChange, sideLeft, sideRight, onKey, initTooltips } from './desktop.js';
+import { sprite, iconize } from './icons.js';
 
 const $ = s => document.querySelector(s);
 const VIEWS = { base: vBase, map: vMap, loc: vLoc, fight: vFight, gear: vGear, menu: vMenu, art: vMenu, over: vOver, online: vOnline };
@@ -32,9 +33,11 @@ export function render() {
   document.querySelectorAll('#app input[id], #app textarea[id]').forEach(el => { if (el.type !== 'file') keep[el.id] = el.value; });
   const wide = isWide(), app = $('#app');
   app.classList.toggle('wide', wide); document.documentElement.classList.toggle('wide', wide);
+  app.classList.toggle('trip', !!S.trip || S.screen === 'over');
   app.innerHTML = wide
     ? sideLeft() + t`<main class="dmain" data-screen="${S.screen}">${v()}</main>` + sideRight()
-    : topBar() + tutorialCard(S.screen) + v() + tabs();
+    : (S.screen === 'fight' ? v() : topBar() + tutorialCard(S.screen) + v() + tabs()); // бій — свій заголовок, без складу й вкладок
+  iconize(app);
   for (const id in keep) { const el = document.getElementById(id); if (el && el.type !== 'password') el.value = keep[id]; else if (el && el.type === 'password' && keep[id]) el.value = keep[id]; }
   if (focus) { const el = document.getElementById(focus); if (el) { el.focus(); try { el.setSelectionRange(sel, sel); } catch (e) {} } }
   const msgs = $('#msgs'); if (msgs) msgs.scrollTop = msgs.scrollHeight;
@@ -53,7 +56,8 @@ export function showEvent(ev) { if (EV) EVQ.push(ev); else { EV = ev; renderModa
 
 function renderModal() {
   const m = $('#modal'); if (!EV) { m.innerHTML = ''; return; }
-  m.innerHTML = t`<div class="modal"><div class="card">${EV.art && artKey(EV.art) ? artBox(EV.art, EV.e, 'sq evart') : t`<div style="font-size:42px;text-align:center">${EV.e}</div>`}<h2 style="text-align:center">${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row" style="flex-direction:column;align-items:stretch">${EV.b.map((b, i) => t`<button class="${i === 0 ? 'pri' : ''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
+  m.innerHTML = t`<div class="modal"><div class="card">${EV.art && artKey(EV.art) ? artBox(EV.art, EV.e, 'sq evart') : t`<div class="ev-e">${EV.e}</div>`}<h2>${EV.t}</h2><div style="margin-bottom:12px">${EV.txt}</div><div class="row col">${EV.b.map((b, i) => t`<button class="${i === 0 ? 'pri' : ''}" data-evb="${i}">${b[0]}</button>`).join('')}</div></div></div>`;
+  iconize(m);
   m.querySelectorAll('[data-evb]').forEach(btn => btn.onclick = () => {
     const f = EV.b[+btn.dataset.evb][1]; EV = null; if (f) f(); if (!EV && EVQ.length) EV = EVQ.shift(); renderModal(); storyCheck(); render();
   });
@@ -63,7 +67,7 @@ function renderModal() {
 const ERR = /^(Не вдалося|Не вистачає|Хмара недоступна|Помилка|Зарано|Спершу|Такий нік|Гравця з таким|Failed|Not enough|Cloud unavailable|Error|Too early|First|That nickname|No player)/i;
 export function toast(msg, kind) {
   const d = document.createElement('div'); d.className = 'toast' + (kind === 'err' || (!kind && ERR.test(msg)) ? ' err' : ''); d.textContent = msg;
-  document.body.appendChild(d); setTimeout(() => d.remove(), Math.max(1800, msg.length * 55));
+  iconize(d); document.body.appendChild(d); setTimeout(() => d.remove(), Math.max(1800, msg.length * 55));
 }
 
 function shake() {
@@ -84,6 +88,7 @@ function applySettings(s) {
 /** Підключає UI до логіки і вішає один обробник кліків на всі кнопки з data-act. */
 export function mountUI(actions) {
   setUI({ render, go, showEvent, toast, shake, sfx });
+  document.body.insertAdjacentHTML('afterbegin', sprite());
   onSettings(applySettings); applySettings(settings);
   // ПК: гарячі клавіші, підказки при наведенні, перебудова при зміні ширини вікна
   document.addEventListener('keydown', e => { onKey(e, actions); });

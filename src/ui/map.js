@@ -1,5 +1,5 @@
 import { zoneOpen } from '../map.js';
-import { RES, MON, LOCS, ZONE, BAL } from '../data.js';
+import { RES, LOCS, ZONE, BAL } from '../data.js';
 import { S, bagCap } from '../state.js';
 import { stockHTML } from './common.js';
 import { travelCost, event } from '../events.js';
@@ -15,9 +15,9 @@ export function vMap() {
     return t`<h3 style="color:${Z.col}">${Z.n} зона · ${travelCost(z)}⚡${travelCost(z) !== Z.travel ? ' (' + event().e + ')' : ''}</h3><div class="grid">${ls.map(L => {
       const rv = S.rivalAt[L.id] !== undefined ? S.rivals[S.rivalAt[L.id]] : null;
       return t`<div class="item">${artBox('loc_' + L.id, L.e)}<b>${L.n}</b>
-      <div class="mut">${Object.keys(L.res).map(k => RES[k][0]).join(' ')} · ${L.mon.map(m => MON[m].e).join('')}${L.rareBoost ? t(' · ✨ часто рідкісні') : ''}</div>
+      <div class="mut">${Object.keys(L.res).map(k => RES[k][0]).join(' ')}${L.rareBoost ? t(' · ✨ часто рідкісні') : ''}</div>
       ${stockHTML(L.id)}${rv ? t`<div style="color:var(--acc)">${rv.e} Тут ${rv.n}</div>` : ''}
-      <button class="sm pri" style="margin-top:6px;width:100%" ${act('goTo', L.id)} ${dis(S.sily >= travelCost(z))}>Вирушити</button></div>`;
+      <button class="sm out" style="margin-top:6px;width:100%" ${act('goTo', L.id)} ${dis(S.sily >= travelCost(z))}>Вирушити</button></div>`;
     }).join('')}</div>`;
   }).join('')}`;
 }

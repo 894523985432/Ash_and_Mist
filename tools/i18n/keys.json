@@ -68,6 +68,14 @@
   "from": "src/combat.js"
  },
  {
+  "k": "Не вистачає ОД — зніми іншу карту або блок",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "Не вистачає ОД на блок",
+  "from": "src/combat.js"
+ },
+ {
   "k": "прислужник −{0}",
   "from": "src/combat.js"
  },
@@ -100,14 +108,6 @@
   "from": "src/combat.js"
  },
  {
-  "k": "🛡️ Блок +{0}",
-  "from": "src/combat.js"
- },
- {
-  "k": "🌟 СУПЕРАТАКА: {0} шкоди!",
-  "from": "src/combat.js"
- },
- {
   "k": "Від рідкісного нема куди тікати — він сам тікає 🙂",
   "from": "src/combat.js"
  },
@@ -129,6 +129,14 @@
  },
  {
   "k": "🏃 Втекти не вдалося!",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🛡️ Блок +{0}",
+  "from": "src/combat.js"
+ },
+ {
+  "k": "🌟 СУПЕРАТАКА: {0} шкоди!",
   "from": "src/combat.js"
  },
  {
@@ -1148,7 +1156,19 @@
   "from": "src/ui/base.js"
  },
  {
-  "k": "<div class=\"top\"><div class=\"row tl\">\n    <b>День {0}</b><span class=\"chip tap\" {1}>{2} {3}</span>{4}<span class=\"chip\">⭐ {5} <span class=\"mut\">{6}/{7}</span></span></div>\n    <div class=\"row tl\"><button class=\"rc{8}\" {9}><span>⚡</span><b>{10}/{11}</b></button><span class=\"chip\">🛡️ {12}</span>\n    <div class=\"bar\"><i style=\"width:{13}%\"></i></div><span class=\"mut\">❤️ {14}/{15}</span></div>\n    <div class=\"rgs\">{16}</div></div>",
+  "k": "Вилазка",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "<div class=\"top tripbar\"><div class=\"top-a\"><b class=\"day\">День {0}</b><span class=\"chip\">{1}</span><span class=\"lvl\">🎒 {2}/{3}</span></div>{4}</div>",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "Рів. {0}",
+  "from": "src/ui/common.js"
+ },
+ {
+  "k": "<div class=\"top\"><div class=\"top-a\">\n    <b class=\"day\">День {0}</b><span class=\"chip tap\" {1}>{2} {3}</span>{4}\n    <span class=\"lvl\">⭐ {5}<div class=\"bar xp\"><i style=\"width:{6}%\"></i></div></span></div>\n    {7}<div class=\"rgs\">{8}</div></div>",
   "from": "src/ui/common.js"
  },
  {
@@ -1240,11 +1260,11 @@
   "from": "src/ui/desktop.js"
  },
  {
-  "k": "зіграти карту",
+  "k": "вибрати карту",
   "from": "src/ui/desktop.js"
  },
  {
-  "k": "блок",
+  "k": "блок + / −",
   "from": "src/ui/desktop.js"
  },
  {
@@ -1256,7 +1276,7 @@
   "from": "src/ui/desktop.js"
  },
  {
-  "k": "кінець ходу",
+  "k": "хід",
   "from": "src/ui/desktop.js"
  },
  {
@@ -1272,23 +1292,23 @@
   "from": "src/ui/desktop.js"
  },
  {
-  "k": "🗡️ Атакує на {0}",
+  "k": "💫 Оглушений",
   "from": "src/ui/fight.js"
  },
  {
-  "k": "💢 Важкий удар: {0}",
+  "k": "🗡️ Удар {0}",
   "from": "src/ui/fight.js"
  },
  {
-  "k": "🛡️ У захисті (+{0}) і б'є на {1}",
+  "k": "💢 Важкий удар {0}",
   "from": "src/ui/fight.js"
  },
  {
-  "k": "💨 Збирається втекти!",
+  "k": "🛡️ Захист +{0} · удар {1}",
   "from": "src/ui/fight.js"
  },
  {
-  "k": "💫 оглушений",
+  "k": "💨 Тікає!",
   "from": "src/ui/fight.js"
  },
  {
@@ -1296,15 +1316,71 @@
   "from": "src/ui/fight.js"
  },
  {
-  "k": " + прислужники {0}",
+  "k": "удар",
   "from": "src/ui/fight.js"
  },
  {
-  "k": "<span class=\"chip low\">☠️ отрута {0}×{1}</span>",
+  "k": "шкода",
   "from": "src/ui/fight.js"
  },
  {
-  "k": "{0}\n  <div class=\"card\" style=\"margin-top:10px\">\n    <div class=\"row\"><b>{1}</b><div class=\"bar\"><i style=\"width:{2}%\"></i></div><span class=\"mut\">{3}/{4} · 🛡️{5}</span></div>\n    {6}\n    {7}\n    <div class=\"row\" style=\"margin-top:8px\"><span class=\"intent\">Намір: {8}{9}</span> {10}</div>\n  </div>\n  <div class=\"card\"><div class=\"row\" style=\"margin-bottom:8px\"><b>Хід {11}</b><span class=\"chip\">⚡ ОД: {12}/{13}</span><span class=\"chip\">🛡️ Блок: {14}</span>{15}\n    <div class=\"bar sup\"><i style=\"width:{16}%\"></i></div><span class=\"mut\">🌟 {17}%</span></div>\n    <div class=\"hand\">{18}</div>\n    <div class=\"row\" style=\"margin-top:10px\">\n      <button {19} {20}>🛡️ Блок +{21} ({22} ОД)</button>\n      <button {23} {24}>🌟 Супер</button>\n      <button {25}>🏃 Втекти</button>\n      <button class=\"pri\" {26}>Кінець ходу ▶</button>\n    </div></div>\n  <div class=\"card\"><div class=\"log\">{27}</div></div>",
+  "k": "добиває ворога",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "≈{0} ворогу",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "блок {0}",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "нічого не вибрано",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Хід",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "ОД",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Втекти",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Зрозуміло",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Ти",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "отримаєш",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Супер",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Менше блоку",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Блок",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Більше блоку",
+  "from": "src/ui/fight.js"
+ },
+ {
+  "k": "Супер ✔",
   "from": "src/ui/fight.js"
  },
  {
@@ -1392,15 +1468,27 @@
   "from": "src/ui/info.js"
  },
  {
-  "k": "Зрозуміло",
-  "from": "src/ui/info.js"
+  "k": "{0} зона",
+  "from": "src/ui/loc.js"
  },
  {
   "k": "[Система] Мало HP — час додому.",
   "from": "src/ui/loc.js"
  },
  {
-  "k": "{0}\n  <div class=\"card\" style=\"margin-top:10px\"><h2>{1} {2}</h2>\n    {3}\n    {4}\n    <div class=\"mut\">{5} зона</div>{6}\n    <h3>Рюкзак {7}/{8}</h3><div>{9} {10} {11}</div>\n    <div class=\"row\" style=\"margin-top:10px\">\n      <button class=\"pri\" {12} {13}>🔍 Обшукати ({14}⚡)</button>\n      <button {15} {16}>💊</button><button {17} {18}>☕</button>\n      <button {19}>🏠 Додому</button>\n    </div><div class=\"mut\" style=\"margin-top:6px\">Аптечки й стимулятори — зі складу вдома. Програєш бій — рюкзак пропаде.</div></div>",
+  "k": "<span class=\"mut\">порожньо</span>",
+  "from": "src/ui/loc.js"
+ },
+ {
+  "k": "Аптечка",
+  "from": "src/ui/loc.js"
+ },
+ {
+  "k": "Стимулятор",
+  "from": "src/ui/loc.js"
+ },
+ {
+  "k": "<div class=\"loc\">{0}\n  <div class=\"card\" style=\"margin-top:10px\"><h2>{1}</h2>\n    {2}\n    {3}\n    {4}\n    <h3>Рюкзак {5}/{6}</h3><div class=\"bagline\">{7}</div>\n    <div class=\"loc-acts\">\n      <button class=\"pri\" {8} {9}>🔍 Обшукати · {10}⚡</button>\n      <button {11} {12} aria-label=\"{13}\">💊 {14}</button><button {15} {16} aria-label=\"{17}\">☕ {18}</button>\n      <button class=\"home\" {19}>🏠 Додому</button>\n    </div><div class=\"mut\" style=\"margin-top:6px\">Аптечки й стимулятори — зі складу вдома. Програєш бій — рюкзак пропаде.</div></div></div>",
   "from": "src/ui/loc.js"
  },
  {
@@ -1412,7 +1500,7 @@
   "from": "src/ui/map.js"
  },
  {
-  "k": "<div class=\"item\">{0}<b>{1}</b>\n      <div class=\"mut\">{2} · {3}{4}</div>\n      {5}{6}\n      <button class=\"sm pri\" style=\"margin-top:6px;width:100%\" {7} {8}>Вирушити</button></div>",
+  "k": "<div class=\"item\">{0}<b>{1}</b>\n      <div class=\"mut\">{2}{3}</div>\n      {4}{5}\n      <button class=\"sm out\" style=\"margin-top:6px;width:100%\" {6} {7}>Вирушити</button></div>",
   "from": "src/ui/map.js"
  },
  {
@@ -1441,10 +1529,6 @@
  },
  {
   "k": "День {0} · рів. {1}{2}",
-  "from": "src/ui/menu.js"
- },
- {
-  "k": "<span class=\"mut\">порожньо</span>",
   "from": "src/ui/menu.js"
  },
  {
@@ -1668,7 +1752,7 @@
   "from": "src/ui/render.js"
  },
  {
-  "k": "<div class=\"card tip\"><b>💡 {0}</b><div style=\"margin:6px 0\">{1}</div>\n    <div class=\"row\"><button class=\"sm pri\" {2}>Зрозуміло</button><button class=\"sm\" {3}>Вимкнути навчання</button></div></div>",
+  "k": "<div class=\"card tip\"><h2>💡 {0}</h2><div style=\"margin:6px 0 10px\">{1}</div>\n    <div class=\"row\"><button class=\"sm pri\" {2}>Зрозуміло</button><button class=\"sm\" {3}>Вимкнути навчання</button></div></div>",
   "from": "src/ui/tutorial.js"
  },
  {
@@ -3132,10 +3216,6 @@
   "from": "data/tutorial.json"
  },
  {
-  "k": "Вилазка",
-  "from": "data/tutorial.json"
- },
- {
   "k": "Кожен обшук коштує {searchSily}⚡: лут, монстр, люди, схованка чи пастка. Повертайся, поки є HP — програєш бій, і рюкзак пропаде.",
   "from": "data/tutorial.json"
  },
@@ -3144,7 +3224,7 @@
   "from": "data/tutorial.json"
  },
  {
-  "k": "Щоходу маєш ОД і {handSize} картки зброї. Дивись на намір ворога: перед сильним ударом лиши ОД на 🛡️ блок. Коли шкала 🌟 повна — доступна суператака.",
+  "k": "Познач карти, на які вистачить ОД (номер — порядок ударів), за потреби додай 🛡️ блок і тисни «Хід» — усе спрацює разом, потім ударить ворог. Його намір — на плашці над ним. 🌟 Супер набирається щоходу й від отриманих ударів.",
   "from": "data/tutorial.json"
  },
  {

@@ -1,7 +1,7 @@
 // Спільні шматки інтерфейсу: верхня панель, вкладки, блок арту.
 import { RES, CODEX } from '../data.js';
-import { stock, stockLabel } from '../trip.js';
-import { S, maxHP, maxSily, pDef, xpNeed } from '../state.js';
+import { stock, stockLabel, bagCount } from '../trip.js';
+import { S, maxHP, maxSily, pDef, xpNeed, bagCap } from '../state.js';
 import { ART, artKey } from '../art.js';
 import { season, event } from '../events.js';
 import { t, tr } from '../i18n.js';
@@ -10,10 +10,10 @@ import { t, tr } from '../i18n.js';
 export const act = (name, arg) => t`data-act="${name}"${arg !== undefined ? t` data-arg="${arg}"` : ''}`;
 export const dis = ok => (ok ? '' : 'disabled');
 
-/** Картинка за ключем (або першим наявним зі списку ключів), інакше — емодзі. */
-export function artBox(keys, emoji, cls = '', cap = '') {
+/** Картинка за ключем (або першим наявним зі списку ключів), інакше — емодзі (стане іконкою). extra — HTML поверх арту. */
+export function artBox(keys, emoji, cls = '', cap = '', extra = '') {
   const k = artKey(keys);
-  return t`<div class="art ${cls}">${k ? t`<img class="bg" src="${ART[k]}" alt=""><img src="${ART[k]}" alt="">` : emoji}${cap ? t`<span class="cap">${cap}</span>` : ''}</div>`;
+  return t`<div class="art ${cls}">${k ? t`<img class="bg" src="${ART[k]}" alt=""><img src="${ART[k]}" alt="">` : emoji}${cap ? t`<span class="cap">${cap}</span>` : ''}${extra}</div>`;
 }
 
 /** Запас локації: смужка й підпис (Багато / Є / Мало / Порожньо). */
@@ -29,19 +29,32 @@ export function costHTML(c, sily = 0) {
   return t`<span class="cost">${parts.join(' ') || '—'}</span>`;
 }
 
+const pct = (v, max) => Math.max(0, Math.min(100, v / max * 100));
+
+/** HP, сили й захист одним рядком. */
+function vitals() {
+  return t`<div class="vit">
+    <div class="v${S.hp < maxHP() * 0.35 ? ' low' : ''}">❤️<div class="bar"><i style="width:${pct(S.hp, maxHP())}%"></i></div><b>${Math.max(0, S.hp)}/${maxHP()}</b></div>
+    <button class="v${S.sily < 2 ? ' low' : ''}" ${act('resInfo', 'sily')}>⚡<div class="bar sily"><i style="width:${pct(S.sily, maxSily())}%"></i></div><b>${S.sily}/${maxSily()}</b></button>
+    <span class="chip">🛡️ ${pDef()}</span></div>`;
+}
+
 export function topBar() {
+  // На вилазці склад не потрібен — лише сили, здоровʼя і рюкзак
+  if (S.trip) {
+    return t`<div class="top tripbar"><div class="top-a"><b class="day">День ${S.day}</b><span class="chip">${t('Вилазка')}</span><span class="lvl">🎒 ${bagCount()}/${bagCap()}</span></div>${vitals()}</div>`;
+  }
   const r = S.res, low = k => (['water', 'food', 'heat'].includes(k) && r[k] < 2 ? ' low' : '');
   const chip = k => t`<button class="rc${low(k)}" ${act('resInfo', k)} aria-label="${RES[k][1]}"><span>${RES[k][0]}</span><b>${r[k]}</b></button>`;
-  const groups = CODEX.groups.map(g => t`<div class="rg" title="${g.n}">${g.res.map(chip).join('')}</div>`).join('');
-  return t`<div class="top"><div class="row tl">
-    <b>День ${S.day}</b><span class="chip tap" ${act('info', 'season')}>${season().e} ${season().n}</span>${event() ? t`<span class="chip ev tap" ${act('info', 'event')}>${event().e} ${event().n}</span>` : ''}<span class="chip">⭐ ${S.lvl} <span class="mut">${S.xp}/${xpNeed()}</span></span></div>
-    <div class="row tl"><button class="rc${S.sily < 2 ? ' low' : ''}" ${act('resInfo', 'sily')}><span>⚡</span><b>${S.sily}/${maxSily()}</b></button><span class="chip">🛡️ ${pDef()}</span>
-    <div class="bar"><i style="width:${Math.max(0, S.hp / maxHP() * 100)}%"></i></div><span class="mut">❤️ ${Math.max(0, S.hp)}/${maxHP()}</span></div>
-    <div class="rgs">${groups}</div></div>`;
+  const res = CODEX.groups.map(g => g.res.map(chip).join('')).join('');
+  return t`<div class="top"><div class="top-a">
+    <b class="day">День ${S.day}</b><span class="chip tap" ${act('info', 'season')}>${season().e} ${season().n}</span>${event() ? t`<span class="chip ev tap" ${act('info', 'event')}>${event().e} ${event().n}</span>` : ''}
+    <span class="lvl">⭐ ${t`Рів. ${S.lvl}`}<div class="bar xp"><i style="width:${pct(S.xp, xpNeed())}%"></i></div></span></div>
+    ${vitals()}<div class="rgs">${res}</div></div>`;
 }
 
 export function tabs() {
   if (S.trip || S.screen === 'over') return '';
   const list = [['base', '🏠', t('База')], ['map', '🗺️', t('Карта')], ['gear', '🎒', t('Спорядження')], ['online', '🌐', t('Онлайн')], ['menu', '☰', t('Меню')]];
-  return t`<nav class="tabs">${list.map(([k, e, n]) => t`<button class="${(S.screen === k || (k === 'menu' && S.screen === 'art')) ? 'on' : ''}" ${act('go', k)}><span class="ti">${e}</span>${n}</button>`).join('')}</nav>`;
+  return t`<nav class="tabs">${list.map(([k, e, n]) => t`<button class="${(S.screen === k || (k === 'menu' && S.screen === 'art')) ? 'on' : ''}" ${act('go', k)}>${e}<span>${n}</span></button>`).join('')}</nav>`;
 }

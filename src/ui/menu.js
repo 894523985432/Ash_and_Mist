@@ -11,7 +11,7 @@ const LANGS = [['uk', t('Українська')], ['en', 'English']];
 
 const range = (k, label) => t`<label class="set"><span>${label}</span><input type="range" min="0" max="1" step="0.1" value="${settings[k]}" data-set="${k}"><b>${Math.round(settings[k] * 100)}%</b></label>`;
 const choice = (k, label, opts) => t`<div class="set"><span>${label}</span><div class="seg sm">${opts.map(([v, n]) => t`<button class="${settings[k] === v ? 'on' : ''}" ${act('setting', t`${k}:${v}`)}>${n}</button>`).join('')}</div></div>`;
-const toggle = (k, label) => t`<div class="set"><span>${label}</span><button class="sm ${settings[k] ? 'pri' : ''}" ${act('setting', t`${k}:${!settings[k]}`)}>${settings[k] ? t('Увімк.') : t('Вимк.')}</button></div>`;
+const toggle = (k, label) => t`<div class="set"><span>${label}</span><button class="sm ${settings[k] ? 'out' : ''}" ${act('setting', t`${k}:${!settings[k]}`)}>${settings[k] ? t('Увімк.') : t('Вимк.')}</button></div>`;
 
 export function vMenu() {
   const R = records(), st = S.stats || {};

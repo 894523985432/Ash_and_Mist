@@ -118,6 +118,6 @@ function vPets() {
     return t`<div class="item">${artKey(petArt(p)) ? artBox(petArt(p), T.e, 'sq') : ''}<b>${T.e} ${petName(p)}</b> ${st}<div class="mut">${T.d}</div>
       <div class="row" style="margin:6px 0"><div class="bar"><i style="width:${p.hp / petMaxHp(p) * 100}%"></i></div><span class="mut">❤️ ${p.hp}/${petMaxHp(p)}</span></div>
       ${ad ? t`<div class="mut">🗡️ ${T.atk + Math.floor(S.lvl / 2)} шкоди за хід</div>` : ''}
-      <div class="row" style="margin-top:6px">${ad && !p.hurt ? t`<button class="sm ${out ? 'pri' : ''}" ${act('petFollow', p.id)}>${out ? t('✔ Бере з собою') : t('Брати з собою')}</button>` : ''}<button class="sm" ${act('petRelease', p.id)}>Відпустити</button></div></div>`;
+      <div class="row" style="margin-top:6px">${ad && !p.hurt ? t`<button class="sm ${out ? 'out' : ''}" ${act('petFollow', p.id)}>${out ? t('✔ Бере з собою') : t('Брати з собою')}</button>` : ''}<button class="sm" ${act('petRelease', p.id)}>Відпустити</button></div></div>`;
   }).join('')}</div></div>`;
 }

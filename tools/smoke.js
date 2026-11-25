@@ -2,11 +2,11 @@
 // Запуск: npm run smoke  (або node tools/smoke.js [ігор] [днів])
 import { S } from '../src/state.js';
 import { setUI } from '../src/hooks.js';
-import { BLD, LOCS, ZONE } from '../src/data.js';
+import { BLD, LOCS, ZONE, BAL } from '../src/data.js';
 import { newGame, sleep, eat, heal } from '../src/day.js';
 import { build } from '../src/base.js';
 import { goTo, search, goHome, scout } from '../src/map.js';
-import { playCard, blockAct, superAct, endTurn } from '../src/combat.js';
+import { toggleCard, blockMore, superAct, endTurn, apLeft, planInfo } from '../src/combat.js';
 import { migrate, SAVE_VERSION } from '../src/save.js';
 
 const GAMES = +process.argv[2] || 50, DAYS = +process.argv[3] || 12;
@@ -26,15 +26,14 @@ function resolveEvent() {
 function fight() {
   let turns = 0;
   while (S.fight && turns++ < 200) {
-    superAct(); if (!S.fight) break;
-    let played = true;
-    while (S.fight && played) {
-      played = false;
-      const i = S.fight.hand.findIndex(id => S.inv.find(x => x.id === id)?.ap <= S.fight.ap);
-      if (i >= 0) { playCard(i); played = true; }
+    if (S.sup >= BAL.combat.super.max) superAct();
+    // Випадковий порядок вибору карт, поки вистачає ОД; решта — у блок
+    for (const i of S.fight.hand.map((_, i) => i).sort(() => Math.random() - 0.5)) {
+      const w = S.inv.find(x => x.id === S.fight.hand[i]);
+      if (w && w.ap <= apLeft()) toggleCard(i);
     }
-    if (!S.fight) break;
-    while (S.fight.ap >= 1) blockAct();
+    planInfo();
+    while (apLeft() >= 1) blockMore();
     endTurn();
     resolveEvent();
   }

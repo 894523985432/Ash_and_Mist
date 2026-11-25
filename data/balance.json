@@ -160,10 +160,10 @@
     "guardDef": 3,
     "minDmg": 1,
     "block": { "cost": 1, "value": 3 },
-    "super": { "max": 100, "perDmgDealt": 3, "perDmgTaken": 4, "mult": 3 },
+    "super": { "max": 100, "perTurn": 20, "perDmgTaken": 3, "perDmgDealt": 0, "mult": 3.5 },
     "fleeChance": 0.5,
     "rareAtkPerZone": 1,
-    "zoneScale": [{"hp": 1.8, "atk": 1.9}, {"hp": 2.3, "atk": 2.4}, {"hp": 3.7, "atk": 4}, {"hp": 4.6, "atk": 5.2}],
+    "zoneScale": [{"hp": 1.8, "atk": 1.9}, {"hp": 1.9, "atk": 2}, {"hp": 3.2, "atk": 3.5}, {"hp": 3.9, "atk": 4.4}],
     "rareFleeXpMult": 0.5,
     "traits": {
       "bleed": { "dmg": 2, "turns": 2 },

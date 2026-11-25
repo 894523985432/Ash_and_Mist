@@ -17,7 +17,7 @@ import { BLD, LOCS, ZONE, WPN, MON, RARE, ARM, BAL, bldCost } from '../src/data.
 import { newGame, sleep, eat, heal, stim } from '../src/day.js';
 import { build, craft, dismantle, toggleEq } from '../src/base.js';
 import { goTo, search, goHome, scout } from '../src/map.js';
-import { playCard, blockAct, superAct, flee, endTurn } from '../src/combat.js';
+import { toggleCard, blockMore, superAct, flee, endTurn, apLeft } from '../src/combat.js';
 import { item, maxHP, pDef, baseAP, canPay } from '../src/state.js';
 import { bagCount, lootMult } from '../src/trip.js';
 import { travelCost } from '../src/events.js';
@@ -120,7 +120,7 @@ function makeBot(st, stats) {
     let guard = 0;
     while (S.fight && guard++ < 300) {
       const F = S.fight, en = F.en;
-      if (S.sup >= BAL.combat.super.max) { superAct(); continue; }
+      if (S.sup >= BAL.combat.super.max && !F.sup) superAct();
       const incoming = en.intent.t === 'flee' ? 0 : Math.max(0, (en.intent.v || 0) - pDef());
       if (!en.rare && st.fleeHp && S.hp - incoming < maxHP() * st.fleeHp && en.hp > 8) { flee(); continue; }
       const hand = F.hand.map(id => item(id));
@@ -128,11 +128,11 @@ function makeBot(st, stats) {
       for (let m = 0; m < 1 << hand.length; m++) {
         let ap = 0, d = 0; const set = [];
         hand.forEach((w, i) => { if (m >> i & 1) { ap += w.ap; d += WPN[w.type].trait === 'pierce' ? w.dmg : Math.max(1, w.dmg - en.def - (en.guard ? BAL.combat.guardDef : 0)); set.push(w.id); } });
-        if (ap <= F.ap && d > best.d) best = { d, set };
+        if (ap <= F.ap && d > best.d) best = { d, set: m };
       }
-      for (const id of best.set) { if (!S.fight) break; const i = S.fight.hand.indexOf(id); if (i >= 0) playCard(i); }
-      if (!S.fight) break;
-      while (S.fight.ap >= BAL.combat.block.cost && incoming > 0) blockAct();
+      // Хід планується: позначаємо найкращий набір карт, решту ОД — у блок, тоді «Хід»
+      hand.forEach((w, i) => { if (best.set >> i & 1) toggleCard(i); });
+      while (apLeft() >= BAL.combat.block.cost && incoming > 0) blockMore();
       endTurn();
       resolve();
     }

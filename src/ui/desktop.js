@@ -9,6 +9,8 @@ import { forecast } from '../economy.js';
 import { act, artBox } from './common.js';
 import { storyCard } from './base.js';
 import { tutorialCard } from './tutorial.js';
+import { foeInfo } from './fight.js';
+import { iconize } from './icons.js';
 import { t, tr } from '../i18n.js';
 
 const MQ = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1100px) and (min-height: 600px)') : null;
@@ -49,10 +51,11 @@ export function sideLeft() {
 }
 
 export function sideRight() {
-  const log = S.screen === 'fight' && S.fight
+  const fight = S.screen === 'fight' && S.fight;
+  const log = fight
     ? t`<div class="card"><h2>${t('Хід бою')}</h2><div class="log">${S.fight.flog.map(l => t`<div>${l}</div>`).join('')}</div></div>`
     : t`<div class="card dlog"><h2>${t('Журнал')}</h2><div class="log">${S.log.map(l => t`<div>${l}</div>`).join('')}</div></div>`;
-  return t`<aside class="side side-r">${tutorialCard(S.screen)}${storyCard()}${log}${keysHelp()}</aside>`;
+  return t`<aside class="side side-r">${tutorialCard(S.screen)}${fight ? foeInfo() : storyCard()}${log}${keysHelp()}</aside>`;
 }
 
 function keysHelp() {
@@ -60,7 +63,7 @@ function keysHelp() {
     base: [['Z', t('спати')], ['E', t('поїсти')], ['1–4', t('розділи бази')]],
     map: [['R', t('розвідка')], ['1–9', t('вирушити на локацію')]],
     loc: [['Space', t('обшукати')], ['H', t('додому')], ['Q', t('аптечка')]],
-    fight: [['1–5', t('зіграти карту')], ['Q', t('блок')], ['W', t('супер')], ['F', t('втекти')], ['Space', t('кінець ходу')]],
+    fight: [['1–5', t('вибрати карту')], ['Q / A', t('блок + / −')], ['W', t('супер')], ['F', t('втекти')], ['Space', t('хід')]],
   }[S.screen] || [];
   if (!K.length) return '';
   return t`<div class="card dkeys"><h2>${t('Клавіші')}</h2>${K.map(([k, d]) => t`<div>${kbd(k)} ${d}</div>`).join('')}<div>${kbd('Enter')} ${t('кнопка у вікні')}</div><div>${kbd('F11')} ${t('повний екран')}</div></div>`;
@@ -86,8 +89,9 @@ export function onKey(e, actions) {
   const scr = S.screen;
   let done = false;
   if (scr === 'fight') {
-    if (digit) done = click(t`[data-act=playCard][data-arg="${+digit - 1}"]`);
-    else if (code === 'KeyQ') done = click('[data-act=blockAct]');
+    if (digit) done = click(t`[data-act=toggleCard][data-arg="${+digit - 1}"]`);
+    else if (code === 'KeyQ') done = click('[data-act=blockMore]');
+    else if (code === 'KeyA') done = click('[data-act=blockLess]');
     else if (code === 'KeyW') done = click('[data-act=superAct]');
     else if (code === 'KeyF') done = click('[data-act=flee]');
     else if (k === ' ' || k === 'Enter') done = click('[data-act=endTurn]');
@@ -120,7 +124,7 @@ export function initTooltips() {
     const el = e.target.closest?.('[data-tip]');
     if (el === cur) return; cur = el;
     if (!el) { tip.hidden = true; return; }
-    tip.textContent = el.dataset.tip; tip.hidden = false;
+    tip.textContent = el.dataset.tip; iconize(tip); tip.hidden = false;
     const r = el.getBoundingClientRect(), w = Math.min(320, window.innerWidth - 24);
     tip.style.maxWidth = w + 'px';
     const left = Math.min(window.innerWidth - w - 12, Math.max(12, r.left));

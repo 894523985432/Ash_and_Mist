@@ -1,4 +1,6 @@
 // Покроковий картковий бій.
+// Хід планується: гравець позначає карти (у будь-якому порядку, поки вистачає ОД), блок і супер,
+// а на «Хід» усе спрацьовує разом — спершу його удари за порядком вибору, потім відповідає ворог.
 // Особливості ворогів (monsters.json → traits): poison, armor (панцир), summon (прислужники), flee (тікає при малому HP).
 import { WPN, RARE, MON, BAL } from './data.js';
 import { pick, chance } from './util.js';
@@ -38,7 +40,9 @@ export function traitText(en) {
 
 export function startFight(en) {
   en.bleed = 0; en.bleedT = 0; en.burn = 0; en.burnT = 0; en.stun = false; en.guard = false; en.minions = [];
-  S.fight = { en, ap: 0, hand: [], block: 0, turn: 0, flog: [], poison: 0, poisonT: 0 };
+  // sel — вибрані карти (індекси руки за порядком вибору), blk — скільки разів узято блок, sup — супер у цьому ході
+  // last — підсумок попереднього ходу для інтерфейсу (скільки завдав і отримав), id росте щоходу
+  S.fight = { en, ap: 0, hand: [], sel: [], blk: 0, sup: false, block: 0, turn: 0, flog: [], poison: 0, poisonT: 0, last: null };
   ui.sfx(en.rare ? 'rare' : 'alert');
   if (en.rare) S.fight.flog.push(t('✨ Рідкісна поява! ') + tr(en.n) + (en.flee ? t` — втече через ${en.flee} ходи` : ''));
   const tt = traitText(en); if (tt) S.fight.flog.push(`${en.e} ${en.n}: ${tt}`);
@@ -56,11 +60,67 @@ function rollIntent() {
 }
 
 function newTurn() {
-  const F = S.fight; F.turn++; F.ap = baseAP(); F.block = 0;
+  const F = S.fight; F.turn++; F.ap = baseAP(); F.block = 0; F.sel = []; F.blk = 0; F.sup = false;
   const deck = [];
   S.eq.forEach(id => { if (item(id)) for (let i = 0; i < C.copiesPerWeapon; i++) deck.push(id); });
   F.hand = []; for (let i = 0; i < C.handSize; i++) F.hand.push(pick(deck));
   rollIntent();
+}
+
+/* ---------- планування ходу ---------- */
+
+/** Скільки ОД лишилось після вибраних карт і блоку. */
+export function apLeft() {
+  const F = S.fight;
+  return F.ap - F.sel.reduce((a, i) => a + (item(F.hand[i])?.ap || 0), 0) - F.blk * C.block.cost;
+}
+
+/** Вибрати карту або зняти вибір. Номер у порядку вибору — порядок ударів. */
+export function toggleCard(i) {
+  i = +i;
+  const F = S.fight, w = item(F.hand[i]); if (!w) return;
+  const k = F.sel.indexOf(i);
+  if (k >= 0) F.sel.splice(k, 1);
+  else if (apLeft() >= w.ap) F.sel.push(i);
+  else return ui.toast(t('Не вистачає ОД — зніми іншу карту або блок'));
+  ui.render();
+}
+
+/** Ще один блок (+value за cost ОД) або на один менше. */
+export function blockMore() {
+  if (apLeft() < C.block.cost) return ui.toast(t('Не вистачає ОД на блок'));
+  S.fight.blk++; ui.render();
+}
+export function blockLess() { if (S.fight.blk > 0) { S.fight.blk--; ui.render(); } }
+
+/** Суператака в цьому ході (коли шкала повна). */
+export function superAct() {
+  if (S.sup < C.super.max) return;
+  S.fight.sup = !S.fight.sup; ui.render();
+}
+
+/** Очікувана шкода картою по ватажку (без випадковості; для підказки «−N ворогу»). */
+function estCard(w, en) {
+  const tr = WPN[w.type].trait, T = C.traits, def = Math.max(0, en.def + (en.guard ? C.guardDef : 0));
+  const raw = tr === 'spread' ? w.dmg * (T.spread.min + T.spread.range / 2) : w.dmg;
+  const one = Math.max(C.minDmg, Math.round(raw) - (tr === 'pierce' ? 0 : def));
+  return tr === 'multi' ? one * T.multi.hits : one;
+}
+const bestDmg = () => Math.max(0, ...S.eq.map(id => item(id)?.dmg || 0));
+
+/** Що вийде з запланованого ходу: шкода ворогу, блок, скільки прилетить у відповідь (приблизно). */
+export function planInfo() {
+  const F = S.fight, en = F.en;
+  let dmg = F.sel.reduce((a, i) => a + (item(F.hand[i]) ? estCard(item(F.hand[i]), en) : 0), 0);
+  dmg = Math.max(0, dmg - (en.shield || 0));
+  if (F.sup) dmg += Math.round(bestDmg() * C.super.mult);
+  const block = F.blk * C.block.value;
+  let left = block, incoming = 0;
+  const hit = raw => { const d = Math.max(0, raw - pDef()); const a = Math.min(left, d); left -= a; incoming += d - a; };
+  if (!en.stun && en.intent.t !== 'flee' && dmg < en.hp) hit(en.intent.v);
+  if (en.minions?.length && dmg < en.hp) hit(en.minions.length * en.summon.atk);
+  if (F.poisonT > 0) incoming += F.poison;
+  return { dmg, block, incoming, apLeft: apLeft(), kills: dmg >= en.hp };
 }
 
 /** Удар по ватажку: захист (крім пробиття), потім панцир, потім HP. Повертає шкоду по HP. */
@@ -84,10 +144,9 @@ function hitFront(raw, pierce, note) {
   return rest > 0 ? hitEnemy(rest, pierce) : 0;
 }
 
-export function playCard(i) {
-  i = +i;
-  const F = S.fight, en = F.en, w = item(F.hand[i]); if (!w || F.ap < w.ap) return;
-  F.ap -= w.ap; F.hand.splice(i, 1);
+/** Удар однією картою (під час розіграшу ходу). Повертає шкоду по ватажку. */
+function strike(w) {
+  const F = S.fight, en = F.en;
   const tr = WPN[w.type].trait, T = C.traits, note = [];
   let raw = w.dmg, d = 0;
   if (tr === 'spread') raw = w.dmg * (T.spread.min + Math.random() * T.spread.range);
@@ -103,22 +162,9 @@ export function playCard(i) {
     en.def = Math.max(0, en.def - T.heavy.defBreak); note.push(t`🔨 захист −${T.heavy.defBreak}`);
     if (en.shield > 0) { en.shield = Math.max(0, en.shield - T.heavy.shieldBreak); note.push(t`панцир −${T.heavy.shieldBreak}`); }
   }
-  if (tr === 'drain') { const h = Math.ceil(d * T.drain.pct); S.hp = Math.min(maxHP(), S.hp + h); note.push(`💚 +${h}`); }
-  ui.sfx(tr === 'shock' || tr === 'burn' ? 'zap' : 'hit');
+  if (tr === 'drain') { const h = Math.ceil(d * T.drain.pct); S.hp = Math.min(maxHP(), S.hp + h); F.last.heal += h; note.push(`💚 +${h}`); }
   F.flog.unshift(t`${WPN[w.type].e} ${itemName(w)}: ${d} шкоди` + (note.length ? ' · ' + note.join(' · ') : ''));
-  afterPlayer();
-}
-
-export function blockAct() {
-  const F = S.fight, B = C.block; if (F.ap < B.cost) return;
-  F.ap -= B.cost; F.block += B.value; F.flog.unshift(t`🛡️ Блок +${B.value}`); ui.render();
-}
-
-export function superAct() {
-  if (S.sup < C.super.max) return;
-  const best = Math.max(...S.eq.map(id => item(id)?.dmg || 0));
-  const d = hitEnemy(best * C.super.mult, true); S.sup = 0; ui.sfx('super');
-  S.fight.flog.unshift(t`🌟 СУПЕРАТАКА: ${d} шкоди!`); afterPlayer();
+  return d;
 }
 
 export function flee() {
@@ -128,10 +174,13 @@ export function flee() {
     if (en.pvp) pvpDone(en, false, 0);
     if (S.trip?.duel) { S.trip = null; ui.go('base'); return ui.toast(t('Дуель здано')); }
     if (S.trip?.base) { const lost = raidSteal(0.5); S.trip = null; ui.go('base'); return ui.toast(t('Втік! Мародери встигли винести: ') + (lost || '—')); } ui.go('loc'); ui.toast(t('Втік!')); }
-  else { S.fight.flog.unshift(t('🏃 Втекти не вдалося!')); S.fight.ap = 0; endTurn(); }
+  else {
+    // Спроба втекти забирає весь хід: заплановане не спрацьовує, ворог б'є
+    const F = S.fight; F.sel = []; F.blk = 0; F.sup = false; F.block = 0;
+    F.last = { id: (F.last?.id || 0) + 1, dealt: 0, taken: 0, heal: 0 };
+    F.flog.unshift(t('🏃 Втекти не вдалося!')); enemyPhase();
+  }
 }
-
-function afterPlayer() { if (S.fight.en.hp <= 0) return win(); ui.render(); }
 
 /** Вдарити гравця: захист і блок зменшують, повертає завдану шкоду. */
 function hurtPlayer(raw) {
@@ -139,19 +188,39 @@ function hurtPlayer(raw) {
   const F = S.fight, absorbed = Math.min(F.block, Math.max(0, raw - pDef()));
   const d = Math.max(0, raw - pDef() - F.block);
   F.block -= absorbed;
-  S.hp -= d; S.sup = Math.min(C.super.max, S.sup + d * C.super.perDmgTaken);
+  S.hp -= d; S.sup = Math.min(C.super.max, S.sup + d * C.super.perDmgTaken); F.last.taken += d;
   if (d > 0) ui.sfx('hurt');
   return d;
 }
 
+/** «Хід»: розіграти заплановане (блок, карти за порядком вибору, супер), потім відповідь ворога. */
 export function endTurn() {
   const F = S.fight, en = F.en;
+  const plan = F.sel.map(i => item(F.hand[i])).filter(Boolean), useSup = F.sup && S.sup >= C.super.max;
+  F.block = F.blk * C.block.value;
+  F.sel = []; F.blk = 0; F.sup = false;
+  F.last = { id: (F.last?.id || 0) + 1, dealt: 0, taken: 0, heal: 0 };
+  if (F.block) F.flog.unshift(t`🛡️ Блок +${F.block}`);
+  if (plan.length) ui.sfx(plan.some(w => ['shock', 'burn'].includes(WPN[w.type].trait)) ? 'zap' : 'hit');
+  for (const w of plan) { F.last.dealt += strike(w); if (en.hp <= 0) return win(); }
+  // Супер — останнім: якщо ворога вже добили картами, заряд не пропадає
+  if (useSup) {
+    const d = hitEnemy(bestDmg() * C.super.mult, true); S.sup = 0; ui.sfx('super'); F.last.dealt += d;
+    F.flog.unshift(t`🌟 СУПЕРАТАКА: ${d} шкоди!`);
+    if (en.hp <= 0) return win();
+  }
+  enemyPhase();
+}
+
+/** Відповідь ворога: кровотеча й підпал, тварина, удар (чи втеча), прислужники, отрута. Потім новий хід. */
+function enemyPhase() {
+  const F = S.fight, en = F.en;
   en.minions ||= [];
-  if (en.bleedT > 0) { en.hp -= en.bleed; en.bleedT--; F.flog.unshift(t`🩸 Кровотеча: ${en.bleed}`); if (en.hp <= 0) return win(); }
-  if (en.burnT > 0) { en.hp -= en.burn; en.burnT--; F.flog.unshift(t`🔥 Горить: ${en.burn}`); if (en.hp <= 0) return win(); }
+  if (en.bleedT > 0) { en.hp -= en.bleed; en.bleedT--; F.last.dealt += en.bleed; F.flog.unshift(t`🩸 Кровотеча: ${en.bleed}`); if (en.hp <= 0) return win(); }
+  if (en.burnT > 0) { en.hp -= en.burn; en.burnT--; F.last.dealt += en.burn; F.flog.unshift(t`🔥 Горить: ${en.burn}`); if (en.hp <= 0) return win(); }
   const pd = petAttackDmg();
   if (pd) {
-    const p = companion(), note = [], d = hitFront(pd, false, note);
+    const p = companion(), note = [], d = hitFront(pd, false, note); F.last.dealt += d;
     F.flog.unshift(t`${PETS[p.type].e} ${petName(p)}: ${d} шкоди` + (note.length ? ' · ' + note.join(' · ') : ''));
     if (en.hp <= 0) return win();
   }
@@ -174,9 +243,11 @@ export function endTurn() {
     const d = hurtPlayer(en.minions.length * en.summon.atk);
     F.flog.unshift(t`👥 Прислужники (${en.minions.length}) б'ють: ${d}`);
   }
-  if (F.poisonT > 0) { S.hp -= F.poison; F.poisonT--; F.flog.unshift(t`☠️ Отрута: ${F.poison}`); }
-  ui.shake();
+  if (F.poisonT > 0) { S.hp -= F.poison; F.poisonT--; F.last.taken += F.poison; F.flog.unshift(t`☠️ Отрута: ${F.poison}`); }
+  if (F.last.taken > 0) ui.shake();
   if (S.hp <= 0) { if (en.npc) npcWon(en.npc); return lose(t`${en.n} тебе здолав.`); }
+  // Супер набирається з часом (кожен пережитий хід) і від отриманих ударів, а не від кількості ОД
+  S.sup = Math.min(C.super.max, S.sup + C.super.perTurn);
   newTurn(); ui.render();
 }
 
