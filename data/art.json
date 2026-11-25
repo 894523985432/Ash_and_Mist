@@ -122,7 +122,7 @@
   },
   "petSuffix": ", feral animal, no humans, solo, full body, soft rim light",
   "pets": {
-    "dog": "scruffy loyal mongrel dog, torn red bandana, alert ears, ruined street",
+    "dog": "(friendly:1.3) loyal mongrel dog, fluffy (brown and white fur:1.2), clean fur, (warm brown eyes:1.3), gentle smile, tongue out, sitting calmly, red bandana around neck, ruined street, (cute:1.2), healthy, no wounds, no blood, no humans, solo, full body",
     "cat": "lean ginger cat with a notched ear, sly green eyes, sitting on rusty crate",
     "parrot": "colorful scruffy parrot with ragged feathers, perched on broken wire",
     "raccoon": "(raccoon:1.4), clever raccoon animal, black mask around eyes, striped bushy tail, holding a tin can",
