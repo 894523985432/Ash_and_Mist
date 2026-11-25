@@ -5,6 +5,7 @@ import { BAL } from './data.js';
 import { ui } from './hooks.js';
 import { S, maxHP, pDef, item, armor } from './state.js';
 import { startFight } from './combat.js';
+import { spareItems, itemCard } from './trade.js';
 import { t } from './i18n.js';
 
 /** Знімок свого героя для інших гравців. */
@@ -19,6 +20,7 @@ export function heroSnapshot() {
     armor: armor() ? { type: armor().type, rar: armor().rar } : null,
     best, perAp: Math.round(avg * 10) / 10,
     pet: pet ? pet.type : null,
+    spare: spareItems().slice(0, 16).map(itemCard), // що можна попросити в обмін
   };
 }
 

@@ -73,6 +73,13 @@ const ACTIONS = {
   onlineSend: () => { const el = document.getElementById('on-msg'); if (!el?.value.trim()) return; on.send(el.value); el.value = ''; },
   onlineReport: id => on.report(id),
   onlineBlock: id => on.block(id),
+  onlineTrade: id => { on.net.trade = { to: id, give: null, want: null }; S.onlineTab = 'trade'; ui.go('online'); },
+  tradeGive: id => { on.net.trade.give = on.net.trade.give === id ? null : id; render(); },
+  tradeWant: id => { const f = on.net.friends.find(x => x.id === on.net.trade.to); on.net.trade.want = (f?.hero?.spare || []).find(c => c.id === id) || null; render(); },
+  tradeSend: () => on.sendTrade(),
+  tradeAccept: id => on.acceptTrade(id),
+  tradeDecline: id => on.declineTrade(id),
+  tradeCancel: id => on.cancelTrade(id),
   baseTab: tab => { S.baseTab = tab; ui.go('base'); },
   repair, petFollow,
   petRelease: id => {

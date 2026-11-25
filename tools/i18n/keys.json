@@ -736,6 +736,46 @@
   "from": "src/online/net.js"
  },
  {
+  "k": "🤝 {0} погодився на обмін: {1}",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "🎁 {0} прийняв подарунок",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "↩️ {0} не взяв — річ повернулась: {1}",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Обери, що віддаєш",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Цю річ віддати не можна — зніми її спершу",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Пропозицію надіслано: {0}",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Подарунок надіслано: {0}",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Речі, яку просять, у тебе вже нема або вона екіпірована",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Не вдалося: пропозицію вже скасовано",
+  "from": "src/online/net.js"
+ },
+ {
+  "k": "Отримано: {0}",
+  "from": "src/online/net.js"
+ },
+ {
   "k": "Серед руїн ти помічаєш іншого вижилого — це <b>{0}</b> (рів. {1}, день {2}). Не схоже, що він збирається ділитися знахідками.",
   "from": "src/online/net.js"
  },
@@ -1000,22 +1040,6 @@
   "from": "src/ui/base.js"
  },
  {
-  "k": " · 🏆 трофейна стіна",
-  "from": "src/ui/base.js"
- },
- {
-  "k": "{0} · покращень: {1}{2}",
-  "from": "src/ui/base.js"
- },
- {
-  "k": "Уся колекція зібрана",
-  "from": "src/ui/base.js"
- },
- {
-  "k": "<div class=\"card\" style=\"margin-top:10px\"><h2>🏆 Трофейна стіна</h2>{0}<div class=\"mut\" style=\"margin-top:6px\">Ти зібрав усі {1} трофеїв рідкісних істот. Вижилі про це пліткують.</div></div>",
-  "from": "src/ui/base.js"
- },
- {
   "k": " ({0}: тепла ×{1})",
   "from": "src/ui/base.js"
  },
@@ -1024,11 +1048,19 @@
   "from": "src/ui/base.js"
  },
  {
-  "k": "<div class=\"card\"><h2>Журнал</h2><div class=\"log\">{0}</div></div>",
+  "k": "<div class=\"card\" style=\"margin-top:10px\"><h2>Дім</h2>\n    <div class=\"row\">\n      <button class=\"pri\" {0}>🌙 Спати (кінець дня)</button>\n      <button {1} {2}>🍖 Поїсти досхочу (+{3}⚡) {4} <span class=\"mut\">{5}/{6}</span></button>\n      <button {7} {8}>💊 Аптечка</button>\n      <button {9} {10}>☕ Стимулятор (+{11}⚡)</button>\n    </div>\n    <div class=\"mut\" style=\"margin-top:6px\">Щодоби зараз: {12}{13}. Нестача → −{14} HP (і ще −{15} за кожен наступний день поспіль){16}. Брак тепла добирається деревом із пічки.</div>\n  </div>",
   "from": "src/ui/base.js"
  },
  {
-  "k": "{0}\n  {1}\n  {2}\n  {3}\n  <div class=\"card\" style=\"margin-top:10px\"><h2>Дім</h2>\n    <div class=\"row\">\n      <button {4} {5}>🍖 Поїсти досхочу (+{6}⚡) {7} <span class=\"mut\">{8}/{9}</span></button>\n      <button {10} {11}>💊 Аптечка</button>\n      <button {12} {13}>☕ Стимулятор (+{14}⚡)</button>\n      <button class=\"pri\" {15}>🌙 Спати (кінець дня)</button>\n    </div>\n    <div class=\"mut\" style=\"margin-top:6px\">Щодоби зараз: {16}{17}. Нестача → −{18} HP (і ще −{19} за кожен наступний день поспіль){20}. Брак тепла добирається деревом із пічки.</div>\n  </div>\n  {21}",
+  "k": " · 🏆 трофейна стіна",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "{0} · покращень: {1}{2}",
+  "from": "src/ui/base.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>Журнал</h2><div class=\"log\">{0}</div></div>",
   "from": "src/ui/base.js"
  },
  {
@@ -1424,6 +1456,14 @@
   "from": "src/ui/gear.js"
  },
  {
+  "k": "Трофейна стіна: уся колекція зібрана",
+  "from": "src/ui/gear.js"
+ },
+ {
+  "k": "<div style=\"margin-bottom:8px\">{0}<div class=\"mut\" style=\"margin-top:6px\">Ти зібрав усі {1} трофеїв рідкісних істот. Вижилі про це пліткують.</div></div>",
+  "from": "src/ui/gear.js"
+ },
+ {
   "k": "✔ Екіпіровано",
   "from": "src/ui/gear.js"
  },
@@ -1448,7 +1488,7 @@
   "from": "src/ui/gear.js"
  },
  {
-  "k": "<div class=\"card\"><h2>🎒 Спорядження</h2><div class=\"mut\">До {0} зброй у бою: кожна дає {1} картки в колоду, щоходу тягнеш {2} випадкові. ОД за хід: {3} (більше на рів. {4}).</div>\n  <h3>Зброя ({5}/{6})</h3><div class=\"grid\">{7}</div>\n  <h3>Броня</h3><div class=\"grid\">{8}</div>\n  <h3>✨ Трофеї на складі</h3>{9}\n  <h3>🏆 Колекція {10}/{11}</h3><div class=\"mut\" style=\"margin-bottom:6px\">Зібраний трофей лишається в колекції, навіть якщо його продати. Повна колекція — трофейна стіна на базі.</div>\n  <div class=\"coll\">{12}</div>\n  <h3>👥 Знайомі вижилі</h3>{13}\n  <h3>Статистика</h3><div class=\"mut\">Перемог: {14} · Захист: рівень/{15} + броня · HP: {16} + {17}/рівень + броня</div></div>\n  <div class=\"row\"><button {18}>🔄 Нова гра</button></div>",
+  "k": "<div class=\"card\"><h2>🎒 Спорядження</h2><div class=\"mut\">До {0} зброй у бою: кожна дає {1} картки в колоду, щоходу тягнеш {2} випадкові. ОД за хід: {3} (більше на рів. {4}).</div>\n  <h3>Зброя ({5}/{6})</h3><div class=\"grid\">{7}</div>\n  <h3>Броня</h3><div class=\"grid\">{8}</div>\n  <h3>✨ Трофеї на складі</h3>{9}\n  <h3>🏆 Колекція {10}/{11}</h3>{12}<div class=\"mut\" style=\"margin-bottom:6px\">Зібраний трофей лишається в колекції, навіть якщо його продати. Повна колекція відкриває трофейну стіну.</div>\n  <div class=\"coll\">{13}</div>\n  <h3>👥 Знайомі вижилі</h3>{14}\n  <h3>Статистика</h3><div class=\"mut\">Перемог: {15} · Захист: рівень/{16} + броня · HP: {17} + {18}/рівень + броня</div></div>\n  <div class=\"row\"><button {19}>🔄 Нова гра</button></div>",
   "from": "src/ui/gear.js"
  },
  {
@@ -1696,7 +1736,11 @@
   "from": "src/ui/online.js"
  },
  {
-  "k": "<button class=\"sm pri\" {0} {1}>⚔️ Дуель</button><button class=\"sm\" {2}>💬</button>",
+  "k": "Подарунок чи обмін",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<button class=\"sm pri\" {0} {1}>⚔️ Дуель</button><button class=\"sm\" {2} aria-label=\"{3}\">🎁</button><button class=\"sm\" {4}>💬</button>",
   "from": "src/ui/online.js"
  },
  {
@@ -1741,6 +1785,62 @@
  },
  {
   "k": "<div class=\"card chat\"><div class=\"row\"><h2 style=\"margin:0\">💬 {0}</h2>{1}</div>\n    <div class=\"msgs\" id=\"msgs\">{2}</div>\n    <div class=\"row\"><input id=\"on-msg\" maxlength=\"500\" placeholder=\"{3}\" style=\"flex:1\" enterkeyhint=\"send\"><button class=\"pri\" {4}>➤</button></div>\n    <div class=\"mut\" style=\"margin-top:6px\">Будь людиною. Лайка маскується, ⚑ — поскаржитися (після трьох скарг повідомлення ховається), 🚫 — більше не бачити гравця.</div></div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<b>{0}</b> пропонує обмін:",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<b>{0}</b> дарує тобі:",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"item\"><div class=\"mut\">Натомість просить твою:</div>{0}</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Обміняти",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "Прийняти",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"trade\">{0}\n    <div class=\"grid\">{1}{2}</div>\n    <div class=\"row\" style=\"margin-top:6px\"><button class=\"sm pri\" {3}>{4}</button><button class=\"sm\" {5}>Відмовитись</button></div></div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"item\"><div class=\"mut\">Навзаєм:</div>{0}</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"trade\"><span class=\"mut\">Чекає відповіді {0}:</span>\n    <div class=\"grid\">{1}{2}</div>\n    <div class=\"row\" style=\"margin-top:6px\"><button class=\"sm\" {3}>Скасувати</button></div></div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🎁 Подарунки й обмін</h2>{0}{1}</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"mut\">Нема вільних речей: усе екіпіровано.</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"mut\" style=\"margin-top:6px\">У друга нема вільних речей (або він давно не заходив у гру).</div>",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "🤝 Запропонувати обмін",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "🎁 Подарувати",
+  "from": "src/ui/online.js"
+ },
+ {
+  "k": "<div class=\"card\"><h2>🎁 {0}</h2>\n    <div class=\"mut\">Річ іде другу одразу, як він погодиться. Поки не відповів — її можна забрати назад. Екіпіровані речі віддати не можна.</div>\n    <h3>Що віддаєш</h3>{1}\n    <h3>Що просиш навзаєм</h3><div class=\"grid\"><button class=\"item tradeitem{2}\" {3}><b>🎁 Нічого</b><div class=\"mut\">Це подарунок</div></button>{4}</div>\n    {5}\n    <div class=\"row\" style=\"margin-top:12px\"><button class=\"pri\" {6} {7}>{8}</button><button {9}>Назад</button></div></div>",
   "from": "src/ui/online.js"
  },
  {

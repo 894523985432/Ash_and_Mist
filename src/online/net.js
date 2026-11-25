@@ -8,6 +8,8 @@ import { settings } from '../settings.js';
 import { S } from '../state.js';
 import { ui } from '../hooks.js';
 import { heroSnapshot, startDuel, startEncounter } from '../pvp.js';
+import { takeItem, receiveItem, hasSpare } from '../trade.js';
+import { itemName } from '../items.js';
 import { t } from '../i18n.js';
 
 export const SYNC_KEYS = [...Array(SLOTS)].map((_, i) => `ashfog_sync_${i + 1}`);
@@ -17,6 +19,7 @@ let sb = null;
 export const net = {
   user: null, profile: null, status: 'off', // off | ok | offline | error
   friends: [], heroes: [], chat: { room: 'global', msgs: [], sub: null }, lastSync: null, error: '',
+  trades: [], trade: null, // пропозиції подарунків/обміну і чернетка нової ({ to, give, want })
 };
 const changed = () => ui.render();
 
@@ -143,7 +146,7 @@ export async function retry() {
   changed();
 }
 export async function signOut() {
-  await client().auth.signOut(); net.user = null; net.profile = null; net.status = 'off'; net.friends = []; leaveChat(); changed();
+  await client().auth.signOut(); net.user = null; net.profile = null; net.status = 'off'; net.friends = []; net.trades = []; net.trade = null; leaveChat(); changed();
 }
 
 /* ---------- друзі ---------- */
@@ -158,6 +161,7 @@ export async function refreshFriends() {
     return { ...P[other], id: other, status: f.status, incoming: f.friend_id === net.user.id && f.status === 'pending' };
   }).filter(f => f.nick);
   changed();
+  refreshTrades();
 }
 export async function addFriend(nick) {
   const { data: p } = await client().from('profiles').select('id,nick').ilike('nick', (nick || '').trim()).maybeSingle();
@@ -174,6 +178,62 @@ export function duel(id) {
   const f = net.friends.find(x => x.id === id);
   if (!f?.hero) return ui.toast(t('Цей гравець ще не зберігав героя в хмарі'));
   startDuel(f.id, f.nick, f.hero);
+}
+
+/* ---------- подарунки й обмін спорядженням ---------- */
+const nickOf = id => net.friends.find(f => f.id === id)?.nick || '?';
+
+/** Відкриті пропозиції: мої незакриті й ті, що чекають моєї відповіді. Мої закриті відповіді — розібрати одразу. */
+export async function refreshTrades() {
+  if (!net.user) return;
+  const me = net.user.id;
+  const { data, error } = await client().from('trades').select('*')
+    .or(`and(from_id.eq.${me},closed.eq.false),and(to_id.eq.${me},status.eq.pending)`).order('created_at', { ascending: false });
+  if (error) return;
+  net.trades = data || [];
+  for (const tr of net.trades.filter(x => x.from_id === me && x.status !== 'pending')) {
+    // Закриваємо на сервері першими — щоб річ не прийшла двічі (наприклад, з другого пристрою)
+    const r = await client().from('trades').update({ closed: true }).eq('id', tr.id).eq('closed', false).select('id');
+    if (r.error || !r.data?.length) continue;
+    tr.closed = true;
+    if (tr.status === 'accepted') {
+      const got = tr.want && receiveItem(tr.want);
+      ui.toast(got ? t`🤝 ${nickOf(tr.to_id)} погодився на обмін: ${itemName(got)}` : t`🎁 ${nickOf(tr.to_id)} прийняв подарунок`);
+    } else {
+      receiveItem(tr.give);
+      ui.toast(t`↩️ ${nickOf(tr.to_id)} не взяв — річ повернулась: ${itemName(tr.give)}`);
+    }
+  }
+  net.trades = net.trades.filter(x => !x.closed);
+  changed();
+}
+
+/** Подарувати (want = null) або запропонувати обмін. Річ знімається з інвентаря одразу. */
+export async function sendTrade() {
+  const T = net.trade; if (!T?.to || !T.give) return ui.toast(t('Обери, що віддаєш'));
+  const orig = S.inv.find(i => i.id === T.give), card = takeItem(T.give);
+  if (!card) return ui.toast(t('Цю річ віддати не можна — зніми її спершу'));
+  const { error } = await client().from('trades').insert({ from_id: net.user.id, to_id: T.to, give: card, want: T.want || null });
+  if (error) { S.inv.push(orig); changed(); return ui.toast(t('Не вдалося: ') + error.message); }
+  ui.toast(T.want ? t`Пропозицію надіслано: ${nickOf(T.to)}` : t`Подарунок надіслано: ${nickOf(T.to)}`);
+  net.trade = null; S.onlineTab = 'friends'; refreshTrades();
+}
+
+export async function acceptTrade(id) {
+  const tr = net.trades.find(x => x.id === +id); if (!tr) return;
+  if (tr.want && !hasSpare(tr.want.id)) return ui.toast(t('Речі, яку просять, у тебе вже нема або вона екіпірована'));
+  const r = await client().from('trades').update({ status: 'accepted' }).eq('id', tr.id).eq('status', 'pending').select('id');
+  if (r.error || !r.data?.length) { ui.toast(t('Не вдалося: пропозицію вже скасовано')); return refreshTrades(); }
+  if (tr.want) S.inv = S.inv.filter(i => i.id !== tr.want.id);
+  const got = receiveItem(tr.give);
+  ui.toast(t`Отримано: ${got ? itemName(got) : '—'}`);
+  refreshTrades();
+}
+export async function declineTrade(id) {
+  await client().from('trades').update({ status: 'declined' }).eq('id', +id).eq('status', 'pending'); refreshTrades();
+}
+export async function cancelTrade(id) {
+  await client().from('trades').update({ status: 'cancelled' }).eq('id', +id).eq('status', 'pending'); refreshTrades();
 }
 
 /* ---------- випадкові зустрічі й результати боїв ---------- */

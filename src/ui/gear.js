@@ -3,7 +3,7 @@ import { relEmoji } from '../npcs.js';
 import { trophyCount, trophyTotal } from './base.js';
 import { S, baseAP } from '../state.js';
 import { itemHTML } from './format.js';
-import { act } from './common.js';
+import { act, artBox } from './common.js';
 import { t } from '../i18n.js';
 
 function npcList() {
@@ -13,6 +13,12 @@ function npcList() {
     const m = p.mem, mem = [m.traded && t`торгували ${m.traded}`, m.paid && t`платив мито ${m.paid}`, m.fought && t`бились ${m.fought}`, m.beaten && t`ти переміг ${m.beaten}`, m.lostTo && t`він переміг ${m.lostTo}`].filter(Boolean).join(', ');
     return t`<div class="npc">${p.e} <b>${p.n}</b> ${relEmoji(p)} ${p.rel}${p.gone ? t(' · <span class="mut">пішов із міста</span>') : ''}<span class="mut" style="margin-left:auto">${mem || t('лише бачились')}</span></div>`;
   }).join('');
+}
+
+/** Повна колекція — трофейна стіна (раніше була на головному екрані бази). */
+function trophyWall() {
+  if (trophyCount() < trophyTotal()) return '';
+  return t`<div style="margin-bottom:8px">${artBox('base_trophy', '🏆', '', t('Трофейна стіна: уся колекція зібрана'))}<div class="mut" style="margin-top:6px">Ти зібрав усі ${trophyTotal()} трофеїв рідкісних істот. Вижилі про це пліткують.</div></div>`;
 }
 
 export function vGear() {
@@ -29,7 +35,7 @@ export function vGear() {
   <h3>Зброя (${S.eq.length}/${P.maxWeapons})</h3><div class="grid">${ws.map(cell).join('')}</div>
   <h3>Броня</h3><div class="grid">${as.map(cell).join('') || t('<span class="mut">Немає</span>')}</div>
   <h3>✨ Трофеї на складі</h3>${tr.length ? t`<div class="chips">${tr.map(([k, v]) => t`<span class="chip">${k} ×${v}</span>`).join('')}</div>` : t('<span class="mut">Поки нічого. Шукай рідкісних монстрів (найчастіше — у Туманному розломі).</span>')}
-  <h3>🏆 Колекція ${trophyCount()}/${trophyTotal()}</h3><div class="mut" style="margin-bottom:6px">Зібраний трофей лишається в колекції, навіть якщо його продати. Повна колекція — трофейна стіна на базі.</div>
+  <h3>🏆 Колекція ${trophyCount()}/${trophyTotal()}</h3>${trophyWall()}<div class="mut" style="margin-bottom:6px">Зібраний трофей лишається в колекції, навіть якщо його продати. Повна колекція відкриває трофейну стіну.</div>
   <div class="coll">${Object.values(RARE).map(r => t`<div class="item ${S.collection?.[r.trophy] ? '' : 'no'}">${S.collection?.[r.trophy] ? r.e : '❔'} <b>${r.trophy}</b><div class="mut">${S.collection?.[r.trophy] ? r.n : '???'}</div></div>`).join('')}</div>
   <h3>👥 Знайомі вижилі</h3>${npcList()}
   <h3>Статистика</h3><div class="mut">Перемог: ${S.kills} · Захист: рівень/${P.defLvlDivisor} + броня · HP: ${P.hpBase} + ${P.hpPerLvl}/рівень + броня</div></div>

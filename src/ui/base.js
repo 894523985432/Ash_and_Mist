@@ -43,20 +43,19 @@ function vHome() {
   const caravan = S.caravan ? t`<div class="card"><h2>🐪 Караван біля бази</h2><div class="row col">${S.caravan.map((o, i) =>
     t`<button ${act('caravanTrade', i)} ${dis(!o.done && canPay(o.give))}>${o.done ? '✔ ' : ''}${offerText(o)}</button>`).join('')}</div><div class="mut" style="margin-top:6px">Караван піде вранці.</div></div>` : '';
   const hm = heatMult();
-  return t`${artBox(BAL.baseLooks.filter(l => l.min <= look.min).map(l => l.key).reverse(), look.e, '', t`${look.n} · покращень: ${look.sum}${fullSet ? t(' · 🏆 трофейна стіна') : ''}`)}
-  ${fullSet ? t`<div class="card" style="margin-top:10px"><h2>🏆 Трофейна стіна</h2>${artBox('base_trophy', '🏆', 'sq', t('Уся колекція зібрана'))}<div class="mut" style="margin-top:6px">Ти зібрав усі ${trophyTotal()} трофеїв рідкісних істот. Вижилі про це пліткують.</div></div>` : ''}
-  ${caravan}
-  ${isWide() ? '' : storyCard()}
-  <div class="card" style="margin-top:10px"><h2>Дім</h2>
+  // Дім (поїсти, спати) — одразу під картинкою бази, щоб не гортати; трофейна стіна — у «Спорядження → Колекція»
+  const home = t`<div class="card" style="margin-top:10px"><h2>Дім</h2>
     <div class="row">
+      <button class="pri" ${act('sleep')}>🌙 Спати (кінець дня)</button>
       <button ${act('eat')} ${dis(S.eaten < E.max && canPay(E.cost))}>🍖 Поїсти досхочу (+${E.sily}⚡) ${costHTML(E.cost)} <span class="mut">${E.max - S.eaten}/${E.max}</span></button>
       <button ${act('heal')} ${dis(S.res.med)}>💊 Аптечка</button>
       <button ${act('stim')} ${dis(S.res.stim)}>☕ Стимулятор (+${A.stim.sily}⚡)</button>
-      <button class="pri" ${act('sleep')}>🌙 Спати (кінець дня)</button>
     </div>
     <div class="mut" style="margin-top:6px">Щодоби зараз: ${dailyConsumeText(dayModifiers())}${hm > 1 ? t` (${season().n.toLowerCase()}: тепла ×${String(hm).replace('.', ',')})` : ''}. Нестача → −${D.shortageHp} HP (і ще −${D.shortageHpGrowth} за кожен наступний день поспіль)${D.noHealOnShortage ? t(', сон не лікує') : ''}. Брак тепла добирається деревом із пічки.</div>
-  </div>
-  ${isWide() ? '' : t`<div class="card"><h2>Журнал</h2><div class="log">${S.log.map(l => t`<div>${l}</div>`).join('')}</div></div>`}`;
+  </div>`;
+  return artBox(BAL.baseLooks.filter(l => l.min <= look.min).map(l => l.key).reverse(), look.e, '', t`${look.n} · покращень: ${look.sum}${fullSet ? t(' · 🏆 трофейна стіна') : ''}`)
+    + home + caravan + (isWide() ? '' : storyCard())
+    + (isWide() ? '' : t`<div class="card"><h2>Журнал</h2><div class="log">${S.log.map(l => t`<div>${l}</div>`).join('')}</div></div>`);
 }
 
 /** Що будівля дає на поточному/наступному рівні — коротко. */

@@ -1,5 +1,5 @@
 -- «Попіл і Туман»: онлайн-частина (Supabase). Запускати в SQL Editor цілим файлом; повторний запуск безпечний.
--- Таблиці: profiles (нік і знімок героя), saves (хмарні збереження), friends, duels, messages (чат), reports (скарги).
+-- Таблиці: profiles (нік і знімок героя), saves (хмарні збереження), friends, duels, messages (чат), reports (скарги), trades (подарунки й обмін).
 -- Доступ — лише через Row Level Security: гравець бачить і змінює тільки своє.
 
 -- ---------- профілі ----------
@@ -166,10 +166,61 @@ end $$;
 drop trigger if exists report_hide on public.reports;
 create trigger report_hide after insert on public.reports for each row execute function public.on_report();
 
+-- ---------- подарунки й обмін спорядженням між друзями ----------
+-- give — річ відправника (вона вже знята з його інвентаря), want — що він просить навзаєм із запасу друга (null — подарунок).
+-- Стани: pending → accepted / declined (відповідає отримувач) або cancelled (скасовує відправник);
+-- closed = відправник забрав свою частину (річ навзаєм або повернув свою після відмови).
+create table if not exists public.trades (
+  id bigint generated always as identity primary key,
+  from_id uuid not null references public.profiles on delete cascade default auth.uid(),
+  to_id uuid not null references public.profiles on delete cascade,
+  give jsonb not null check (pg_column_size(give) < 2000),
+  want jsonb check (want is null or pg_column_size(want) < 2000),
+  status text not null default 'pending' check (status in ('pending', 'accepted', 'declined', 'cancelled')),
+  closed boolean not null default false,
+  created_at timestamptz not null default now(),
+  check (from_id <> to_id)
+);
+create index if not exists trades_to on public.trades (to_id, status);
+create index if not exists trades_from on public.trades (from_id, closed);
+alter table public.trades enable row level security;
+drop policy if exists "trades: бачать обидва" on public.trades;
+create policy "trades: бачать обидва" on public.trades for select to authenticated using (auth.uid() in (from_id, to_id));
+drop policy if exists "trades: запропонувати другу" on public.trades;
+create policy "trades: запропонувати другу" on public.trades for insert to authenticated
+  with check (from_id = auth.uid() and status = 'pending' and not closed and exists (
+    select 1 from public.friends f where f.status = 'accepted'
+      and ((f.user_id = from_id and f.friend_id = to_id) or (f.user_id = to_id and f.friend_id = from_id))));
+drop policy if exists "trades: змінювати свої" on public.trades;
+create policy "trades: змінювати свої" on public.trades for update to authenticated
+  using (auth.uid() in (from_id, to_id)) with check (auth.uid() in (from_id, to_id));
+
+-- Хто й що може міняти: отримувач — лише відповісти на pending; відправник — скасувати pending або закрити відповідь.
+-- Не більше 10 незакритих пропозицій від одного гравця.
+create or replace function public.on_trade() returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if tg_op = 'INSERT' then
+    if (select count(*) from trades where from_id = new.from_id and not closed) >= 10 then
+      raise exception 'Забагато незакритих пропозицій';
+    end if;
+    return new;
+  end if;
+  if new.give is distinct from old.give or new.want is distinct from old.want or new.from_id <> old.from_id or new.to_id <> old.to_id then
+    raise exception 'Пропозицію не можна змінити';
+  end if;
+  if auth.uid() = old.to_id and old.status = 'pending' and new.status in ('accepted', 'declined') and not new.closed then return new; end if;
+  if auth.uid() = old.from_id and old.status = 'pending' and new.status = 'cancelled' then return new; end if;
+  if auth.uid() = old.from_id and old.status <> 'pending' and new.status = old.status and new.closed and not old.closed then return new; end if;
+  raise exception 'Так змінити пропозицію не можна';
+end $$;
+drop trigger if exists trade_check on public.trades;
+create trigger trade_check before insert or update on public.trades for each row execute function public.on_trade();
+
 -- ---------- живі оновлення (чат, запити в друзі) ----------
 do $$ begin
   begin alter publication supabase_realtime add table public.messages; exception when duplicate_object then null; end;
   begin alter publication supabase_realtime add table public.friends; exception when duplicate_object then null; end;
+  begin alter publication supabase_realtime add table public.trades; exception when duplicate_object then null; end;
 end $$;
 
 -- ---------- права доступу ----------
@@ -184,6 +235,9 @@ grant delete on public.friends to authenticated;
 grant insert (attacker, defender, attacker_won, turns) on public.duels to authenticated;
 grant insert (room, user_id, body) on public.messages to authenticated;
 grant insert (message_id, reporter, reason) on public.reports to authenticated;
+grant select on public.trades to authenticated;
+grant insert (from_id, to_id, give, want) on public.trades to authenticated;
+grant update (status, closed) on public.trades to authenticated;
 
 -- Зробити себе модератором (виконати окремо, підставивши свій нік):
 -- update public.profiles set is_admin = true where nick = 'Darke';

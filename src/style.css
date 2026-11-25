@@ -268,6 +268,12 @@ input:focus{outline:none;border-color:var(--acc)}
 .msg:hover .msg-a{opacity:1}
 .msg .msg-a button{min-height:26px;padding:2px 6px;font-size:12px}
 
+/* Подарунки й обмін */
+.trade{padding:8px 0;border-bottom:1px solid var(--line)}
+.trade .grid{margin-top:6px}
+button.tradeitem{display:block;text-align:left;width:100%;min-height:0;border:0;border-left:2px solid var(--line2);background:var(--pan2);font-size:13px;line-height:1.4}
+button.tradeitem.on{border-left-color:var(--acc);background:#2a1e16;outline:1px solid var(--acc)}
+
 /* Телефони: дві колонки плиток, менше відступів */
 @media (max-width:420px){.card{padding:10px 11px}.grid,.coll{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.one{grid-template-columns:1fr}.art{font-size:52px}.seg button{font-size:11px;padding:6px 4px}.rgs{grid-template-columns:repeat(5,minmax(0,1fr))}.rc{padding:3px 5px;gap:4px}}
 @media (max-width:360px){.wcard{padding:7px 5px 6px}.wcard .nm{font-size:10.5px}.rgs{grid-template-columns:repeat(4,minmax(0,1fr))}}
